@@ -1,0 +1,27 @@
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Modifier Un Role</h2>
+            </div>
+            <div class="card-body">
+                <form #editForm="ngForm">
+                    <div class="form-row">
+                        <div class="name">Nom Role<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" ngModel="{{RoleToUpdate?.nomrole}}" id="nomrole" name="nomrole">
+
+                                </div>
+                            </div>
+                        </div>
+                    
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--green" (click)="onUpdateRole(editForm.value)">Modifier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

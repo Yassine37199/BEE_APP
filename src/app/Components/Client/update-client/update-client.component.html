@@ -1,0 +1,144 @@
+
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Modifier Un Client</h2>
+            </div>
+            <div class="card-body">
+                <form #editForm="ngForm">
+                    <div class="form-row">
+                        <div class="name">Nom Complet<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" 
+                                type="text"  
+                                id="name" 
+                                name="name"
+                                ngModel="{{ClientToUpdate?.name}}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">CIN<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="number" ngModel="{{ClientToUpdate?.cin}}" id="cin" name="cin">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Email<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" ngModel="{{ClientToUpdate?.email}}" id="email" name="email">
+
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Governorat<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                ngModel="{{ClientToUpdate?.gouvernorat}}"
+                                id="gouvernorat" 
+                                name="gouvernorat"
+                                [ngbTypeahead]="search"
+                                (focus)="focus$.next($any($event).target.value)"
+                                (click)="click$.next($any($event).target.value)"
+                                #instance="ngbTypeahead"
+                                (change)="changeGov(editForm)">
+
+                            
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="name">Ville<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                ngModel="{{ClientToUpdate?.ville}}" 
+                                id="ville" 
+                                name="ville"
+                                [ngbTypeahead]="searchVille"
+                                (focus)="focusVille$.next($any($event).target.value)"
+                                (click)="clickVille$.next($any($event).target.value)"
+                                #instanceVille="ngbTypeahead">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Adresse<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <textarea class="input--style-5" ngModel="{{ClientToUpdate?.adresse}}" id="adresse" name="adresse"></textarea>
+
+                                
+    
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Code Postal<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="number" ngModel="{{ClientToUpdate?.codePostal}}" id="codePostal" name="codePostal">
+
+                
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="name">Date de Naissance<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="date"  ngModel="{{ClientToUpdate?.dateNaissance}}" id="dateNaissance" name="dateNaissance">
+
+                                
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Télèphone<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="number" ngModel="{{ClientToUpdate?.telephone}}" id="telephone" name="telephone">
+
+                                
+        
+
+                            </div>
+                        </div>
+                    </div>
+                
+                
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--green" (click)="onUpdateClient(editForm.value)">Modifier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

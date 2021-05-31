@@ -1,0 +1,31 @@
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Ajouter Un Role</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="RoleForm" (ngSubmit)="addRole()">
+                    <div class="form-row">
+                        <div class="name">Nom Role<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" formControlName="nomrole" id="nomrole" name="nomrole">
+
+                                <div *ngIf="f.nomrole.invalid && (f.nomrole.dirty || f.nomrole.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.nomrole.errors?.required">
+                                        Nom Role est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--red" type="submit">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

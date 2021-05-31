@@ -1,0 +1,84 @@
+<div class="container p-30">
+    <div class="row">
+        <div class="col-md-12 main-datatable">
+            <div class="card_body">
+                <div class="row d-flex">
+                    <div class="col-sm-4 createSegment"> 
+                   
+                </div> 
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th style="min-width:50px;">ID</th>
+                                <th style="min-width:150px;">Name</th>
+                                <th style="min-width:150px;">Mode</th>
+                                <th style="min-width:100px;">Event</th>
+                                <th style="min-width:100px;">Date</th>
+                                <th style="min-width:150px;">Status</th>
+                                <th style="min-width:150px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let person of persons">
+                                <td>{{person.id}}</td>
+                                <td>{{person.title}}</td>
+                                <td><span class="mode mode_process">Processing</span></td>
+                                <td>Journey</td>
+                                <td>17-Apr-2020</td>
+                                <td><span class="mode mode_on">Active</span></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a class="dropdown-toggle dropdown_icon" data-toggle="dropdown">
+                                        <i class="fa fa-pencil-square-o"></i> </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#" target="_blank">
+                                                    Dummy Details
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" target="_blank">
+                                                    Dummy Details
+                                                </a>
+                                            </li>  
+                                            <li>
+                                                <a href="#" target="_blank">
+                                                    Dummy Details
+                                                </a>
+                                            </li>  
+                                        </ul>
+                                    </div>
+                                    <span class="actionCust">
+                                        <a href="#"><i class="fa fa-line-chart"></i></a>
+                                    </span>
+                                    <div class="btn-group">
+                                        <a class="dropdown-toggle dropdown_icon" data-toggle="dropdown">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown_more">
+                                            <li>
+                                                <a href="#" target="_black">
+                                                    <i class="fa fa-clone"></i>Duplicate
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" target="_black">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" target="_black">
+                                                    <i class="fa fa-list"></i>Activity</a>
+                                                </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

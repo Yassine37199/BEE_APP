@@ -1,0 +1,149 @@
+
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Ajouter un Utilisateur</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="UserForm"  (ngSubmit)="addUser()">
+                    <div class="form-row">
+                        <div class="name">Nom <span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" formControlName="nom" id="nom" name="nom">
+
+                                
+                                <div *ngIf="f.nom.invalid && (f.nom.dirty || f.nom.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.nom.errors?.required">
+                                        Nom est obligatoire
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Prénom<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" formControlName="prenom" id="prenom" name="prenom">
+
+                                
+                                <div *ngIf="f.prenom.invalid && (f.prenom.dirty || f.prenom.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.cin.errors?.required">
+                                        Prénom est obligatoire
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Email<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" formControlName="email" id="email" name="email">
+                                
+                                <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.email.errors?.required">
+                                        Email est obligatoire
+                                    </div>
+                                    <div *ngIf="f.email.errors?.pattern">
+                                        Email est invalide
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Password<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <div class="password-group">
+                                <input 
+                                class="input--style-5" 
+                                type="password" 
+                                formControlName="password" 
+                                id="password" 
+                                name="password"
+                                [type]="fieldTextType ? 'text' : 'password'">
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                      <i class="fa"
+                                        [ngClass]="{
+                                        'fa-eye-slash': !fieldTextType,
+                                        'fa-eye': fieldTextType
+                                      }"
+                                        (click)="toggleFieldTextType()"></i>
+                                    </span>
+                                 </div>
+                                 </div>
+
+                                <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.password.errors?.required">
+                                        Password est obligatoire
+                                    </div>
+                                    <div *ngIf="f.password.errors?.pattern">
+                                        Password doit avoir un minimum de 6 caractéres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-row">
+                        <div class="name">Role<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                formControlName="nomrole" 
+                                id="nomrole" 
+                                name="nomrole"
+                                [ngbTypeahead]="search"
+                                (focus)="focus$.next($any($event).target.value)"
+                                (click)="click$.next($any($event).target.value)"
+                                #instance="ngbTypeahead">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="name">Télèphone<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="number" formControlName="tel" id="tel" name="tel">
+
+                                
+                                <div *ngIf="f.tel.invalid && (f.tel.dirty || f.tel.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.tel.errors?.required">
+                                        Telephone est obligatoire
+                                    </div>
+                                    <div *ngIf="f.tel.errors?.pattern">
+                                        Telephone est invalide
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+                
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--red" type="submit">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

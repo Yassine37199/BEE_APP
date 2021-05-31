@@ -1,0 +1,200 @@
+
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Ajouter Un Client</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="ClientForm"  (ngSubmit)="addClient()">
+                    <div class="form-row">
+                        <div class="name">Nom Complet<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" formControlName="name" id="name" name="name">
+
+                                
+                                <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.name.errors?.required">
+                                        Nom du client est obligatoire
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">CIN<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="number" formControlName="cin" id="cin" name="cin">
+
+                                
+                                <div *ngIf="f.cin.invalid && (f.cin.dirty || f.cin.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.cin.errors?.required">
+                                        CIN du client est obligatoire
+                                    </div>
+                                    <div *ngIf="f.cin.errors?.pattern">
+                                        CIN est invalide
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Email<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" formControlName="email" id="email" name="email">
+
+                                
+                                <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.email.errors?.required">
+                                        Email du client est obligatoire
+                                    </div>
+                                    <div *ngIf="f.email.errors?.pattern">
+                                        Email est invalide
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Governorat<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                formControlName="gouvernorat" 
+                                id="gouvernorat" 
+                                name="gouvernorat"
+                                [ngbTypeahead]="search"
+                                (focus)="focus$.next($any($event).target.value)"
+                                (click)="click$.next($any($event).target.value)"
+                                #instance="ngbTypeahead">
+                                <div *ngIf="f.gouvernorat.invalid && (f.gouvernorat.dirty || f.gouvernorattouched)" class="alert alert-danger">
+                                    <div *ngIf="f.gouvernorat.errors?.required">
+                                        Governorat est obligatoire
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="name">Ville<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                formControlName="ville" 
+                                id="ville" 
+                                name="ville"
+                                [ngbTypeahead]="searchVille"
+                                (focus)="focusVille$.next($any($event).target.value)"
+                                (click)="clickVille$.next($any($event).target.value)"
+                                #instanceVille="ngbTypeahead">
+
+                                
+                                <div *ngIf="f.ville.invalid && (f.ville.dirty || f.ville.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.ville.errors?.required">
+                                        Ville du client est obligatoire
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Adresse<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <textarea class="input--style-5"  formControlName="adresse" id="adresse" name="adresse"></textarea>
+
+                                
+                                <div *ngIf="f.adresse.invalid && (f.adresse.dirty || f.adresse.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.adresse.errors?.required">
+                                        Adresse du Client est obligatoire
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Code Postal<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="number" formControlName="codePostal" id="codePostal" name="codePostal">
+
+                                
+                                <div *ngIf="f.codePostal.invalid && (f.codePostal.dirty || f.codePostal.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.codePostal.errors?.required">
+                                        Code postal est obligatoire
+                                    </div>
+                                    <div *ngIf="f.codePostal.errors?.pattern">
+                                        Code postal est invalide
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="name">Date de Naissance<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="date"  formControlName="dateNaissance" id="dateNaissance" name="dateNaissance">
+
+                                
+                                <div *ngIf="f.dateNaissance.invalid && (f.dateNaissance.dirty || f.dateNaissance.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.dateNaissance.errors?.required">
+                                        date de naissance est obligatoire
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Télèphone<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="number" formControlName="telephone" id="telephone" name="telephone">
+
+                                
+                                <div *ngIf="f.telephone.invalid && (f.telephone.dirty || f.telephone.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.telephone.errors?.required">
+                                        Telephone est obligatoire
+                                    </div>
+                                    <div *ngIf="f.telephone.errors?.pattern">
+                                        Telephone est invalide
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+                
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--red" type="submit">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Modifier Un Offre</h2>
+            </div>
+            <div class="card-body">
+                <form #editForm="ngForm">
+                    <div class="form-row">
+                        <div class="name">Labelle Offre<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" ngModel="{{OffreToUpdate?.labelle}}" id="labelle" name="labelle">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Débit Offre<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="number" ngModel="{{OffreToUpdate?.debit}}" id="debit" name="debit">
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--green" (click)="onUpdateOffre(editForm.value)">Modifier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

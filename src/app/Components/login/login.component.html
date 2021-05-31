@@ -1,0 +1,36 @@
+<img class="wave" src="../../../assets/wave.png">
+	<div class="container">
+		<div class="img">
+			<img src="../../../assets/illust.svg">
+		</div>
+		<div class="login-content">
+			<form action="index.html">
+				<h2 class="title">Bienvenue</h2>
+                <span class="error-message"  *ngIf='invalidLogin'>{{errorMessage}}</span>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fa fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<input type="text"
+                        class="input"
+                        [(ngModel)]="username"
+                        placeholder="Email">
+           		   </div>
+           		</div>
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fa fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<input type="password"
+                        class="input"
+                        placeholder="Mot de Passe"
+                        [(ngModel)]="password" >
+            	   </div>
+            	</div>
+            	<a href="#">Mot de Passe Oublié ?</a>
+            	<input type="submit" class="btn" value="Login" (click)="checkLogin()">
+            </form>
+        </div>
+    </div>

@@ -1,0 +1,54 @@
+<div class="container p-30">
+    <div class="row">
+        <div class="col-md-12 main-datatable">
+            <div class="card_body">
+                <div class="row d-flex">
+                    <div class="col-sm-2 createSegment"> 
+                        <a [routerLink]="'/add-client'" class="btn dim_button create_new"><span class="glyphicon glyphicon-plus"></span>Ajouter un client</a>
+                    </div>
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th style="min-width:100px;">Nom</th>
+                                <th style="min-width:80px;">CIN</th>
+                                <th style="min-width:100px;">Email</th>
+                                <th style="min-width:100px;">Ville</th>
+                                <th style="min-width:50px;">Governorat</th>
+                                <th style="min-width:50px;">Adresse</th>
+                                <th style="min-width:50px;">Code Postal</th>
+                                <th style="min-width:50px;">Date de Naissance</th>
+                                <th style="min-width:50px;">Télephone</th>
+                                <th style="min-width:30px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let client of clients">
+                                <td>{{client.name}}</td>
+                                <td>{{client.cin}}</td>
+                                <td>{{client.email}}</td>
+                                <td>{{client.ville}}</td>
+                                <td>{{client.gouvernorat}}</td>
+                                <td>{{client.adresse}}</td>
+                                <td>{{client.codePostal}}</td>
+                                <td>{{client.dateNaissance}}</td>
+                                <td>{{client.telephone}}</td>
+                                <td>
+                                    <div class="btn-group" placement="top" ngbTooltip="Modifier Client">
+                                        <a class=" dropdown_icon" 
+                                        (click)="openUpdateClient(client)">
+                                        <i class="fa fa-pencil-square-o"></i> </a>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody> 
+                    </table>
+                    <div *ngIf="!clients" class="alert alert-warning">
+                        <h2>Aucun Client Trouvé</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
