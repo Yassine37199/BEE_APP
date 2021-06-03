@@ -1,0 +1,140 @@
+
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">  Modifier Un Point de vente</h2>
+            </div>
+            <div class="card-body">
+                <form #editForm="ngForm">
+                    <div class="form-row">
+                        <div class="name">Type<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" ngModel="{{PDVToUpdate?.type}}" id="type" name="type">
+
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Code <span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" ngModel="{{PDVToUpdate?.code}}" id="code" name="code">
+
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Intitule<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" ngModel="{{PDVToUpdate?.intitule}}" id="intitule" name="intitule">
+
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="name">Contact<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" ngModel="{{PDVToUpdate?.contact}}" id="contact" name="contact">
+
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                    <div class="form-row">
+                        <div class="name">Télèphone<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="number" ngModel="{{PDVToUpdate?.tel}}" id="tel" name="tel">
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Adresse<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <textarea class="input--style-5"  ngModel="{{PDVToUpdate.adresse}}" id="adresse" name="adresse"></textarea>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Agence Mère<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" ngModel="{{PDVToUpdate.agence_mere}}" id="agence_mere" name="agence_mere">
+
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Région<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                ngModel="{{PDVToUpdate?.region}}" 
+                                id="region" 
+                                name="region"
+                                [ngbTypeahead]="search"
+                                (focus)="focus$.next($any($event).target.value)"
+                                (click)="click$.next($any($event).target.value)"
+                                #instance="ngbTypeahead">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Etat<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" ngModel="{{PDVToUpdate.etat}}" id="etat" name="etat">
+
+                                <
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Détails<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <textarea class="input--style-5"  ngModel="{{PDVToUpdate.details}}" id="details" name="details"></textarea>
+
+                                
+                                
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--red" (click)="onUpdatePDV(editForm.value)">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

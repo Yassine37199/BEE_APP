@@ -25,8 +25,8 @@ export class AbonnementsService {
 
   
   // Ajouter d'abonnement
-  public addAbonnement(abonnement : Abonnement) : Observable<Abonnement> {
-    return this.http.post<Abonnement>(`${this.apiServerUrl}/abonnement/add` , abonnement);
+  public addAbonnement(abonnement : Abonnement , idDemandeAbonnement : number) : Observable<Abonnement> {
+    return this.http.post<Abonnement>(`${this.apiServerUrl}/abonnement/add/${idDemandeAbonnement}` , abonnement);
   }
 
 

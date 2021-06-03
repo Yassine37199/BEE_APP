@@ -1,0 +1,62 @@
+
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Ajouter Un Modem</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="ModemForm" (ngSubmit)="addModem()">
+                    <div class="form-row">
+                        <div class="name">Numéro de Série<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" formControlName="modemSN" id="modemSN" name="modemSN">
+
+                                <div *ngIf="f.modemSN.invalid && (f.modemSN.dirty || f.modemSN.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.modemSN.errors?.required">
+                                        Numéro du série est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Login <span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" formControlName="loginConfig" id="loginConfig" name="loginConfig">
+
+                                <div *ngIf="f.loginConfig.invalid && (f.loginConfig.dirty || f.loginConfig.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.loginConfig.errors?.required">
+                                        Login est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Mot de Passe <span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" formControlName="mdpConfig" id="mdpConfig" name="mdpConfig">
+
+                                <div *ngIf="f.mdpConfig.invalid && (f.mdpConfig.dirty || f.mdpConfig.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.mdpConfig.errors?.required">
+                                        Mot de passe est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--red" type="submit">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

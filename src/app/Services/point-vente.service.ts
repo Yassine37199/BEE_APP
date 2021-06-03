@@ -23,6 +23,10 @@ export class PointVenteService {
     return this.http.get<PointVente>(`${this.apiServerUrl}/agence/${idAgence}`);
   }
 
+  public getPointByIntitule(intitule : String) : Observable<PointVente> {
+    return this.http.get<PointVente>(`${this.apiServerUrl}/agence/intitule/${intitule}`);
+  }
+
   
   // Ajouter Une agence
   public addPoint(pdv : PointVente) : Observable<PointVente> {

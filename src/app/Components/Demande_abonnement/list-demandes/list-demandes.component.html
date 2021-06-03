@@ -1,0 +1,62 @@
+<div class="container p-30">
+    <div class="row">
+        <div class="col-md-12 main-datatable">
+            <div class="card_body">
+                <div class="row d-flex">
+                    <div class="col-sm-2 createSegment"> 
+                        <a [routerLink]="'/add-demande'" class="btn dim_button create_new"><span class="glyphicon glyphicon-plus"></span>Ajouter une Demande</a>
+                    </div>
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th style="min-width:100px;">Fréquance Paiement</th>
+                                <th style="min-width:80px;">Adresse d'Installation</th>
+                                <th style="min-width:100px;">Ville</th>
+                                <th style="min-width:100px;">Governorat</th>
+                                <th style="min-width:50px;">Etat</th>
+                                <th style="min-width:50px;">Télephone ADSL</th>
+                                <th style="min-width:50px;">Type</th>
+                                <th style="min-width:80px;">Client</th>
+                                <th style="min-width:50px;">Offre</th>
+                                <th style="min-width:50px;">Agence</th>
+                                <th style="min-width:30px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let demande of demandes">
+                                <td>{{demande.frequencePaiement}}</td>
+                                <td>{{demande.adresseInstallation}}</td>
+                                <td>{{demande.ville}}</td>
+                                <td>{{demande.gouvernorat}}</td>
+                                <td>{{demande.etat}}</td>
+                                <td>{{demande.telADSL}}</td>
+                                <td>{{demande.typeDemande}}</td>
+                                <td>{{demande.client.name}}</td>
+                                <td>{{demande.offre.labelle}}</td>
+                                <td>{{demande.agence.intitule}}</td>
+                                <td>
+                                    <div class="btn-group" placement="top" ngbTooltip="Modifier Compte">
+                                        <a class=" dropdown_icon" 
+                                        (click)="openUpdateUser(user)">
+                                        <i class="fa fa-pencil-square-o"></i> </a>
+                                        
+                                    </div>
+                                    <div class="btn-group" placement="top" ngbTooltip="Ajouter Abonnement" (click)="openAjoutAbonnement(demande)">
+                                        <a class="dropdown_icon">
+                                            <i class='bx bxs-file-plus'></i>
+                                        </a>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody> 
+                    </table>
+                    <div *ngIf="!demandes" class="alert alert-warning">
+                        <h2>Aucune Demande Trouvée</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

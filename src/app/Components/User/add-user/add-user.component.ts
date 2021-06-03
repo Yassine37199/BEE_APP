@@ -109,6 +109,8 @@ export class AddUserComponent implements OnInit {
     this.toastr.error('remplissez tous les champs correctement !');
   }
 
+
+  
 }
 
 

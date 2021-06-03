@@ -16,7 +16,7 @@
                                 ngModel="{{UserToUpdate?.nom}}" 
                                 id="nom" 
                                 name="nom"
-                                [type]="fieldTextType ? 'text' : 'password'">
+                                >
 
                             </div>
                         </div>
@@ -48,7 +48,9 @@
                         <div class="value">
                             <div class="input-group">
                                 <div class="password-group">
-                                <input class="input--style-5" type="password" ngModel="{{UserToUpdate?.password}}" id="password" name="password">
+                                <input class="input--style-5" 
+                                type="password" ngModel="{{UserToUpdate?.password}}" id="password" name="password"
+                                [type]="fieldTextType ? 'text' : 'password'">
                                 
                                 <div class="input-group-append">
                                     <span class="input-group-text">

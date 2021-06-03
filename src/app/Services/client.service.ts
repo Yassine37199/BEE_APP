@@ -23,6 +23,10 @@ export class ClientService {
     return this.http.get<Client>(`${this.apiServerUrl}/client/${idClient}`);
   }
 
+  public getClientByCIN(cin : number) : Observable<Client> {
+    return this.http.get<Client>(`${this.apiServerUrl}/client/cin/${cin}`);
+  }
+
   
   // Ajouter Un Client
   public addClients(client : Client) : Observable<Client> {

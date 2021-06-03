@@ -48,29 +48,34 @@
       <span class="tooltip">Points de Vente</span>
     </li>
     <li>
-      <a href="#">
+      <a [routerLink]="['/list-mdms']">
         <i class='bx bx-cart-alt' ></i>
-        <span class="links_name">Order</span>
+        <span class="links_name">Modems</span>
       </a>
-      <span class="tooltip">Order</span>
+      <span class="tooltip">Modems</span>
     </li>
     <li>
-      <a href="#">
+      <a [routerLink]="['/list-demandes']">
         <i class='bx bx-heart' ></i>
-        <span class="links_name">Saved</span>
+        <span class="links_name">Demandes</span>
       </a>
-      <span class="tooltip">Saved</span>
+      <span class="tooltip">Demandes</span>
     </li>
     <li>
-      <a href="#">
+      <a [routerLink]="['/list-abonnements']">
         <i class='bx bx-cog' ></i>
-        <span class="links_name">Setting</span>
+        <span class="links_name">Abonnements</span>
       </a>
-      <span class="tooltip">Setting</span>
+      <span class="tooltip">Abonnements</span>
     </li>
   </ul>
   
 </div>
 <div class="home_content">
   <router-outlet></router-outlet>
+  <footer class="footer">
+    <div class="container">
+      <span>© 2020 Copyright: BeeClear.com</span>
+    </div>
+  </footer>
 </div>

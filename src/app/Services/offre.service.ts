@@ -23,6 +23,10 @@ export class OffreService {
     return this.http.get<Offre>(`${this.apiServerUrl}/offre/${idOffre}`);
   }
 
+  public getOffreByLabelle(labelle : String) : Observable<Offre> {
+    return this.http.get<Offre>(`${this.apiServerUrl}/offre/labelle/${labelle}`);
+  }
+
   
   // Ajouter Un offre
   public addOffre(offre : Offre) : Observable<Offre> {

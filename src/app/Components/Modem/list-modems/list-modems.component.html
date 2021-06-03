@@ -1,0 +1,42 @@
+<div class="container p-30">
+    <div class="row">
+        <div class="col-md-12 main-datatable">
+            <div class="card_body">
+                <div class="row d-flex">
+                    <div class="col-sm-2 createSegment"> 
+                        <a [routerLink]="'/add-modem'" class="btn dim_button create_new"><span class="glyphicon glyphicon-plus"></span>Ajouter un Modem</a>
+                    </div>
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th style="min-width:300px;">Numéro Serie</th>
+                                <th style="min-width:300px;">Login Modem</th>
+                                <th style="min-width:250px;">Mot de Passe</th>
+                                <th style="min-width:50px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let modem of modems">
+                                <td>{{modem.modemSN}}</td>
+                                <td>{{modem.loginConfig}}</td>
+                                <td>{{modem.mdpConfig}}</td>
+                                <td>
+                                    <div class="btn-group" placement="top" ngbTooltip="Modifier Modem">
+                                        <a class=" dropdown_icon" 
+                                        (click)="openUpdateModem(modem)">
+                                        <i class="fa fa-pencil-square-o"></i> </a>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody> 
+                    </table>
+                    <div *ngIf="!modems" class="alert alert-warning">
+                        <h2>Aucun modem Trouvé</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

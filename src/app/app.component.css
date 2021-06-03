@@ -259,4 +259,26 @@ body{
   cursor: pointer;
 }
 
+.footer {
+  display: block;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #2eaa81;
+
+}
+
+.container {
+  width: auto;
+  padding: 0 15px;
+}
+
+.container span {
+  color: white !important;
+  margin-left: 550px;
+}
+
+
+
+
 

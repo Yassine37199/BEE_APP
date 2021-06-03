@@ -30,6 +30,14 @@ import { UpdateClientComponent } from './Components/Client/update-client/update-
 import { AddOffreComponent } from './Components/Offre/add-offre/add-offre.component';
 import { UpdateOffreComponent } from './Components/Offre/update-offre/update-offre.component';
 import { UpdateUserComponent } from './Components/User/update-user/update-user.component';
+import { ListModemsComponent } from './Components/Modem/list-modems/list-modems.component';
+import { AddModemsComponent } from './Components/Modem/add-modems/add-modems.component';
+import { UpdateModemsComponent } from './Components/Modem/update-modems/update-modems.component';
+import { AddPdvComponent } from './Components/Point-Vente/add-pdv/add-pdv.component';
+import { UpdatePdvComponent } from './Components/Point-Vente/update-pdv/update-pdv.component';
+import { ListDemandesComponent } from './Components/Demande_abonnement/list-demandes/list-demandes.component';
+import { AddDemandeComponent } from './Components/Demande_abonnement/add-demande/add-demande.component';
+import { AddAbonnementComponent } from './Components/Abonnement/add-abonnement/add-abonnement.component';
 
 
 @NgModule({
@@ -54,7 +62,15 @@ import { UpdateUserComponent } from './Components/User/update-user/update-user.c
     UpdateClientComponent,
     AddOffreComponent,
     UpdateOffreComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    ListModemsComponent,
+    AddModemsComponent,
+    UpdateModemsComponent,
+    AddPdvComponent,
+    UpdatePdvComponent,
+    ListDemandesComponent,
+    AddDemandeComponent,
+    AddAbonnementComponent,
   ],
   imports: [
     BrowserModule,

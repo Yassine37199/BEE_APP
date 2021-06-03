@@ -1,0 +1,73 @@
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Ajouter Un Offre</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="AbnForm" (ngSubmit)="addAbonnement()">
+                    <div class="form-row">
+                        <div class="name">Réference Tunisie Télècom<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" formControlName="refTT" id="refTT" name="refTT">
+
+                                <div *ngIf="f.refTT.invalid && (f.refTT.dirty || f.refTT.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.refTT.errors?.required">
+                                        Réf TT est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Etat Tunisie Télècom<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" formControlName="etatTT" id="etatTT" name="etatTT">
+
+                                <div *ngIf="f.etatTT.invalid && (f.etatTT.dirty || f.etatTT.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.etatTT.errors?.required">
+                                        Etat Tunisie Télecom est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Agence Livraison<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                formControlName="agenceLivraison" 
+                                id="agenceLivraison" 
+                                name="agenceLivraison"
+                                [ngbTypeahead]="searchAgence"
+                                (focus)="focusAgence$.next($any($event).target.value)"
+                                (click)="clickAgence$.next($any($event).target.value)"
+                                #instanceAgence="ngbTypeahead">
+
+                                
+                                <div *ngIf="f.agenceLivraison.invalid && (f.agenceLivraison.dirty || f.agenceLivraison.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.agenceLivraison.errors?.required">
+                                        Agence de Livraison est obligatoire
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--red" type="submit">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

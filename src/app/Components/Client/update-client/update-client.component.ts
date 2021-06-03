@@ -85,7 +85,7 @@ export class UpdateClientComponent implements OnInit {
 
 public onUpdateClient(client : Client) : void {
   if(window.confirm("Modifier ce client ?")){
-      this.clientservice.updateClient(this.id , {...client , id_client : this.id}).subscribe(
+      this.clientservice.updateClient(this.id , {...client , idClient : this.id}).subscribe(
         (response : Client) => {
           this.clientservice.getClients();
           this.router.navigate(['list-clients']);

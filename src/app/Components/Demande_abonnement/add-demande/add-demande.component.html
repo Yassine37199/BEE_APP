@@ -1,0 +1,219 @@
+
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Ajouter Une Demande </h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="DemandeForm"  (ngSubmit)="addDemande()">
+                    <div class="form-row">
+                        <div class="name">Fréquence de Paiement<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" formControlName="frequencePaiement" id="frequencePaiement" name="frequencePaiement">
+
+                                
+                                <div *ngIf="f.frequencePaiement.invalid && (f.frequencePaiement.dirty || f.frequencePaiement.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.frequencePaiement.errors?.required">
+                                        Fréquance de Paiement est obligatoire
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="name">Adresse d'Installation<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <textarea class="input--style-5"  formControlName="adresseInstallation" id="adresseInstallation" name="adresseInstallation"></textarea>
+
+                                
+                                <div *ngIf="f.adresseInstallation.invalid && (f.adresseInstallation.dirty || f.adresseInstallation.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.adresseInstallation.errors?.required">
+                                        Adresse d'installation est obligatoire
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+ 
+
+                    <div class="form-row">
+                        <div class="name">Governorat<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                formControlName="gouvernorat" 
+                                id="gouvernorat" 
+                                name="gouvernorat"
+                                [ngbTypeahead]="search"
+                                (focus)="focus$.next($any($event).target.value)"
+                                (click)="click$.next($any($event).target.value)"
+                                #instance="ngbTypeahead">
+                                <div *ngIf="f.gouvernorat.invalid && (f.gouvernorat.dirty || f.gouvernorattouched)" class="alert alert-danger">
+                                    <div *ngIf="f.gouvernorat.errors?.required">
+                                        Governorat est obligatoire
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="name">Ville<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                formControlName="ville" 
+                                id="ville" 
+                                name="ville"
+                                [ngbTypeahead]="searchVille"
+                                (focus)="focusVille$.next($any($event).target.value)"
+                                (click)="clickVille$.next($any($event).target.value)"
+                                #instanceVille="ngbTypeahead">
+
+                                
+                                <div *ngIf="f.ville.invalid && (f.ville.dirty || f.ville.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.ville.errors?.required">
+                                        Ville du client est obligatoire
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Télèphone<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="number" formControlName="telADSL" id="telADSL" name="telADSL">
+
+                                
+                                <div *ngIf="f.telADSL.invalid && (f.telADSL.dirty || f.telADSL.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.telADSL.errors?.required">
+                                        Telephone est obligatoire
+                                    </div>
+                                    <div *ngIf="f.telADSL.errors?.pattern">
+                                        Telephone est invalide
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                
+                    <div class="form-row p-t-20">
+                        <label class="label label--block">Type Demande</label>
+                        <div class="p-t-15">
+                            <label class="radio-container m-r-55">ADSL
+                                <input type="radio" checked="checked" formControlName="typeDemande" name="typeDemande" value="ADSL">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container">VDSL
+                                <input type="radio"formControlName="typeDemande" name="typeDemande" value="VDSL">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+
+                    <div class="form-row">
+                        <div class="name">Client CIN<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                formControlName="client" 
+                                id="client" 
+                                name="client"
+                                [ngbTypeahead]="searchClients"
+                                (focus)="focusClient$.next($any($event).target.value)"
+                                (click)="clickClient$.next($any($event).target.value)"
+                                #instanceClient="ngbTypeahead">
+
+                                
+                                <div *ngIf="f.client.invalid && (f.client.dirty || f.client.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.client.errors?.required">
+                                        client est obligatoire
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Point de Vente<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                formControlName="agence" 
+                                id="agence" 
+                                name="agence"
+                                [ngbTypeahead]="searchAgence"
+                                (focus)="focusAgence$.next($any($event).target.value)"
+                                (click)="clickAgence$.next($any($event).target.value)"
+                                #instanceAgence="ngbTypeahead">
+
+                                
+                                <div *ngIf="f.agence.invalid && (f.agence.dirty || f.agence.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.agence.errors?.required">
+                                        Agence est obligatoire
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="name">Offre<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                formControlName="offre" 
+                                id="offre" 
+                                name="offre"
+                                [ngbTypeahead]="searchOffres"
+                                (focus)="focusOffre$.next($any($event).target.value)"
+                                (click)="clickOffre$.next($any($event).target.value)"
+                                #instanceAgence="ngbTypeahead">
+
+                                
+                                <div *ngIf="f.offre.invalid && (f.offre.dirty || f.offre.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.offre.errors?.required">
+                                        Offre est obligatoire
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    
+                
+                
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--red" type="submit">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

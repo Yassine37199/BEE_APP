@@ -33,6 +33,7 @@ export class ListPdvComponent implements OnInit {
     this.pointventeservice.getPoints().subscribe(
       (response : PointVente[]) => {
         this.points = response;
+        console.log(response);
         this.dtTrigger.next()
       },
       (error : HttpErrorResponse) => {
@@ -44,8 +45,9 @@ export class ListPdvComponent implements OnInit {
 
 
 
-  openUpdatePoint(myObj) {
-    this.router.navigate(['update-pdv/' + myObj['id_agence']])
+  openUpdatePoint(myObj : PointVente) {
+    console.log(myObj);
+    this.router.navigate(['update-pdv/' + myObj['idAgence']])
   }
 
   ngOnDestroy(): void  {

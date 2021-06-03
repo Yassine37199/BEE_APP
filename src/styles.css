@@ -5,6 +5,7 @@
 .container{
     padding: 0 !important;
     margin: 0 o !important;
+    width: 150%;
 }
 .main-datatable {
     padding: 0px; 

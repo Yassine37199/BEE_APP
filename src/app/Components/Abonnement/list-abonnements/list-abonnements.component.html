@@ -3,9 +3,7 @@
         <div class="col-md-12 main-datatable">
             <div class="card_body">
                 <div class="row d-flex">
-                    <div class="col-sm-2 createSegment"> 
-                        <a [routerLink]="'/'" class="btn dim_button create_new"><span class="glyphicon glyphicon-plus"></span>Ajouter un abonnement</a>
-                    </div>
+                    
                 <div class="overflow-x">
                     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
                         <thead>
@@ -13,7 +11,9 @@
                                 <th style="min-width:150px;">Réference Tunisie Télecom</th>
                                 <th style="min-width:150px;">Etat Tunisie Télecom</th>
                                 <th style="min-width:200px;">Agence Livraison</th>
-                                <th style="min-width:200px;">Actions</th>
+                                <th style="min-width:100px;">Client</th>
+                                <th style="min-width:100px;">Offre</th>
+                                <th style="min-width:50px;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -21,6 +21,8 @@
                                 <td>{{abonnement.refTT}}</td>
                                 <td>{{abonnement.etatTT}}</td>
                                 <td>{{abonnement.agenceLivraison}}</td>
+                                <td>{{abonnement.demandeAbonnement.client.name}}</td>
+                                <td>{{abonnement.demandeAbonnement.offre.labelle}}</td>
                                 <td>
                                     <div class="btn-group" placement="top" ngbTooltip="Modifier Abonnement">
                                         <a class=" dropdown_icon" 

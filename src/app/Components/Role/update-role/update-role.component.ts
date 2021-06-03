@@ -30,7 +30,7 @@ export class UpdateRoleComponent implements OnInit {
 
     this.roleservice.getRole(this.id).subscribe(
       response => {
-        this.RoleToUpdate = response;
+        this.RoleToUpdate = response; ''
       }
     )
   }
