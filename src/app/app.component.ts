@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './Services/auth.service';
-import { ToastService } from './Services/toast.service';
 
 /*function sidebar() {
   let btn = document.querySelector("#btn");

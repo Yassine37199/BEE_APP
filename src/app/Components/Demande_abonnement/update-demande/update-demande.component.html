@@ -1,0 +1,181 @@
+
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Ajouter Une Demande </h2>
+            </div>
+            <div class="card-body">
+                <form >
+                    <div class="form-row">
+                        <div class="name">Fréquence de Paiement<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" [(ngModel)]="frequencePaiement" id="frequencePaiement" name="frequencePaiement">
+
+                                
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="name">Adresse d'Installation<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <textarea class="input--style-5"  [(ngModel)]="adresseInstallation" id="adresseInstallation" name="adresseInstallation"></textarea>
+
+                                
+
+                            </div>
+                        </div>
+                    </div>
+ 
+
+                    <div class="form-row">
+                        <div class="name">Governorat<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                [(ngModel)]="gouvernorat"
+                                id="gouvernorat" 
+                                name="gouvernorat"
+                                [ngbTypeahead]="search"
+                                (focus)="focus$.next($any($event).target.value)"
+                                (click)="click$.next($any($event).target.value)"
+                                #instance="ngbTypeahead">
+                                
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="name">Ville<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                [(ngModel)]="ville" 
+                                id="ville" 
+                                name="ville"
+                                [ngbTypeahead]="searchVille"
+                                (focus)="focusVille$.next($any($event).target.value)"
+                                (click)="clickVille$.next($any($event).target.value)"
+                                #instanceVille="ngbTypeahead">
+
+                                
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Télèphone<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="number" [(ngModel)]="telADSL" id="telADSL" name="telADSL">
+
+                                
+                                
+
+                            </div>
+                        </div>
+                    </div>
+
+                
+                    <div class="form-row p-t-20">
+                        <label class="label label--block">Type Demande</label>
+                        <div class="p-t-15">
+                            <label class="radio-container m-r-55">ADSL
+                                <input type="radio" [checked]="typeDemande =='ADSL'" [(ngModel)]="typeDemande" name="typeDemande" value="ADSL">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container">VDSL
+                                <input type="radio" [checked]="typeDemande =='VDSL'" [(ngModel)]="typeDemande" name="typeDemande" value="VDSL">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div> 
+                    </div>
+                    
+
+                    <div class="form-row">
+                        <div class="name">Client CIN<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                [(ngModel)]="client" 
+                                id="client" 
+                                name="client"
+                                [ngbTypeahead]="searchClients"
+                                (focus)="focusClient$.next($any($event).target.value)"
+                                (click)="clickClient$.next($any($event).target.value)"
+                                #instanceClient="ngbTypeahead">
+
+                                
+        
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Point de Vente<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                [(ngModel)]="agence"
+                                id="agence" 
+                                name="agence"
+                                [ngbTypeahead]="searchAgence"
+                                (focus)="focusAgence$.next($any($event).target.value)"
+                                (click)="clickAgence$.next($any($event).target.value)"
+                                #instanceAgence="ngbTypeahead">
+
+                                
+                               
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="name">Offre<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                [(ngModel)]="offre" 
+                                id="offre" 
+                                name="offre"
+                                [ngbTypeahead]="searchOffres"
+                                (focus)="focusOffre$.next($any($event).target.value)"
+                                (click)="clickOffre$.next($any($event).target.value)"
+                                #instanceAgence="ngbTypeahead">
+
+                                
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    
+                
+                
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--green" (click)="onUpdateDemande()">Modifier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

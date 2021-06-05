@@ -23,6 +23,10 @@ export class AbonnementsService {
     return this.http.get<Abonnement>(`${this.apiServerUrl}/abonnement/${idAbonnement}`);
   }
 
+  public getAbonnementByDemande(idDemandeAbonnement : number) : Observable<Abonnement> {
+    return this.http.get<Abonnement>(`${this.apiServerUrl}/abonnement/demande/${idDemandeAbonnement}`);
+  }
+
   
   // Ajouter d'abonnement
   public addAbonnement(abonnement : Abonnement , idDemandeAbonnement : number) : Observable<Abonnement> {
@@ -31,7 +35,7 @@ export class AbonnementsService {
 
 
   //Modifier Un abonnement
-  public updateAbonnement(idAbonnement : number , abonnement : Abonnement) : Observable<Abonnement> {
-    return this.http.put<Abonnement>(`${this.apiServerUrl}/abonnement/update/${idAbonnement}` , abonnement);
+  public updateAbonnement(idAbonnement : number , idDemandeAbonnement : number , abonnement : Abonnement) : Observable<Abonnement> {
+    return this.http.put<Abonnement>(`${this.apiServerUrl}/abonnement/update/${idDemandeAbonnement}/${idAbonnement}` , abonnement);
   }
 }

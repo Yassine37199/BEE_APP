@@ -36,13 +36,17 @@
                                 <td>{{demande.offre.labelle}}</td>
                                 <td>{{demande.agence.intitule}}</td>
                                 <td>
-                                    <div class="btn-group" placement="top" ngbTooltip="Modifier Compte">
+                                    <div class="btn-group" placement="top" ngbTooltip="Modifier Demande">
                                         <a class=" dropdown_icon" 
-                                        (click)="openUpdateUser(user)">
+                                        (click)="openUpdateDemande(demande)">
                                         <i class="fa fa-pencil-square-o"></i> </a>
                                         
-                                    </div>
-                                    <div class="btn-group" placement="top" ngbTooltip="Ajouter Abonnement" (click)="openAjoutAbonnement(demande)">
+                                    </div> 
+                                    <div 
+                                    class="btn-group" 
+                                    placement="top" 
+                                    ngbTooltip="Ajouter Abonnement" 
+                                    (click)="openAjoutAbonnement(demande)">
                                         <a class="dropdown_icon">
                                             <i class='bx bxs-file-plus'></i>
                                         </a>

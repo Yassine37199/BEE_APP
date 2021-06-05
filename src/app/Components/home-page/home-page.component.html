@@ -1,0 +1,88 @@
+<app-stats-cards></app-stats-cards>
+<div class="container p-30">
+    <div class="row">
+        <div class="col-md-12 main-datatable">
+            <div class="card_body">
+                <div class="row d-flex">
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th style="min-width:80px;">Statut Ticket</th>
+                                <th style="min-width:80px;">Sujet Ticket</th>
+                                <th style="min-width:50px;">Type Ticket</th>
+                                <th style="min-width:80px;">Severité</th>
+                                <th style="min-width:50px;">Date Résolution</th>
+                                <th style="min-width:80px;">Date Création</th>
+                                <th style="min-width:150px;">Statut N2</th>
+                                <th style="min-width:100px;">Agent de Résolution</th>
+                                <th style="min-width:50px;">Agent de Création</th>
+                                <th style="min-width:30px;">Agent N2</th>
+                                <th  style="min-width:30px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ticket of mesTickets">
+                                <td><span *ngIf="ticket.statut === 'créée'" class="mode mode_done">{{ticket.statut}}</span>
+                                    <span *ngIf="ticket.statut === 'en cours'" class="mode mode_process">{{ticket.statut}}</span>
+                                    <span *ngIf="ticket.statut === 'cloturée'" class="mode mode_off">{{ticket.statut}}</span>
+                                    <span *ngIf="ticket.statut === 'résolu'" class="mode mode_on">{{ticket.statut}}</span>
+                                </td>
+                                <td>{{ticket.sujet}}</td>
+                                <td>{{ticket.type}}</td>
+                                <td>
+                                    <span *ngIf="ticket.severite === 'severe'" class="mode mode_off">{{ticket.severite}}</span>
+                                    <span *ngIf="ticket.severite === 'moyenne'" class="mode mode_process">{{ticket.severite}}</span>
+                                    <span *ngIf="ticket.severite === 'faible'" class="mode mode_on">{{ticket.severite}}</span>
+                                </td>
+                                <td>{{ticket.dateResolution}}</td>
+                                <td>{{ticket.dateCreation}}</td>
+                                <td><span *ngIf="ticket.statutN2 === 'non escaladée'" class="mode mode_off">{{ticket.statutN2}}</span>
+                                    <span *ngIf="ticket.statutN2 === 'escaladée'" class="mode mode_done">{{ticket.statutN2}}</span></td>
+                                <td>{{ticket.agentResolution}}</td>
+                                <td>{{ticket.user.nom}}</td>
+                                <td>{{ticket.agentN2}}</td>
+                                <td>
+                                    <div class="btn-group" placement="top" ngbTooltip="Modifier Ticket">
+                                        <a class=" dropdown_icon" 
+                                        (click)="openUpdateTicket(ticket)">
+                                        <i class="fa fa-pencil-square-o"></i> </a>
+                                        
+                                    </div>
+                                    <div class="btn-group" placement="top" 
+                                    ngbTooltip="Résoudre Ticket"
+                                    >
+                                        <a class="dropdown_icon" 
+                                        (click)="resolutionTicket(ticket)"
+                                        *ngIf="ticket.statut !== 'résolu'"
+                                        >
+                                        <i class="fa fa-check"></i> </a>
+                                    </div>
+                                    <div class="btn-group" placement="top" 
+                                    ngbTooltip="Escalader Ticket"
+                                    >
+                                        <a class="dropdown_icon" 
+                                        (click)="escaladerTicket(ticket)"
+                                        >
+                                        <i class='bx bxs-up-arrow-square'></i></a>
+                                    </div>
+                                    <div class="btn-group" placement="top" 
+                                    ngbTooltip="Commentaires"
+                                    >
+                                        <a class="dropdown_icon" 
+                                        (click)="showTicket(ticket)"
+                                        >
+                                        <i class='bx bx-comment-detail' ></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>  
+                    </table>
+                    <div *ngIf="!mesTickets" class="alert alert-warning">
+                        <h2>Aucune Ticket Trouvée</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

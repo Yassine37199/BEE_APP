@@ -13,6 +13,13 @@
   </div>
   <ul class="nav_list">
     <li>
+      <a [routerLink]="['/']">
+        <i class='bx bx-home' ></i>
+        <span class="links_name">Acceuil</span>
+      </a> 
+      <span class="tooltip">Acceuil</span>
+    </li>
+    <li>
       <a [routerLink]="['/list-offres']">
         <i class='bx bx-gift' ></i>
         <span class="links_name">Offres</span>
@@ -67,6 +74,13 @@
         <span class="links_name">Abonnements</span>
       </a>
       <span class="tooltip">Abonnements</span>
+    </li>
+    <li>
+      <a [routerLink]="['/list-regions']">
+        <i class='bx bxs-directions'></i>
+        <span class="links_name">Régions</span>
+      </a>
+      <span class="tooltip">Région</span>
     </li>
   </ul>
   

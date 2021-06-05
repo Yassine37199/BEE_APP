@@ -9,5 +9,7 @@ export interface Ticket {
     dateResolution : Date;
     dateCreation : Date;
     statutN2 : string;
+    agentN2 : string;
+    agentResolution : string;
     abonnement : Abonnement
 }

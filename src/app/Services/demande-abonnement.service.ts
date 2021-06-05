@@ -36,7 +36,11 @@ export class DemandeAbonnementService {
 
 
   //Modifier Une Demande d'abonnement
-  public updateDemande(idDemandeAbonnement : number , demande : DemandeAbonnement) : Observable<DemandeAbonnement> {
-    return this.http.put<DemandeAbonnement>(`${this.apiServerUrl}/demandeAbonnement/update/${idDemandeAbonnement}` , demande);
+  public updateDemande(idDemandeAbonnement : number ,
+                       idClient : number , 
+                       idOffre : number ,
+                       idAgence : number ,
+                       demande : DemandeAbonnement) : Observable<DemandeAbonnement> {
+    return this.http.put<DemandeAbonnement>(`${this.apiServerUrl}/demandeAbonnement/update/${idDemandeAbonnement}/${idClient}/${idOffre}/${idAgence}` , demande);
   }
 }

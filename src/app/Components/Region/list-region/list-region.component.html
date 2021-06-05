@@ -1,0 +1,40 @@
+<div class="container p-30">
+    <div class="row">
+        <div class="col-md-12 main-datatable">
+            <div class="card_body">
+                <div class="row d-flex">
+                    <div class="col-sm-2 createSegment"> 
+                        <a [routerLink]="'/add-region'" class="btn dim_button create_new"><span class="glyphicon glyphicon-plus"></span>Ajouter un Région</a>
+                    </div>
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th style="min-width:300px;">Région</th>
+                                <th style="min-width:300px;">Agent N2</th>
+                                <th style="min-width:250px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let region of regions">
+                                <td>{{region.regionName}}</td>
+                                <td>{{region.user.nom}} {{region.user.prenom}}</td> 
+                                <td>
+                                    <div class="btn-group" placement="top" ngbTooltip="Modifier Région">
+                                        <a class=" dropdown_icon" 
+                                        (click)="openUpdateRegion(region)">
+                                        <i class="fa fa-pencil-square-o"></i> </a>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody> 
+                    </table>
+                    <div *ngIf="!regions" class="alert alert-warning">
+                        <h2>Aucun Région Trouvée</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

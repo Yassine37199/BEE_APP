@@ -26,12 +26,26 @@ export class ListDemandesComponent implements OnInit {
   dtTrigger : Subject<any> = new Subject<any>();
   constructor(private demandeservice : DemandeAbonnementService ,
               private router : Router,
-              private modalService : NgbModal
+              private modalService : NgbModal,
+              private abonnementservice : AbonnementsService
               //private remarqueservice : RemarqueService
               ) { }
 
   ngOnInit(): void {
     this.getDemandes();
+
+    this.abonnementservice.getAbonnementByDemande(60).subscribe(
+      (response) => {
+        if (response !== null) console.log(true);
+        else console.log(false);
+      }
+    )
+
+    this.abonnementservice.getAbonnementByDemande(60).subscribe(
+      (response) => {
+        console.log(response)
+      }
+    )
     
   }
 
@@ -40,12 +54,11 @@ export class ListDemandesComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 10,
 
-    };
+    }; 
 
     this.demandeservice.getDemandes().subscribe(
       (response : DemandeAbonnement[]) => {
-        console.log(response);
-        this.demandes = response;
+        this.demandes = response; 
         this.dtTrigger.next()
       },
       (error : HttpErrorResponse) => {
@@ -58,13 +71,23 @@ export class ListDemandesComponent implements OnInit {
         this.remarques = response;
       }
     )*/
-  }
+  } 
+  
 
+  /* Check if Demande have Abonnement
+  haveAbonnement(demande : DemandeAbonnement) {
+    this.abonnementservice.getAbonnementByDemande(demande.idDemandeAbonnement).subscribe(
+      (response) => {
+        if (response !== null) return true;
+        else return false;
+      }
+    )
+  }*/
  
 
 
-  openUpdateDemandes(myObj : DemandeAbonnement) {
-    this.router.navigate(['update-demandes/' + myObj['idDemandeAbonnement']])
+  openUpdateDemande(myObj : DemandeAbonnement) {
+    this.router.navigate(['update-demande/' + myObj['idDemandeAbonnement']])
   }
 
   openAjoutAbonnement(myObj : DemandeAbonnement) {

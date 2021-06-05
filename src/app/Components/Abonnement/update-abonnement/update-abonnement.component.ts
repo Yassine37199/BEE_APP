@@ -1,30 +1,28 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { merge, Observable, OperatorFunction, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Abonnement } from 'src/app/Models/abonnement';
-import { PointVente } from 'src/app/Models/point-vente';
 import { AbonnementsService } from 'src/app/Services/abonnements.service';
-import { DemandeAbonnementService } from 'src/app/Services/demande-abonnement.service';
 import { PointVenteService } from 'src/app/Services/point-vente.service';
 
 @Component({
-  selector: 'app-add-abonnement',
-  templateUrl: './add-abonnement.component.html',
-  styleUrls: ['./add-abonnement.component.css']
+  selector: 'app-update-abonnement',
+  templateUrl: './update-abonnement.component.html',
+  styleUrls: ['./update-abonnement.component.css']
 })
-export class AddAbonnementComponent implements OnInit {
+export class UpdateAbonnementComponent implements OnInit {
 
-  id;
-  AbnForm : FormGroup;
+  public id;
+  public abonnementToUpdate : Abonnement;
   agences;
 
-  constructor(private route : ActivatedRoute,
-              private router : Router,
-              private abonnementservice : AbonnementsService,
+  constructor(private abonnementservice : AbonnementsService ,
+              private router : Router ,
+              private route : ActivatedRoute,
               private toastr : ToastrService,
               private pdvservice : PointVenteService) { }
 
@@ -39,16 +37,14 @@ export class AddAbonnementComponent implements OnInit {
       (response) => this.agences = response.map(a => a.intitule)
     )
 
-    this.AbnForm = new FormGroup({
-      refTT : new FormControl('' , Validators.required),
-      etatTT : new FormControl('' , [Validators.required]),
-      agenceLivraison : new FormControl(null , [Validators.required]), 
-    })
+    this.abonnementservice.getAbonnement(this.id).subscribe(
+      response => {
+        console.log(response);
+        this.abonnementToUpdate = response;
+      }
+    )
   }
 
-
-  // getter for better access to form fields
-  get f() { return this.AbnForm.controls; }
 
   @ViewChild('instanceAgence', {static: true}) instanceAgence: NgbTypeahead;
   focusAgence$ = new Subject<string>();
@@ -67,31 +63,24 @@ export class AddAbonnementComponent implements OnInit {
   }
 
 
-  public addAbonnement() : void {
-    if(this.AbnForm.valid) {
-      this.abonnementservice.addAbonnement(this.AbnForm.value , this.id).subscribe(
-        (response : Abonnement) => {
-        console.log(response);
-        this.abonnementservice.getAbonnements();
-        this.router.navigate(['list-abonnements'])
-        this.showSuccess();
+public onUpdateAbonnement(abonnementUpdate : Abonnement) : void {
+    if(window.confirm("Modifier cet abonnement ?")){
+        this.abonnementservice.updateAbonnement(this.id , this.abonnementToUpdate.demandeAbonnement.idDemandeAbonnement , {...abonnementUpdate}).subscribe(
+          (response : Abonnement) => {
+            this.abonnementservice.getAbonnements();
+            this.router.navigate(['list-abonnements']);
+            this.showSuccess();
+          },
+          (error : HttpErrorResponse) => {alert(error.message);
+          }
+        );
       }
-    )
-  }
-  else {
-    this.showError();
-    return;
-  }
-}
-
-showSuccess() {
-this.toastr.success('Abonnement ajoutée avec succée !');
-}
-
-showError() {
-this.toastr.error('Remplir tous les champs correctement !');
-}
+    }
 
 
+
+  showSuccess() {
+    this.toastr.success('Abonnement modifié avec succée !');
+    }
 
 }

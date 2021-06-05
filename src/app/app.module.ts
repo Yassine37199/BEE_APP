@@ -22,7 +22,6 @@ import { UnauthorizedComponent } from './Components/unauthorized/unauthorized.co
 import { AddUserComponent } from './Components/User/add-user/add-user.component';
 import { AddRoleComponent } from './Components/Role/add-role/add-role.component';
 import { UpdateRoleComponent } from './Components/Role/update-role/update-role.component';
-import { ToastComponent } from './toast/toast.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddClientComponent } from './Components/Client/add-client/add-client.component';
@@ -38,6 +37,13 @@ import { UpdatePdvComponent } from './Components/Point-Vente/update-pdv/update-p
 import { ListDemandesComponent } from './Components/Demande_abonnement/list-demandes/list-demandes.component';
 import { AddDemandeComponent } from './Components/Demande_abonnement/add-demande/add-demande.component';
 import { AddAbonnementComponent } from './Components/Abonnement/add-abonnement/add-abonnement.component';
+import { UpdateAbonnementComponent } from './Components/Abonnement/update-abonnement/update-abonnement.component';
+import { UpdateDemandeComponent } from './Components/Demande_abonnement/update-demande/update-demande.component';
+import { HomePageComponent } from './Components/home-page/home-page.component';
+import { StatsCardsComponent } from './Components/stats-cards/stats-cards.component';
+import { ListRegionComponent } from './Components/Region/list-region/list-region.component';
+import { AddRegionComponent } from './Components/Region/add-region/add-region.component';
+import { UpdateRegionComponent } from './Components/Region/update-region/update-region.component';
 
 
 @NgModule({
@@ -57,7 +63,6 @@ import { AddAbonnementComponent } from './Components/Abonnement/add-abonnement/a
     AddUserComponent,
     AddRoleComponent,
     UpdateRoleComponent,
-    ToastComponent,
     AddClientComponent,
     UpdateClientComponent,
     AddOffreComponent,
@@ -71,6 +76,13 @@ import { AddAbonnementComponent } from './Components/Abonnement/add-abonnement/a
     ListDemandesComponent,
     AddDemandeComponent,
     AddAbonnementComponent,
+    UpdateAbonnementComponent,
+    UpdateDemandeComponent,
+    HomePageComponent,
+    StatsCardsComponent,
+    ListRegionComponent,
+    AddRegionComponent,
+    UpdateRegionComponent,
   ],
   imports: [
     BrowserModule,
