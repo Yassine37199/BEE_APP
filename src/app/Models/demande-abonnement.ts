@@ -1,3 +1,5 @@
+import { Client } from "./client";
+
 export interface DemandeAbonnement {
     idDemandeAbonnement? : number,
     frequencePaiement? : string,
@@ -10,4 +12,5 @@ export interface DemandeAbonnement {
     idClient? : number,
     idOffre? : number,
     idAgence? : number
+    client? : Client
 }

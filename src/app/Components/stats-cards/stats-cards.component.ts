@@ -35,7 +35,7 @@ export class StatsCardsComponent implements OnInit {
         console.log(this.countTicketsResolu);
       }
     )
-  }
+  } 
 
   
 

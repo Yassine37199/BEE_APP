@@ -44,6 +44,13 @@ import { StatsCardsComponent } from './Components/stats-cards/stats-cards.compon
 import { ListRegionComponent } from './Components/Region/list-region/list-region.component';
 import { AddRegionComponent } from './Components/Region/add-region/add-region.component';
 import { UpdateRegionComponent } from './Components/Region/update-region/update-region.component';
+import { ListAgentsTTComponent } from './Components/AgentTT/list-agents-tt/list-agents-tt.component';
+import { AddAgentTTComponent } from './Components/AgentTT/add-agent-tt/add-agent-tt.component';
+import { UpdateAgentTTComponent } from './Components/AgentTT/update-agent-tt/update-agent-tt.component';
+import { ClientDetailsComponent } from './Components/client-details/client-details.component';
+import { AbonnementDetailsComponent } from './Components/abonnement-details/abonnement-details.component';
+import { AddTicketComponent } from './Components/Ticket/add-ticket/add-ticket.component';
+import { UpdateTicketComponent } from './Components/Ticket/update-ticket/update-ticket.component';
 
 
 @NgModule({
@@ -83,6 +90,13 @@ import { UpdateRegionComponent } from './Components/Region/update-region/update-
     ListRegionComponent,
     AddRegionComponent,
     UpdateRegionComponent,
+    ListAgentsTTComponent,
+    AddAgentTTComponent,
+    UpdateAgentTTComponent,
+    ClientDetailsComponent,
+    AbonnementDetailsComponent,
+    AddTicketComponent,
+    UpdateTicketComponent,
   ],
   imports: [
     BrowserModule,

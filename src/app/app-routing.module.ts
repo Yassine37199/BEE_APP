@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AbonnementDetailsComponent } from './Components/abonnement-details/abonnement-details.component';
 import { AddAbonnementComponent } from './Components/Abonnement/add-abonnement/add-abonnement.component';
 import { ListAbonnementsComponent } from './Components/Abonnement/list-abonnements/list-abonnements.component';
 import { UpdateAbonnementComponent } from './Components/Abonnement/update-abonnement/update-abonnement.component';
+import { ListAgentsTTComponent } from './Components/AgentTT/list-agents-tt/list-agents-tt.component';
+import { ClientDetailsComponent } from './Components/client-details/client-details.component';
 import { AddClientComponent } from './Components/Client/add-client/add-client.component';
 import { ListClientsComponent } from './Components/Client/list-clients/list-clients.component';
 import { UpdateClientComponent } from './Components/Client/update-client/update-client.component';
@@ -37,7 +40,9 @@ import { AuthGuardService } from './Services/auth-guard.service';
 const routes: Routes = [
   {path : '' , redirectTo : '/homepage' , pathMatch : 'full'},
   // Homepage 
-  {path : 'homepage' , component : HomePageComponent , canActivate:[AuthGuardService], 
+  {path : 'homepage' , component : HomePageComponent , canActivate:[AuthGuardService]},
+  // Client Details
+  {path : 'client-details/:critere/:search' , component : ClientDetailsComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},
   // Users
   {path : 'list-users' , component : ListUsersComponent , canActivate:[AuthGuardService], 
@@ -93,6 +98,8 @@ const routes: Routes = [
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE,RolesType.AGENT_BACKOFFICE]}},
   {path : 'update-abonnement/:id', component : UpdateAbonnementComponent , canActivate:[AuthGuardService],
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE,RolesType.AGENT_BACKOFFICE]}},
+  {path : 'abonnement-details/:id', component : AbonnementDetailsComponent , canActivate:[AuthGuardService],
+  data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE,RolesType.AGENT_BACKOFFICE]}},
   // Demandes d'abonnements
   {path : 'list-demandes', component : ListDemandesComponent , canActivate:[AuthGuardService],
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE,RolesType.AGENT_BACKOFFICE]}},
@@ -100,6 +107,9 @@ const routes: Routes = [
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE,RolesType.AGENT_BACKOFFICE]}},
   {path : 'update-demande/:id', component : UpdateDemandeComponent , canActivate:[AuthGuardService],
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE,RolesType.AGENT_BACKOFFICE]}},
+  // Agents TT 
+  {path : 'list-agents' , component : ListAgentsTTComponent , canActivate:[AuthGuardService], 
+  data:{roles : [RolesType.ADMIN]}},
   // Auth
   {path : 'login' , component : LoginComponent},
   {path : 'logout' , component : LogoutComponent , canActivate:[AuthGuardService]},

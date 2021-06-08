@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="name">Agent Support Technique N2<span class="text-danger">*</span></div>
+                        <div class="name">Agent Support Technique N2</div>
                         <div class="value">
                             <div class="input-group">
                                 <input
@@ -42,6 +42,24 @@
                                 (focus)="focus$.next($any($event).target.value)"
                                 (click)="click$.next($any($event).target.value)"
                                 #instance="ngbTypeahead">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Agent Tunisie Télécom</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                formControlName="agentTT" 
+                                id="agentTT" 
+                                name="agentTT"
+                                [ngbTypeahead]="searchTT"
+                                (focus)="focusTT$.next($any($event).target.value)"
+                                (click)="clickTT$.next($any($event).target.value)"
+                                #instanceTT="ngbTypeahead">
 
                             </div>
                         </div>

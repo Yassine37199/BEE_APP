@@ -1,18 +1,44 @@
-<!-- Saisie mot de passe Form -->
-<ng-template #content let-modal>
+
+<ng-template #contentComments let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-form">Entrez Votre Mot de Passe Gmail</h4>
+        <div>
+            <button class="btn btn-primary" (click)="openFormModal(formContent)">Ajouter Commentaire</button>
+        </div>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-        <form #addForm="ngForm" (ngSubmit)="sendMailN2(TicketToDisplay , addForm)">
-            <div class="form-group">
-              <label for="text">Mot de Passe</label>
-              <input type="password" ngModel class="form-control" id="fromPassword" name="fromPassword" placeholder="Saisie le mot de passe de votre compte Gmail">
+        <div class="container mt-5">
+            <div class="row d-flex justify-content-center">
+                
+                <div class="col-md-8" *ngFor="let comment of commentaires">
+                    <div class="card p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="user d-flex flex-row align-items-center"> <img src="https://www.pikpng.com/pngl/m/70-706939_headphones-clipart-word-work-center-call-center-agent.png" width="30" class="user-img rounded-circle mr-2"> <span><small class="font-weight-bold text-primary">{{comment.user.nom}} {{comment.user.prenom}}</small> <small class="font-weight-bold">{{comment.text}}</small></span> </div> <small>{{comment.dateCreation}}</small>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button type="submit" class="btn btn-success" (click)="modal.close()">Confirmer</button>
+        </div>
+    </div>
+  </ng-template>
+
+
+  <ng-template #formContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-form">Ajouter un commentaire</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="CommentForm" (ngSubmit)="addCommentaire()">
+            <div class="form-group">
+              <label for="text">Texte</label>
+              <input type="text" formControlName="text"  class="form-control" id="text" name="text" placeholder="Entrez le texte de la commentaire...">
+            </div>
+            <button type="submit" class="btn btn-success" (click)="modal.close()">Ajouter</button>
         </form>
     </div>
   </ng-template>
@@ -24,61 +50,15 @@
 
 
 
-<app-stats-cards></app-stats-cards>
-
-    <div class="wrapper wrapper--w790">
-        <div class="card card-5">
-            
-            <div class="card-body">
-                <form>
-                    <div class="form-row">
-                        <div class="name">Critére de Recharche</div>
-                        <div class="value">
-                            <div class="input-group">
-                                <input
-                                class="input--style-5"
-                                [(ngModel)]="critere" 
-                                id="critere" 
-                                name="critere"
-                                [ngbTypeahead]="search"
-                                (focus)="focus$.next($any($event).target.value)"
-                                (click)="click$.next($any($event).target.value)"
-                                #instance="ngbTypeahead"
-                                value="CIN Client">
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="name">Chercher</div>
-                        <div class="value">
-                            <div class="input-group">
-                                <input class="input--style-5" 
-                                type="text" 
-                                [(ngModel)]="searchValue" 
-                                id="searchValue" 
-                                name="searchValue">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <button class="btn btn--radius-2 btn--red" (click)="searchAbonnement()"><i class='bx bx-search' ></i></button>
-                    </div>
-
-                    </form>
-                </div>
-            </div>
-    </div>
-
-
-
 <div class="container p-30">
     <div class="row">
         <div class="col-md-12 main-datatable">
             <div class="card_body">
                 <div class="row d-flex">
+                    <div class="col-sm-2 createSegment"> 
+                        <a [routerLink]="'/add-ticket'" class="btn dim_button create_new"><span class="glyphicon glyphicon-plus"></span>Ajouter une Ticket</a>
+                        <a [routerLink]="'/add-ticket'" class="btn dim_button create_new"><span class="glyphicon glyphicon-plus"></span>Ajouter une Remarque</a>
+                    </div>
                 <div class="overflow-x">
                     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
                         <thead>
@@ -97,7 +77,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let ticket of mesTickets">
+                            <tr *ngFor="let ticket of tickets">
                                 <td><span *ngIf="ticket.statut === 'créée'" class="mode mode_done">{{ticket.statut}}</span>
                                     <span *ngIf="ticket.statut === 'en cours'" class="mode mode_process">{{ticket.statut}}</span>
                                     <span *ngIf="ticket.statut === 'cloturée'" class="mode mode_off">{{ticket.statut}}</span>
@@ -146,7 +126,7 @@
                                     ngbTooltip="Commentaires"
                                     >
                                         <a class="dropdown_icon" 
-                                        (click)="showTicket(ticket)"
+                                        (click)="open(contentComments , ticket)"
                                         >
                                         <i class='bx bx-comment-detail' ></i></a>
                                     </div>
@@ -162,7 +142,7 @@
                             </tr>
                         </tbody>  
                     </table>
-                    <div *ngIf="!mesTickets" class="alert alert-warning">
+                    <div *ngIf="!tickets" class="alert alert-warning">
                         <h2>Aucune Ticket Trouvée</h2>
                     </div>
                 </div>

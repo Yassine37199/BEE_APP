@@ -23,7 +23,7 @@ export class TicketService {
     return this.http.get<Ticket>(`${this.apiServerUrl}/ticket/get/${idTicket}`);
   }
 
-  public getTicketsByDemande(idAbonnement : number) : Observable<Ticket[]> {
+  public getTicketsByAbonnement(idAbonnement : number) : Observable<Ticket[]> {
     return this.http.get<Ticket[]>(`${this.apiServerUrl}/ticket/get/abonnement/${idAbonnement}`);
   }
 
@@ -31,9 +31,13 @@ export class TicketService {
     return this.http.get<Ticket[]>(`${this.apiServerUrl}/ticket/get/user/${idUser}`);
   }
 
+  public getTicketsByUserN2(agentN2 : string) : Observable<Ticket[]> {
+    return this.http.get<Ticket[]>(`${this.apiServerUrl}/ticket/get/N2/${agentN2}`);
+  }
+
   // Ajouter Une Ticket
-  public addTicket(ticket : Ticket , idAbonnement : number) : Observable<Ticket> {
-    return this.http.post<Ticket>(`${this.apiServerUrl}/ticket/add/14/${idAbonnement}` , ticket);
+  public addTicket(ticket : Ticket , idAbonnement : number , idUser : number) : Observable<Ticket> {
+    return this.http.post<Ticket>(`${this.apiServerUrl}/ticket/add/${idUser}/${idAbonnement}` , ticket);
   }
 
 

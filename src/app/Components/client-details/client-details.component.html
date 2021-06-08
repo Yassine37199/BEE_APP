@@ -1,0 +1,71 @@
+
+
+
+
+<!-- Client Description -->
+<div class="wrapper wrapper--w790">
+    <div class="card card-5">
+        <div class="card-heading">
+            <h2 class="title">Client de CIN {{abonnements[0].demandeAbonnement.client.cin}}</h2>
+        </div>
+        <div class="card-body">
+            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                <p class="small text-muted ">NOM COMPLET : <span>{{abonnements[0].demandeAbonnement.client.name}}</span></p>
+                <p class="small text-muted ">EMAIL : <span>{{abonnements[0].demandeAbonnement.client.email}}</span></p>
+                <p class="small text-muted ">ADRESSE : <span>{{abonnements[0].demandeAbonnement.client.adresse}}</span></p>
+                <p class="small text-muted ">TELEPHONE : <span>{{abonnements[0].demandeAbonnement.client.telephone}}</span></p>
+              </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container p-30">
+    <div class="row">
+        <div class="col-md-12 main-datatable">
+            <div class="card_body"> 
+                <div class="row d-flex">
+                    
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th style="min-width:150px;">Réference Tunisie Télecom</th>
+                                <th style="min-width:150px;">Etat Tunisie Télecom</th>
+                                <th style="min-width:200px;">Agence Livraison</th>
+                                <th style="min-width:100px;">Client</th>
+                                <th style="min-width:100px;">Offre</th>
+                                <th style="min-width:50px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let abonnement of abonnements">
+                                <td>{{abonnement.refTT}}</td>
+                                <td>{{abonnement.etatTT}}</td>
+                                <td>{{abonnement.agenceLivraison}}</td>
+                                <td>{{abonnement.demandeAbonnement.client.name}}</td>
+                                <td>{{abonnement.demandeAbonnement.offre.labelle}}</td>
+                                <td>
+                                    <div class="btn-group" placement="top" ngbTooltip="Modifier Abonnement">
+                                        <a class=" dropdown_icon" 
+                                        (click)="openUpdateAbonnement(abonnement)">
+                                        <i class="fa fa-pencil-square-o"></i> </a>  
+                                    </div>
+                                    <div class="btn-group" placement="top" ngbTooltip="Ouvrir">
+                                        <a class=" dropdown_icon" 
+                                        (click)="openDetailsAbonnement(abonnement)">
+                                        <i class='bx bx-expand'></i> </a>  
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody> 
+                    </table>
+                    <div *ngIf="!abonnements" class="alert alert-warning">
+                        <h2>Aucun Abonnement Trouvé</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

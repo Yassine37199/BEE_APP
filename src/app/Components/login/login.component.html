@@ -1,3 +1,30 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-form">Entrez Votre Mot de Passe Gmail</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="sendPasswordDemand()">
+			<div class="form-group">
+				<label for="text">Adresse Mail Gmail</label>
+				<input type="email" [(ngModel)]="from" class="form-control" id="from" name="from" placeholder="Saisie l'adresse mail de votre compte Gmail">
+			  </div>
+            <div class="form-group">
+              <label for="text">Mot de Passe</label>
+              <input type="password" [(ngModel)]="fromPassword" class="form-control" id="fromPassword" name="fromPassword" placeholder="Saisie le mot de passe de votre compte Gmail">
+            </div>
+            <button type="submit" class="btn btn-success" (click)="modal.close()">Confirmer</button>
+        </form>
+    </div>
+  </ng-template>
+
+
+
+
+
+
 <img class="wave" src="../../../assets/wave.png">
 	<div class="container">
 		<div class="img">
@@ -29,7 +56,7 @@
                         [(ngModel)]="password" >
             	   </div>
             	</div>
-            	<a href="#">Mot de Passe Oublié ?</a>
+            	<a (click)="open(content)">Mot de Passe Oublié ?</a>
             	<input type="submit" class="btn" value="Login" (click)="checkLogin()">
             </form>
         </div>

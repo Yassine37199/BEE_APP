@@ -22,6 +22,10 @@ export class UserService {
     return this.http.get<User[]>(`${this.apiServerUrl}/user/get/N2`);
   }
 
+  public getUsersAdmin() : Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiServerUrl}/user/get/admin`);
+  }
+
   public findUserByEmail(email : string) : Observable<User> {
     return this.http.get<User>(`${this.apiServerUrl}/user/get/email/${email}`);
   }

@@ -5,8 +5,10 @@ import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { merge, Observable, OperatorFunction, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { AgentTT } from 'src/app/Models/agentTT';
 import { Region } from 'src/app/Models/region';
 import { User } from 'src/app/Models/user';
+import { AgentTTService } from 'src/app/Services/agent-tt.service';
 import { RegionService } from 'src/app/Services/region.service';
 import { UserService } from 'src/app/Services/user.service';
 import { Villes } from 'src/app/Villes.types';
@@ -19,13 +21,17 @@ import { Villes } from 'src/app/Villes.types';
 export class AddRegionComponent implements OnInit {
 
   usersN2;
-  public agentName : any;
+  agentsTT;
+
+  agentToAdd;
+
   RegionForm : FormGroup
 
     constructor(private regionservice : RegionService ,
                 private router : Router ,
                 private userservice : UserService,
-                private toastr : ToastrService){
+                private toastr : ToastrService,
+                private agentservice : AgentTTService){
 
     } 
 
@@ -35,10 +41,17 @@ export class AddRegionComponent implements OnInit {
           this.usersN2 = response.map(user => user.email)
         }
       )
+
+      this.agentservice.getAgentsTT().subscribe(
+        (response : AgentTT[]) => {
+          this.agentsTT = response.map(agent => agent.email);
+        }
+      )
       
       this.RegionForm = new FormGroup({
         regionName : new FormControl('' , Validators.required),
-        userN2 : new FormControl('') 
+        userN2 : new FormControl(''),
+        agentTT : new FormControl(''),
       });
     }
 
@@ -75,6 +88,22 @@ export class AddRegionComponent implements OnInit {
     );
   }
 
+
+  @ViewChild('instanceTT', {static: true}) instanceTT: NgbTypeahead;
+  focusTT$ = new Subject<string>();
+  clickTT$ = new Subject<string>();
+
+  searchTT: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) => {
+    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+    const clicksWithClosedPopup$ = this.clickTT$.pipe(filter(() => !this.instanceTT.isPopupOpen()));
+    const inputFocus$ = this.focusTT$;
+
+    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
+      map(term => (term === '' ? this.agentsTT
+        : this.agentsTT.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+    );
+  }
+
   // getter for better access to form fields
   get f() { return this.RegionForm.controls; }
 
@@ -82,14 +111,19 @@ export class AddRegionComponent implements OnInit {
   
   public addRegion() : void {
     console.log(this.usersN2);
+    this.agentservice.findAgentByEmail(this.RegionForm.get('agentTT').value).subscribe(
+      (response) => this.agentToAdd = response
+    )
+
     this.userservice.findUserByEmail(this.RegionForm.get('userN2').value).subscribe(
       (response) => {
         console.log(response.idUser);
         if (this.RegionForm.valid) {
           let region : Region = {
             regionName : this.RegionForm.get('regionName').value,
-            user : null
-          }
+            user : null,
+            agentTT : this.agentToAdd
+          }       
           this.regionservice.addRegion(region , response.idUser).subscribe(
             (response : Region) => {
               console.log(response);
