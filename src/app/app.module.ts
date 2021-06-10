@@ -51,6 +51,8 @@ import { ClientDetailsComponent } from './Components/client-details/client-detai
 import { AbonnementDetailsComponent } from './Components/abonnement-details/abonnement-details.component';
 import { AddTicketComponent } from './Components/Ticket/add-ticket/add-ticket.component';
 import { UpdateTicketComponent } from './Components/Ticket/update-ticket/update-ticket.component';
+import { ProfilComponent } from './Components/profil/profil.component';
+import { RepartitionComponent } from './Components/repartition/repartition.component';
 
 
 @NgModule({
@@ -97,6 +99,8 @@ import { UpdateTicketComponent } from './Components/Ticket/update-ticket/update-
     AbonnementDetailsComponent,
     AddTicketComponent,
     UpdateTicketComponent,
+    ProfilComponent,
+    RepartitionComponent,
   ],
   imports: [
     BrowserModule,

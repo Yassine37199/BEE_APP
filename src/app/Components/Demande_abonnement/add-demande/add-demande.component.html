@@ -140,7 +140,8 @@
                                 [ngbTypeahead]="searchClients"
                                 (focus)="focusClient$.next($any($event).target.value)"
                                 (click)="clickClient$.next($any($event).target.value)"
-                                #instanceClient="ngbTypeahead">
+                                #instanceClient="ngbTypeahead"
+                                placeholder="choisissez un client">
 
                                 
                                 <div *ngIf="f.client.invalid && (f.client.dirty || f.client.touched)" class="alert alert-danger">
@@ -165,7 +166,8 @@
                                 [ngbTypeahead]="searchAgence"
                                 (focus)="focusAgence$.next($any($event).target.value)"
                                 (click)="clickAgence$.next($any($event).target.value)"
-                                #instanceAgence="ngbTypeahead">
+                                #instanceAgence="ngbTypeahead"
+                                placeholder="choisissez un point de vente">
 
                                 
                                 <div *ngIf="f.agence.invalid && (f.agence.dirty || f.agence.touched)" class="alert alert-danger">
@@ -191,7 +193,9 @@
                                 [ngbTypeahead]="searchOffres"
                                 (focus)="focusOffre$.next($any($event).target.value)"
                                 (click)="clickOffre$.next($any($event).target.value)"
-                                #instanceAgence="ngbTypeahead">
+                                #instanceAgence="ngbTypeahead"
+                                placeholder="choisissez un offre"
+                                >
 
                                 
                                 <div *ngIf="f.offre.invalid && (f.offre.dirty || f.offre.touched)" class="alert alert-danger">

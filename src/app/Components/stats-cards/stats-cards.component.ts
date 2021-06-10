@@ -25,14 +25,11 @@ export class StatsCardsComponent implements OnInit {
     this.ticketservice.getTicketsByUser(this.authservice.getCurrentUser().idUser).subscribe(
       response => {
         this.tickets = response
-        console.log(this.tickets)
         this.countTickets = this.tickets.reduce((acc , ticket) => acc + 1 , 0);
-        console.log(this.countTickets)
         this.countTicketsResolu = this.tickets.reduce((acc , ticket) => {
           if (ticket.dateResolution == null) return acc + 1
           else return acc
         }, 0)
-        console.log(this.countTicketsResolu);
       }
     )
   } 

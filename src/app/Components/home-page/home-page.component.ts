@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { tick } from '@angular/core/testing';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -15,6 +15,9 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { EmailService } from 'src/app/Services/email.service';
 import { RegionService } from 'src/app/Services/region.service';
 import { TicketService } from 'src/app/Services/ticket.service';
+import * as moment from "moment"
+import { CommentaireService } from 'src/app/Services/commentaire.service';
+import { Commentaire } from 'src/app/Models/commentaire';
 
 @Component({
   selector: 'app-home-page',
@@ -30,16 +33,19 @@ export class HomePageComponent implements OnInit {
   idUser : number;
   critere : string;
   searchValue : string;
+  commentaires : Commentaire[];
   
 
   dtTrigger : Subject<any> = new Subject<any>();
+  CommentForm: any;
   constructor(private ticketservice : TicketService , 
               private router : Router,
               private authservice : AuthService,
               private regionservice : RegionService,
               private modalService : NgbModal,
               private emailService : EmailService,
-              private toastrservice : ToastrService) { }
+              private toastrservice : ToastrService,
+              private commentaireservice : CommentaireService) { }
 
   ngOnInit(): void {
     if(this.authservice.getCurrentUser().role.nomrole !== RolesType.AGENT_SUPPORT_TECHNIQUE_N2){
@@ -47,10 +53,12 @@ export class HomePageComponent implements OnInit {
     }
     else {
       this.getMesTicketsEscalade();
+
     }
 
-    let localDate = new Date();
-    console.log(localDate.getMinutes());
+    this.CommentForm = new FormGroup({
+      text : new FormControl('' , Validators.required),
+    });
   }
   
   
@@ -67,6 +75,7 @@ export class HomePageComponent implements OnInit {
     this.ticketservice.getTicketsByUser(this.authservice.getCurrentUser().idUser).subscribe(
       (response : Ticket[]) => {
         this.mesTickets = response;
+        this.verifEscalade();
         this.dtTrigger.next()
       },
       (error : HttpErrorResponse) => {
@@ -140,6 +149,7 @@ export class HomePageComponent implements OnInit {
       (response) => {
       ticket = {
         ...ticket,
+        dateCreation : ticket.dateCreation,
         statutN2 : "escaladée",
         agentN2 : `${response.user.nom} ${response.user.prenom}`
       }
@@ -213,6 +223,30 @@ export class HomePageComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  verifEscalade(){
+    this.mesTickets.map((ticket) => {
+      if(Math.abs(moment(new Date()).diff(moment(ticket.dateEscalade) , 'days')) == 0 && ticket.statutN2 == "non escaladée" )
+      this.escaladerTicket(ticket);
+    })
+  }
+
+  public getCommentByTicket(idTicket : number){
+    this.commentaireservice.getCommentByTicket(idTicket).subscribe(
+      (response : Commentaire[]) => this.commentaires = response
+    )
+  }
+
+  openComments(contentComments , ticket : Ticket) {
+    this.modalService.open(contentComments, {ariaLabelledBy: 'modal-basic-title' , size : 'lg' , centered : true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+    this.TicketToDisplay = ticket;
+    this.getCommentByTicket(this.TicketToDisplay.idTicket);
+    console.log(this.commentaires);
   }
 
   ngOnDestroy(): void  {

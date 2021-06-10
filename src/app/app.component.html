@@ -2,7 +2,7 @@
   <div class="logo_content">
     <div class="logo">
       <i class='bx bx-user-circle'></i>
-      <div class="logo_name">{{authservice.getCurrentUser().nom}} {{authservice.getCurrentUser().prenom}}</div>
+      <div class="logo_name" [routerLink]="['/profil-details/']">{{authservice.getCurrentUser().nom}} {{authservice.getCurrentUser().prenom}}</div>
     </div>
     <i class='bx bx-menu' id="btn" (click)="ToggleSidebar()" ></i>
   </div>
@@ -94,9 +94,9 @@
 </div>
 <div class="home_content">
   <router-outlet></router-outlet>
-  <footer class="footer">
+  <!--footer class="footer">
     <div class="container">
       <span>© 2020 Copyright: BeeClear.com</span>
     </div>
-  </footer>
+  </footer-->
 </div>

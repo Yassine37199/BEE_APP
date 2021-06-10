@@ -8,6 +8,7 @@ export interface Ticket {
     severite : string;
     dateResolution : Date;
     dateCreation : Date;
+    dateEscalade : Date;
     statutN2 : string;
     agentN2 : string;
     agentResolution : string;

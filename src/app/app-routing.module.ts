@@ -25,8 +25,10 @@ import { UpdateOffreComponent } from './Components/Offre/update-offre/update-off
 import { AddPdvComponent } from './Components/Point-Vente/add-pdv/add-pdv.component';
 import { ListPdvComponent } from './Components/Point-Vente/list-pdv/list-pdv.component';
 import { UpdatePdvComponent } from './Components/Point-Vente/update-pdv/update-pdv.component';
+import { ProfilComponent } from './Components/profil/profil.component';
 import { AddRegionComponent } from './Components/Region/add-region/add-region.component';
 import { ListRegionComponent } from './Components/Region/list-region/list-region.component';
+import { RepartitionComponent } from './Components/repartition/repartition.component';
 import { AddRoleComponent } from './Components/Role/add-role/add-role.component';
 import { ListRolesComponent } from './Components/Role/list-roles/list-roles.component';
 import { UpdateRoleComponent } from './Components/Role/update-role/update-role.component';
@@ -51,6 +53,7 @@ const routes: Routes = [
   data:{roles : [RolesType.ADMIN]}},
   {path : 'update-user/:id' , component : UpdateUserComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},
+  {path : 'profil-details/:id' , component :  ProfilComponent , canActivate:[AuthGuardService]},
   // Régions
   {path : 'list-regions' , component : ListRegionComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},
@@ -106,6 +109,8 @@ const routes: Routes = [
   {path : 'add-demande', component : AddDemandeComponent , canActivate:[AuthGuardService],
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE,RolesType.AGENT_BACKOFFICE]}},
   {path : 'update-demande/:id', component : UpdateDemandeComponent , canActivate:[AuthGuardService],
+  data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE,RolesType.AGENT_BACKOFFICE]}},
+  {path : 'repartition-demande', component : RepartitionComponent , canActivate:[AuthGuardService],
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE,RolesType.AGENT_BACKOFFICE]}},
   // Agents TT 
   {path : 'list-agents' , component : ListAgentsTTComponent , canActivate:[AuthGuardService], 
