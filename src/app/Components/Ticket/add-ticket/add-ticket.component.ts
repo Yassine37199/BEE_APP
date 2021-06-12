@@ -119,16 +119,22 @@ export class AddTicketComponent implements OnInit {
   
   // Add Client
   public addTicket() {
-    console.log(`
-        - ${this.verifClient1}
-        - ${this.verifClient2}
-        - ${this.verifClient3}
-    `);
-    console.log(`
-        - ${this.verifInterne1}
-        - ${this.verifInterne2}
-        - ${this.verifInterne3}
-`);
+
+
+    let VerifClientText : string = ` Vérification Clients : ${this.verifClient1}
+    / ${this.verifClient2}
+    / ${this.verifClient3}
+    `
+
+    
+    let VerifInterneText : string = ` Vérification Installation Interne : 
+    / ${this.verifInterne1}
+    / ${this.verifInterne2}
+    / ${this.verifInterne3}
+    / ${this.verifInterne4}
+    / ${this.verifInterne5}
+    `
+
     if (this.TicketForm.valid) {
       let ticket : Ticket = {
         ...this.TicketForm.value,
@@ -146,7 +152,10 @@ export class AddTicketComponent implements OnInit {
           this.idTicket = response.idTicket;
 
           this.commentservice.addComment({
-            text : `Ticket créee par ${this.authservice.getCurrentUser().nom} au ${new Date()}`},
+            text : `
+                    Ticket créee par ${this.authservice.getCurrentUser().nom} au ${new Date()}
+                    ****${VerifClientText}
+                    ****${VerifInterneText}`},
             response.idTicket,
             this.authservice.getCurrentUser().idUser
           ).subscribe(

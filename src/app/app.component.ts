@@ -52,6 +52,10 @@ ToggleSidebar(){
     togglenav();
   }
 
+  clicked(){
+    console.log("clicked !!")
+  }
+
 
 
   title = 'Test-Design';

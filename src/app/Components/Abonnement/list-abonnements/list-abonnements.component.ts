@@ -67,6 +67,10 @@ export class ListAbonnementsComponent implements OnInit {
     this.router.navigate(['update-abonnement/' + myObj['idAbonnement']])
   }
 
+  openAddModem(myObj){
+    this.router.navigate(['add-modem/' + myObj['idAbonnement']])
+  }
+
 
   openListTickets(myObj) {
     this.router.navigate(['list-tickets/' + myObj['idAbonnement']])

@@ -94,7 +94,7 @@ const routes: Routes = [
   // Modems
   {path : 'list-mdms' , component : ListModemsComponent, canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},
-  {path : 'add-modem' , component : AddModemsComponent, canActivate:[AuthGuardService], 
+  {path : 'add-modem/:idAbonnement' , component : AddModemsComponent, canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},
   {path : 'update-modem/:id' , component : UpdateModemsComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},

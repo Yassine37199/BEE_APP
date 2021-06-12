@@ -23,8 +23,8 @@ export class ModemService {
   }
 
   // Ajouter Un Modem
-  public addModem(modem : Modem) : Observable<Modem> {
-    return this.http.post<Modem>(`${this.apiServerUrl}/configmodem/add/9` , modem);
+  public addModem(modem : Modem , idAbonnement : number) : Observable<Modem> {
+    return this.http.post<Modem>(`${this.apiServerUrl}/configmodem/add/${idAbonnement}` , modem);
   }
 
   // Modifier un modem

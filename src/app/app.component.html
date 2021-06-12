@@ -1,8 +1,8 @@
 <div class="sidebar" *ngIf="authservice.getCurrentUser() !== null">
   <div class="logo_content">
-    <div class="logo">
+    <div class="logo" (click)="clicked()">
       <i class='bx bx-user-circle'></i>
-      <div class="logo_name" [routerLink]="['/profil-details/']">{{authservice.getCurrentUser().nom}} {{authservice.getCurrentUser().prenom}}</div>
+      <div class="logo_name" >{{authservice.getCurrentUser().nom}} {{authservice.getCurrentUser().prenom}}</div>
     </div>
     <i class='bx bx-menu' id="btn" (click)="ToggleSidebar()" ></i>
   </div>
@@ -35,7 +35,7 @@
     </li>
     <li>
       <a [routerLink]="['/list-clients']">
-        <i class='bx bx-chat' ></i>
+        <i class='bx bxs-user-account' ></i>
         <span class="links_name">Clients</span>
       </a>
       <span class="tooltip">Clients</span>
@@ -70,7 +70,7 @@
     </li>
     <li>
       <a [routerLink]="['/list-abonnements']">
-        <i class='bx bx-cog' ></i>
+        <i class='bx bx-file' ></i>
         <span class="links_name">Abonnements</span>
       </a>
       <span class="tooltip">Abonnements</span>
