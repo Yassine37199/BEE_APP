@@ -1,8 +1,8 @@
 import { Ticket } from "./ticket";
 
 export interface Commentaire {
-    idCommentaire : number;
+    idCommentaire? : number;
     text : string;
-    dateCreation : Date;
-    ticket : Ticket
+    dateCreation? : Date;
+    ticket? : Ticket
 }

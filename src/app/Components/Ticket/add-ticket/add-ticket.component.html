@@ -1,1 +1,160 @@
-<p>add-ticket works!</p>
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Ajouter Une Ticket</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="TicketForm" (ngSubmit)="addTicket()">
+                    <div class="form-row">
+                        <div class="name">Type Ticket<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" 
+                                type="text" 
+                                formControlName="type"
+                                id="type" 
+                                name="type"
+                                [ngbTypeahead]="searchType"
+                                (focus)="focusType$.next($any($event).target.value)"
+                                (click)="clickType$.next($any($event).target.value)"
+                                #instanceType="ngbTypeahead"
+                                placeholder="choisissez un Type du Ticket">
+
+                                <div *ngIf="f.type.invalid && (f.type.dirty || f.type.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.type.errors?.required">
+                                        Type est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Sujet Ticket<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" 
+                                type="text" 
+                                formControlName="sujet" 
+                                id="sujet" 
+                                name="sujet"
+                                [ngbTypeahead]="searchSujet"
+                                (focus)="focus$.next($any($event).target.value)"
+                                (click)="click$.next($any($event).target.value)"
+                                #instanceSujet="ngbTypeahead"
+                                placeholder="choisissez un sujet du Ticket">
+
+                                <div *ngIf="f.sujet.invalid && (f.sujet.dirty || f.sujet.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.sujet.errors?.required">
+                                        Sujet est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Sevérité Ticket<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" 
+                                type="text" 
+                                formControlName="severite" 
+                                id="severite" 
+                                name="severite"
+                                [ngbTypeahead]="searchSeverite"
+                                (focus)="focusSeverite$.next($any($event).target.value)"
+                                (click)="clickSeverite$.next($any($event).target.value)"
+                                #instanceSeverite="ngbTypeahead"
+                                placeholder="choisissez une sevérité du Ticket">
+
+                                <div *ngIf="f.sujet.invalid && (f.sujet.dirty || f.sujet.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.sujet.errors?.required">
+                                        Sujet est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                    <div class="form-row p-t-20">
+                        <label class="label label--block">Vérification Client</label>
+                        <div class="p-t-15">
+                            <label class="radio-container m-r-55">Numéro de serie modem
+                                <input type="checkbox"  [(ngModel)]="verifClient1" (ngModelChange)="verifClient1 = 'Numéro de série Vérifié'" name="verif1" value="Numéro de série Vérifié ">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container m-r-55">Adresse MAC
+                                <input type="checkbox" [(ngModel)]="verifClient2" (ngModelChange)="verifClient2 = 'Adresse MAC Vérifiée'" name="verif2" value="Adresse MAC Vérifiée">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container ">Historique Connexion
+                                <input type="checkbox" [(ngModel)]="verifClient3" name="verifClient3" (ngModelChange)="verifClient3 = 'Historique Connexion verifié'" value="Historique Connexion verifié">
+                                <span class="checkmark"></span>
+                            </label>
+                            
+                        </div>
+                    </div>
+ 
+                <form>
+                    <div class="form-row p-t-20" *ngIf="TicketForm.get('sujet').value === 'Pas de synchro MES' 
+                                                            || 
+                                                        TicketForm.get('sujet').value === 'Pas de synchro' 
+                                                            || 
+                                                        TicketForm.get('sujet').value === 'Déconnexion avec perte de synchro'">
+
+                        <label class="label label--block">Vérification Installation interne</label>
+                        <div class="p-t-15">
+                            <label class="radio-container m-r-55">Verif RJ11 coté modem
+                                <input type="checkbox" [(ngModel)]="verifInterne1" name="verifInterne1" (ngModelChange)="verifInterne1 = 'RJ11 coté modem verifié'">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container m-r-55">Test sans filtre
+                                <input type="checkbox"  [(ngModel)]="verifInterne2" name="verifInterne2" (ngModelChange)="verifInterne2 = 'Test sans filtre vérifié'">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container m-r-55">Verif Rosace
+                                <input type="checkbox" [(ngModel)]="verifInterne3" name="verifInterne3" (ngModelChange)="verifInterne3 = 'Rosace verifiée'">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container m-r-55">Verif Prise Tel
+                                <input type="checkbox" [(ngModel)]="verifInterne4" name="verifInterne4" (ngModelChange)="verifInterne4 = 'Prise Tel verifié'">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container m-r-55">Vérif câble TT
+                                <input type="checkbox" [(ngModel)]="verifInterne5" name="verifInterne5" (ngModelChange)="verifInterne5 = 'câble TT verifié'">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+
+
+                <form>
+                    <div class="form-row p-t-20" *ngIf="TicketForm.get('sujet').value === 'Pas d accées MES' 
+                                                            || 
+                                                        TicketForm.get('sujet').value === 'Pas d accées'">
+
+                        <label class="label label--block"></label>
+                        <div class="p-t-15">
+                            <label class="radio-container m-r-55">Reset Modem
+                                <input type="checkbox" [(ngModel)]="verifInterne1" name="verifInterne1" (ngModelChange)="verifInterne1 = 'Reset Modem'">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container m-r-55">Envoi d'authentification
+                                <input type="checkbox"  [(ngModel)]="verifInterne2" name="verifInterne2" (ngModelChange)="verifInterne2 = 'envoi d authentification'">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                    
+                <div>
+                        <button class="btn btn--radius-2 btn--red" (click)="addTicket()">Ajouter</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

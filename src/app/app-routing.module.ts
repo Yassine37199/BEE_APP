@@ -32,6 +32,7 @@ import { RepartitionComponent } from './Components/repartition/repartition.compo
 import { AddRoleComponent } from './Components/Role/add-role/add-role.component';
 import { ListRolesComponent } from './Components/Role/list-roles/list-roles.component';
 import { UpdateRoleComponent } from './Components/Role/update-role/update-role.component';
+import { AddTicketComponent } from './Components/Ticket/add-ticket/add-ticket.component';
 import { UnauthorizedComponent } from './Components/unauthorized/unauthorized.component';
 import { AddUserComponent } from './Components/User/add-user/add-user.component';
 import { ListUsersComponent } from './Components/User/list-users/list-users.component';
@@ -43,6 +44,9 @@ const routes: Routes = [
   {path : '' , redirectTo : '/homepage' , pathMatch : 'full'},
   // Homepage 
   {path : 'homepage' , component : HomePageComponent , canActivate:[AuthGuardService]},
+  // Tickets 
+  {path : 'add-ticket/:idAbonnement' , component : AddTicketComponent , canActivate:[AuthGuardService], 
+  data:{roles : [RolesType.ADMIN]}},
   // Client Details
   {path : 'client-details/:critere/:search' , component : ClientDetailsComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},

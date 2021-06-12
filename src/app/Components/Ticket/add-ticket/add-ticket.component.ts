@@ -2,11 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { merge, ObjectUnsubscribedError, Observable, OperatorFunction, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Ticket } from 'src/app/Models/ticket';
 import { AuthService } from 'src/app/Services/auth.service';
+import { CommentaireService } from 'src/app/Services/commentaire.service';
 import { TicketService } from 'src/app/Services/ticket.service';
 import { Sujets } from 'src/app/Sujets.types';
 
@@ -18,28 +20,45 @@ import { Sujets } from 'src/app/Sujets.types';
 export class AddTicketComponent implements OnInit {
 
   TicketForm : FormGroup;
+  // Verification Client
+  verifClient1 = '';
+  verifClient2 = '';
+  verifClient3 = '';
+  // Verification Installation Interne
+  verifInterne1 = '';
+  verifInterne2 = '';
+  verifInterne3 = '';
+  verifInterne4 = '';
+  verifInterne5 = '';
+
   Severite = ['faible' , 'moyenne' , 'severe']
   idAbonnement;
+  idTicket;
 
-  constructor(private ticketservice : TicketService ,
+  constructor(private ticketservice : TicketService,
               private router : Router,
               private toastr : ToastrService,
               private authservice : AuthService,
-              private route : ActivatedRoute) { }
+              private route : ActivatedRoute,
+              private commentservice : CommentaireService) { 
+
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
       params => {
-        this.idAbonnement = params.get('id')
+        this.idAbonnement = params.get('idAbonnement')
       } 
     );
 
 
     this.TicketForm = new FormGroup({
-      sujet : new FormControl(null , [Validators.required]),
+      sujet : new FormControl('' , [Validators.required]),
       type : new FormControl('' , [Validators.required]),
       severite : new FormControl('' , Validators.required),
     })
+
+    
   }
 
   @ViewChild('instanceSujet', {static: true}) instanceSujet: NgbTypeahead;
@@ -53,6 +72,7 @@ export class AddTicketComponent implements OnInit {
   @ViewChild('instanceSeverite', {static: true}) instanceSeverite: NgbTypeahead;
   focusSeverite$ = new Subject<string>();
   clickSeverite$ = new Subject<string>();
+  
 
   
   
@@ -92,12 +112,23 @@ export class AddTicketComponent implements OnInit {
     );
   }
 
+ 
   // getter for better access to form fields
   get f() { return this.TicketForm.controls; }
 
   
   // Add Client
   public addTicket() {
+    console.log(`
+        - ${this.verifClient1}
+        - ${this.verifClient2}
+        - ${this.verifClient3}
+    `);
+    console.log(`
+        - ${this.verifInterne1}
+        - ${this.verifInterne2}
+        - ${this.verifInterne3}
+`);
     if (this.TicketForm.valid) {
       let ticket : Ticket = {
         ...this.TicketForm.value,
@@ -105,11 +136,22 @@ export class AddTicketComponent implements OnInit {
         statutN2 : "non escaladée",
         agentN2 : null,
         agentResolution : null,
+        dateCreation : new Date(),
+        dateEscalade : moment(new Date()).add(10 , 'days'),
+        dateResolution : null,
       }
 
-      this.ticketservice.addTicket(this.TicketForm.value , this.idAbonnement , this.authservice.getCurrentUser().idUser).subscribe(
+      this.ticketservice.addTicket(ticket , this.idAbonnement , this.authservice.getCurrentUser().idUser).subscribe(
         (response : Ticket) => {
-          console.log(response);
+          this.idTicket = response.idTicket;
+
+          this.commentservice.addComment({
+            text : `Ticket créee par ${this.authservice.getCurrentUser().nom} au ${new Date()}`},
+            response.idTicket,
+            this.authservice.getCurrentUser().idUser
+          ).subscribe(
+            (responseComment) => console.log("Commentaire créee")
+          )
           this.ticketservice.getTicketsByAbonnement(this.idAbonnement);
           this.router.navigate(['abonnement-details/' + this.idAbonnement])
           this.showSuccess();
@@ -121,6 +163,8 @@ export class AddTicketComponent implements OnInit {
       return;
     }
   }
+
+  
 
   showSuccess() {
     this.toastr.success('Ticket ajouté avec succée !');
