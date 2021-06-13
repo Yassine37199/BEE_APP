@@ -153,7 +153,7 @@ export class HomePageComponent implements OnInit {
         statutN2 : "escaladée",
         agentN2 : `${response.user.nom} ${response.user.prenom}`
       }
-      this.ticketservice.updateTicket(ticket.idTicket , ticket).subscribe(
+      this.ticketservice.updateTicket(ticket.idTicket , ticket , ticket.abonnement.idAbonnement).subscribe(
         response => {
           console.log(response);
           this.getMesTickets();
@@ -170,7 +170,7 @@ export class HomePageComponent implements OnInit {
       dateResolution : new Date(),
       agentResolution : `${this.authservice.getCurrentUser().nom} ${this.authservice.getCurrentUser().prenom}`
     }
-    this.ticketservice.updateTicket(ticket.idTicket , ticket).subscribe(
+    this.ticketservice.updateTicket(ticket.idTicket , ticket, ticket.abonnement.idAbonnement).subscribe(
       response => {
         console.log(response);
         this.getMesTickets();

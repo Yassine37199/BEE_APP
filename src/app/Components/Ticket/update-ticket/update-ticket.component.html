@@ -1,1 +1,76 @@
-<p>update-ticket works!</p>
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Modifier Ticket</h2>
+            </div>
+            <div class="card-body">
+                <form #editForm="ngForm">
+                    <div class="form-row">
+                        <div class="name">Type Ticket<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" 
+                                type="text" 
+                                [(ngModel)]="type"
+                                id="type" 
+                                name="type"
+                                [ngbTypeahead]="searchType"
+                                (focus)="focusType$.next($any($event).target.value)"
+                                (click)="clickType$.next($any($event).target.value)"
+                                #instanceType="ngbTypeahead"
+                                placeholder="choisissez un Type du Ticket">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Sujet Ticket<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" 
+                                type="text" 
+                                [(ngModel)]="sujet"
+                                id="sujet" 
+                                name="sujet"
+                                [ngbTypeahead]="searchSujet"
+                                (focus)="focus$.next($any($event).target.value)"
+                                (click)="click$.next($any($event).target.value)"
+                                #instanceSujet="ngbTypeahead"
+                                placeholder="choisissez un sujet du Ticket">
+
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Sevérité Ticket<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" 
+                                type="text" 
+                                [(ngModel)]="severite"
+                                id="severite" 
+                                name="severite"
+                                [ngbTypeahead]="searchSeverite"
+                                (focus)="focusSeverite$.next($any($event).target.value)"
+                                (click)="clickSeverite$.next($any($event).target.value)"
+                                #instanceSeverite="ngbTypeahead"
+                                placeholder="choisissez une sevérité du Ticket">
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                
+                    
+                <div>
+                        <button class="btn btn--radius-2 btn--green" (click)="onUpdateTicket(editForm.value)">Modifier</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

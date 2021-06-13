@@ -5,9 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { Commentaire } from 'src/app/Models/commentaire';
+import { Remarque } from 'src/app/Models/remarque';
 import { Ticket } from 'src/app/Models/ticket';
 import { AuthService } from 'src/app/Services/auth.service';
 import { CommentaireService } from 'src/app/Services/commentaire.service';
+import { RemarqueService } from 'src/app/Services/remarque.service';
 import { TicketService } from 'src/app/Services/ticket.service';
 
 @Component({
@@ -18,6 +20,7 @@ import { TicketService } from 'src/app/Services/ticket.service';
 export class AbonnementDetailsComponent implements OnInit {
 
   tickets : Ticket[];
+  remarques : Remarque[];
   commentaires : Commentaire[];
   closeResult = ''
   idAbonnement;
@@ -26,12 +29,15 @@ export class AbonnementDetailsComponent implements OnInit {
   TicketToDisplay: Ticket;
   CommentForm : FormGroup;
 
+  activeId = 1
+
   constructor(private ticketservice : TicketService,
               private router : Router,
               private route : ActivatedRoute,
               private modalService : NgbModal,
               private commentaireservice : CommentaireService,
-              private authservice : AuthService) { }
+              private authservice : AuthService,
+              private remarqueservice : RemarqueService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -40,14 +46,24 @@ export class AbonnementDetailsComponent implements OnInit {
       } 
     );
 
+
     this.getTicketsByAbonnement();
-    console.log(this.tickets);
+    this.getRemarques();
 
     this.CommentForm = new FormGroup({
       text : new FormControl('' , Validators.required),
     });
   }
+  
 
+  public getRemarques() {
+    this.remarqueservice.getRemarqueByAbonnement(this.idAbonnement).subscribe(
+      (response : Remarque[]) => {
+        this.remarques = response
+        console.log(response)
+      }
+    )
+  }
 
   public getTicketsByAbonnement() : void {
     this.dtOptions = {
@@ -67,13 +83,15 @@ export class AbonnementDetailsComponent implements OnInit {
       }
     )
   }
-
+  
+  // Get Commentaires From Backend
   public getCommentByTicket(idTicket : number){
     this.commentaireservice.getCommentByTicket(idTicket).subscribe(
       (response : Commentaire[]) => this.commentaires = response
     )
   }
-
+  
+  // Ouvrir Liste des commentaires
   open(contentComments , ticket : Ticket) {
     this.modalService.open(contentComments, {ariaLabelledBy: 'modal-basic-title' , size : 'lg' , centered : true}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -94,6 +112,8 @@ export class AbonnementDetailsComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+  
+  // Ouvrir Formulaire d'ajout commentaire
 
   openFormModal(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-form' , size : 'lg' , centered : true}).result.then((result) => {
@@ -103,6 +123,8 @@ export class AbonnementDetailsComponent implements OnInit {
     });
   }
 
+
+  // Ajouter un commentaire
 
   public addCommentaire() : void {
     if(this.CommentForm.valid){
@@ -123,13 +145,10 @@ export class AbonnementDetailsComponent implements OnInit {
   
   
   // Open Update Page
+
   openUpdateTicket(myObj) {
     this.router.navigate(['update-ticket/' + myObj['idTicket']])
   }
 
-  
-  ngOnDestroy(): void  {
-    this.dtTrigger.unsubscribe();
-  }
 
 }

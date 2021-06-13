@@ -42,7 +42,7 @@ export class TicketService {
 
 
   // Modifier une Ticket
-  public updateTicket(idTicket : number , ticket : Ticket) : Observable<Ticket> {
-    return this.http.put<Ticket>(`${this.apiServerUrl}/ticket/update/${idTicket}` , ticket);
+  public updateTicket(idTicket : number , ticket : Ticket , idAbonnement : number) : Observable<Ticket> {
+    return this.http.put<Ticket>(`${this.apiServerUrl}/ticket/update/${idTicket}/${idAbonnement}` , ticket);
   }
 }

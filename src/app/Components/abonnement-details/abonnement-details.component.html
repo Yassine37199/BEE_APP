@@ -59,93 +59,137 @@
                         <a [routerLink]="['/add-ticket' , idAbonnement]" class="btn dim_button create_new"><span class="glyphicon glyphicon-plus"></span>Ajouter une Ticket</a>
                         <a [routerLink]="'/add-ticket'" class="btn dim_button create_new"><span class="glyphicon glyphicon-plus"></span>Ajouter une Remarque</a>
                     </div>
-                <div class="overflow-x">
-                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
-                        <thead>
-                            <tr>
-                                <th style="min-width:80px;">Statut Ticket</th>
-                                <th style="min-width:80px;">Sujet Ticket</th>
-                                <th style="min-width:50px;">Type Ticket</th>
-                                <th style="min-width:80px;">Severité</th>
-                                <th style="min-width:50px;">Date Résolution</th>
-                                <th style="min-width:80px;">Date Création</th>
-                                <th style="min-width:150px;">Statut N2</th>
-                                <th style="min-width:100px;">Agent de Résolution</th>
-                                <th style="min-width:50px;">Agent de Création</th>
-                                <th style="min-width:30px;">Agent N2</th>
-                                <th  style="min-width:30px;">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let ticket of tickets">
-                                <td><span *ngIf="ticket.statut === 'créée'" class="mode mode_done">{{ticket.statut}}</span>
-                                    <span *ngIf="ticket.statut === 'en cours'" class="mode mode_process">{{ticket.statut}}</span>
-                                    <span *ngIf="ticket.statut === 'cloturée'" class="mode mode_off">{{ticket.statut}}</span>
-                                    <span *ngIf="ticket.statut === 'résolu'" class="mode mode_on">{{ticket.statut}}</span>
-                                </td>
-                                <td>{{ticket.sujet}}</td>
-                                <td>{{ticket.type}}</td>
-                                <td>
-                                    <span *ngIf="ticket.severite === 'severe'" class="mode mode_off">{{ticket.severite}}</span>
-                                    <span *ngIf="ticket.severite === 'moyenne'" class="mode mode_process">{{ticket.severite}}</span>
-                                    <span *ngIf="ticket.severite === 'faible'" class="mode mode_on">{{ticket.severite}}</span>
-                                </td>
-                                <td>{{ticket.dateResolution | date : 'medium'}}</td>
-                                <td>{{ticket.dateCreation | date : 'medium'}}</td>
-                                <td><span *ngIf="ticket.statutN2 === 'non escaladée'" class="mode mode_off">{{ticket.statutN2}}</span>
-                                    <span *ngIf="ticket.statutN2 === 'escaladée'" class="mode mode_done">{{ticket.statutN2}}</span></td>
-                                <td>{{ticket.agentResolution}}</td>
-                                <td>{{ticket.user.nom}}</td>
-                                <td>{{ticket.agentN2}}</td>
-                                <td> 
-                                    <div class="btn-group" placement="top" ngbTooltip="Modifier Ticket">
-                                        <a class=" dropdown_icon" 
-                                        (click)="openUpdateTicket(ticket)">
-                                        <i class="fa fa-pencil-square-o"></i> </a>
-                                        
-                                    </div>
-                                    <div class="btn-group" placement="top" 
-                                    ngbTooltip="Résoudre Ticket"
-                                    >
-                                        <a class="dropdown_icon" 
-                                        (click)="resolutionTicket(ticket)"
-                                        *ngIf="ticket.statut !== 'résolu'"
-                                        >
-                                        <i class="fa fa-check"></i> </a>
-                                    </div>
-                                    <div class="btn-group" placement="top" 
-                                    ngbTooltip="Escalader Ticket"
-                                    >
-                                        <a class="dropdown_icon" 
-                                        (click)="escaladerTicket(ticket)"
-                                        *ngIf="ticket.statutN2 !== 'escaladée'"
-                                        >
-                                        <i class='bx bxs-up-arrow-square'></i></a>
-                                    </div>
-                                    <div class="btn-group" placement="top" 
-                                    ngbTooltip="Commentaires"
-                                    >
-                                        <a class="dropdown_icon" 
-                                        (click)="open(contentComments , ticket)"
-                                        >
-                                        <i class='bx bx-comment-detail' ></i></a>
-                                    </div>
-                                    <div class="btn-group" placement="top" 
-                                    ngbTooltip="Envoyer Mail TT"
-                                    >
-                                        <a class="dropdown_icon" 
-                                        (click)="open(content , ticket)"
-                                        >
-                                        <i class='bx bx-mail-send'></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>  
-                    </table>
-                    <div *ngIf="!tickets" class="alert alert-warning">
-                        <h2>Aucune Ticket Trouvée</h2>
-                    </div>
-                </div>
+                
+                <nav ngbNav #nav="ngbNav"  class="nav-tabs">
+
+
+
+
+                    <ng-container ngbNavItem>
+                        <a ngbNavLink>Remarques</a>
+                        <ng-template ngbNavContent>
+                            <div class="overflow-x">
+                                <table  style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
+                                    <thead>
+                                        <tr>
+                                            <th style="min-width:300px;">Texte de Remarque</th>
+                                            <th style="min-width:100px;">date de Création</th>
+                                            <th style="min-width:80px;">Agent de Création</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let remarque of remarques">
+                                            <td>{{remarque.text}}</td>
+                                            <td>{{remarque.dateCreation}}</td>
+                                            <td>{{remarque.user.nom}} {{remarque.user.prenom}}</td>
+                                        </tr>
+                                    </tbody>  
+                                </table>
+                                <div *ngIf="!remarques" class="alert alert-warning">
+                                    <h2>Aucune Remarque Trouvée</h2>
+                                </div>
+                                </div>
+                        </ng-template>
+                    </ng-container>
+
+
+
+
+
+            
+                    <ng-container ngbNavItem>
+                        <a ngbNavLink>Tickets</a>
+                        <ng-template ngbNavContent>
+                            <div class="overflow-x">
+                                <table  style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
+                                    <thead>
+                                        <tr>
+                                            <th style="min-width:80px;">Statut Ticket</th>
+                                            <th style="min-width:100px;">Sujet Ticket</th>
+                                            <th style="min-width:80px;">Type Ticket</th>
+                                            <th style="min-width:80px;">Severité</th>
+                                            <th style="min-width:50px;">Date Résolution</th>
+                                            <th style="min-width:150px;">Statut N2</th>
+                                            <th style="min-width:100px;">Agent de Résolution</th>
+                                            <th style="min-width:50px;">Agent de Création</th>
+                                            <th style="min-width:30px;">Agent N2</th>
+                                            <th  style="min-width:30px;">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let ticket of tickets">
+                                            <td><span *ngIf="ticket.statut === 'créée'" class="mode mode_done">{{ticket.statut}}</span>
+                                                <span *ngIf="ticket.statut === 'en cours'" class="mode mode_process">{{ticket.statut}}</span>
+                                                <span *ngIf="ticket.statut === 'cloturée'" class="mode mode_off">{{ticket.statut}}</span>
+                                                <span *ngIf="ticket.statut === 'résolu'" class="mode mode_on">{{ticket.statut}}</span>
+                                            </td>
+                                            <td>{{ticket.sujet}}</td>
+                                            <td>{{ticket.type}}</td>
+                                            <td>
+                                                <span *ngIf="ticket.severite === 'severe'" class="mode mode_off">{{ticket.severite}}</span>
+                                                <span *ngIf="ticket.severite === 'moyenne'" class="mode mode_process">{{ticket.severite}}</span>
+                                                <span *ngIf="ticket.severite === 'faible'" class="mode mode_on">{{ticket.severite}}</span>
+                                            </td>
+                                            <td>{{ticket.dateResolution | date : 'medium'}}</td>
+                                            <td><span *ngIf="ticket.statutN2 === 'non escaladée'" class="mode mode_off">{{ticket.statutN2}}</span>
+                                                <span *ngIf="ticket.statutN2 === 'escaladée'" class="mode mode_done">{{ticket.statutN2}}</span></td>
+                                            <td>{{ticket.agentResolution}}</td>
+                                            <td>{{ticket.user.nom}}</td>
+                                            <td>{{ticket.agentN2}}</td>
+                                            <td> 
+                                                <div class="btn-group" placement="top" ngbTooltip="Modifier Ticket">
+                                                    <a class=" dropdown_icon" 
+                                                    (click)="openUpdateTicket(ticket)">
+                                                    <i class="fa fa-pencil-square-o"></i> </a>
+                                                    
+                                                </div>
+                                                <div class="btn-group" placement="top" 
+                                                ngbTooltip="Résoudre Ticket"
+                                                >
+                                                    <a class="dropdown_icon" 
+                                                    (click)="resolutionTicket(ticket)"
+                                                    *ngIf="ticket.statut !== 'résolu'"
+                                                    >
+                                                    <i class="fa fa-check"></i> </a>
+                                                </div>
+                                                <div class="btn-group" placement="top" 
+                                                ngbTooltip="Escalader Ticket"
+                                                >
+                                                    <a class="dropdown_icon" 
+                                                    (click)="escaladerTicket(ticket)"
+                                                    *ngIf="ticket.statutN2 !== 'escaladée'"
+                                                    >
+                                                    <i class='bx bxs-up-arrow-square'></i></a>
+                                                </div>
+                                                <div class="btn-group" placement="top" 
+                                                ngbTooltip="Commentaires"
+                                                >
+                                                    <a class="dropdown_icon" 
+                                                    (click)="open(contentComments , ticket)"
+                                                    >
+                                                    <i class='bx bx-comment-detail' ></i></a>
+                                                </div>
+                                                <div class="btn-group" placement="top" 
+                                                ngbTooltip="Envoyer Mail TT"
+                                                >
+                                                    <a class="dropdown_icon" 
+                                                    (click)="open(content , ticket)"
+                                                    >
+                                                    <i class='bx bx-mail-send'></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>  
+                                </table>
+                                <div *ngIf="!tickets" class="alert alert-warning">
+                                    <h2>Aucune Ticket Trouvée</h2>
+                                </div>
+                                </div>
+                            </ng-template>
+                        </ng-container>
+                </nav>
+
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
             </div>
         </div>
     </div>
