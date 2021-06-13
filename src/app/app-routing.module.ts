@@ -26,6 +26,7 @@ import { AddPdvComponent } from './Components/Point-Vente/add-pdv/add-pdv.compon
 import { ListPdvComponent } from './Components/Point-Vente/list-pdv/list-pdv.component';
 import { UpdatePdvComponent } from './Components/Point-Vente/update-pdv/update-pdv.component';
 import { ProfilComponent } from './Components/profil/profil.component';
+import { AddReclamationComponent } from './Components/Reclamation/add-reclamation/add-reclamation.component';
 import { AddRegionComponent } from './Components/Region/add-region/add-region.component';
 import { ListRegionComponent } from './Components/Region/list-region/list-region.component';
 import { RepartitionComponent } from './Components/repartition/repartition.component';
@@ -121,6 +122,9 @@ const routes: Routes = [
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE,RolesType.AGENT_BACKOFFICE]}},
   // Agents TT 
   {path : 'list-agents' , component : ListAgentsTTComponent , canActivate:[AuthGuardService], 
+  data:{roles : [RolesType.ADMIN]}},
+  // Réclamation TT 
+  {path : 'add-rec/:idAbonnement' , component : AddReclamationComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},
   // Auth
   {path : 'login' , component : LoginComponent},

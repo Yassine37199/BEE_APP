@@ -53,6 +53,8 @@ import { AddTicketComponent } from './Components/Ticket/add-ticket/add-ticket.co
 import { UpdateTicketComponent } from './Components/Ticket/update-ticket/update-ticket.component';
 import { ProfilComponent } from './Components/profil/profil.component';
 import { RepartitionComponent } from './Components/repartition/repartition.component';
+import { AddReclamationComponent } from './Components/Reclamation/add-reclamation/add-reclamation.component';
+import { UpdateReclamationComponent } from './Components/Reclamation/update-reclamation/update-reclamation.component';
 
 
 @NgModule({
@@ -101,6 +103,8 @@ import { RepartitionComponent } from './Components/repartition/repartition.compo
     UpdateTicketComponent,
     ProfilComponent,
     RepartitionComponent,
+    AddReclamationComponent,
+    UpdateReclamationComponent,
   ],
   imports: [
     BrowserModule,

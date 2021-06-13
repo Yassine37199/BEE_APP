@@ -1,0 +1,48 @@
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Ajouter Une Réclamation TT</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="ReclamationForm" (ngSubmit)="addReclamation()">
+                    <div class="form-row">
+                        <div class="name">Télephone ADSL<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="number" formControlName="telADSL" id="telADSL" name="telADSL">
+
+                                <div *ngIf="f.telADSL.invalid && (f.telADSL.dirty || f.telADSL.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.telADSL.errors?.required">
+                                        Télephone ADSL est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Objet du Réclamation<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <textarea class="input--style-5" formControlName="objet" id="objet" name="objet">
+                                </textarea>
+
+                                <div *ngIf="f.objet.invalid && (f.objet.dirty || f.objet.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.objet.errors?.required">
+                                        Objet du Réclamation est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--red" type="submit">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

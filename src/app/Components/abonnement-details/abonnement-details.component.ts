@@ -5,10 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { Commentaire } from 'src/app/Models/commentaire';
+import { ReclamationTT } from 'src/app/Models/reclamation';
 import { Remarque } from 'src/app/Models/remarque';
 import { Ticket } from 'src/app/Models/ticket';
 import { AuthService } from 'src/app/Services/auth.service';
 import { CommentaireService } from 'src/app/Services/commentaire.service';
+import { ReclamationService } from 'src/app/Services/reclamation.service';
 import { RemarqueService } from 'src/app/Services/remarque.service';
 import { TicketService } from 'src/app/Services/ticket.service';
 
@@ -22,6 +24,8 @@ export class AbonnementDetailsComponent implements OnInit {
   tickets : Ticket[];
   remarques : Remarque[];
   commentaires : Commentaire[];
+  reclamations : ReclamationTT[];
+
   closeResult = ''
   idAbonnement;
   dtOptions : DataTables.Settings = {};
@@ -30,6 +34,7 @@ export class AbonnementDetailsComponent implements OnInit {
   CommentForm : FormGroup;
 
   activeId = 1
+  RemarqueForm: FormGroup;
 
   constructor(private ticketservice : TicketService,
               private router : Router,
@@ -37,7 +42,8 @@ export class AbonnementDetailsComponent implements OnInit {
               private modalService : NgbModal,
               private commentaireservice : CommentaireService,
               private authservice : AuthService,
-              private remarqueservice : RemarqueService) { }
+              private remarqueservice : RemarqueService,
+              private reclamationservice : ReclamationService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -49,12 +55,31 @@ export class AbonnementDetailsComponent implements OnInit {
 
     this.getTicketsByAbonnement();
     this.getRemarques();
+    this.getReclamations();
 
     this.CommentForm = new FormGroup({
       text : new FormControl('' , Validators.required),
     });
+
+    this.RemarqueForm = new FormGroup({
+      text : new FormControl('' , Validators.required),
+    });
   }
   
+// Get Reclamations From Backend
+
+public getReclamations() {
+  this.reclamationservice.getReclamationByAbonnement(this.idAbonnement).subscribe(
+    (response : ReclamationTT[]) => {
+      this.reclamations = response
+      console.log(response)
+    }
+  )
+}
+
+
+
+// Get Remarques From Backend
 
   public getRemarques() {
     this.remarqueservice.getRemarqueByAbonnement(this.idAbonnement).subscribe(
@@ -64,6 +89,9 @@ export class AbonnementDetailsComponent implements OnInit {
       }
     )
   }
+
+
+// Get Tickets From Backend
 
   public getTicketsByAbonnement() : void {
     this.dtOptions = {
@@ -124,6 +152,16 @@ export class AbonnementDetailsComponent implements OnInit {
   }
 
 
+// Ouvrir Formulaire d'ajout remarque
+
+  openRemarqueModal(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-form' , size : 'lg' , centered : true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
   // Ajouter un commentaire
 
   public addCommentaire() : void {
@@ -139,6 +177,24 @@ export class AbonnementDetailsComponent implements OnInit {
       }
     )
   }
+}
+
+
+ // Ajouter une remarque
+
+ public addRemarque() : void {
+  if(this.RemarqueForm.valid){
+  this.remarqueservice.addRemarqueForAbonnement(
+    {...this.RemarqueForm.value},
+     this.authservice.getCurrentUser().idUser,
+    this.idAbonnement
+    ).subscribe(
+    (response : Remarque) => {
+      console.log(response);
+      this.remarqueservice.getRemarqueByAbonnement(this.idAbonnement);
+    }
+  )
+}
 }
 
 

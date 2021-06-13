@@ -1,4 +1,5 @@
 
+<!-- Listes des commentaires Popup-->
 <ng-template #contentComments let-modal>
     <div class="modal-header">
         <div>
@@ -25,6 +26,7 @@
   </ng-template>
 
 
+<!-- Ajouter commentaire Popup -->
   <ng-template #formContent let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-form">Ajouter un commentaire</h4>
@@ -36,7 +38,27 @@
         <form [formGroup]="CommentForm" (ngSubmit)="addCommentaire()">
             <div class="form-group">
               <label for="text">Texte</label>
-              <input type="text" formControlName="text"  class="form-control" id="text" name="text" placeholder="Entrez le texte de la commentaire...">
+              <textarea type="text" formControlName="text"  class="form-control" id="text" name="text" placeholder="Entrez le texte de la commentaire..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-success" (click)="modal.close()">Ajouter</button>
+        </form>
+    </div>
+  </ng-template>
+
+
+<!-- Ajouter Remarque Popup -->
+<ng-template #RemarqueContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-form">Ajouter une Remarque</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="RemarqueForm" (ngSubmit)="addRemarque()">
+            <div class="form-group">
+              <label for="text">Texte</label>
+              <textarea formControlName="text"  class="form-control" id="text" name="text" placeholder="Entrez le texte de la remarque..."></textarea>
             </div>
             <button type="submit" class="btn btn-success" (click)="modal.close()">Ajouter</button>
         </form>
@@ -55,16 +77,17 @@
         <div class="col-md-12 main-datatable">
             <div class="card_body">
                 <div class="row d-flex">
-                    <div class="col-sm-2 createSegment"> 
-                        <a [routerLink]="['/add-ticket' , idAbonnement]" class="btn dim_button create_new"><span class="glyphicon glyphicon-plus"></span>Ajouter une Ticket</a>
-                        <a [routerLink]="'/add-ticket'" class="btn dim_button create_new"><span class="glyphicon glyphicon-plus"></span>Ajouter une Remarque</a>
+                    <div class="col-sm-4 createSegment"> 
+                        <a [routerLink]="['/add-ticket' , idAbonnement]" class="btn dim_button create_new"><span class="glyphicon glyphicon-plus"><i class="fa fa-plus"></i></span>Ajouter une Ticket</a>
+                        <a (click)="openRemarqueModal(RemarqueContent)" class="btn dim_button create_new"><span class="glyphicon glyphicon-plus"><i class="fa fa-plus"></i></span>Ajouter une Remarque</a>
+                        <a [routerLink]="['/add-rec' , idAbonnement]" class="btn dim_button create_new"><span class="glyphicon glyphicon-plus"><i class="fa fa-plus"></i></span>Ajouter une Réclamation TT</a>
                     </div>
                 
                 <nav ngbNav #nav="ngbNav"  class="nav-tabs">
 
 
 
-
+                <!-- Remarques -->
                     <ng-container ngbNavItem>
                         <a ngbNavLink>Remarques</a>
                         <ng-template ngbNavContent>
@@ -95,8 +118,8 @@
 
 
 
-
-            
+ 
+                <!-- Tickets -->
                     <ng-container ngbNavItem>
                         <a ngbNavLink>Tickets</a>
                         <ng-template ngbNavContent>
@@ -187,6 +210,56 @@
                                 </div>
                             </ng-template>
                         </ng-container>
+
+
+
+                <!-- Reclamations TT -->
+                    <ng-container ngbNavItem>
+                        <a ngbNavLink>Réclamations TT</a>
+                        <ng-template ngbNavContent>
+                            <div class="overflow-x">
+                                <table  style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
+                                    <thead>
+                                        <tr>
+                                            <th style="min-width:100px;">Télephone ADSL</th>
+                                            <th style="min-width:200px;">Objet</th>
+                                            <th style="min-width:100px;">Date de Réclamation</th>
+                                            <th style="min-width:100px;">Agent de Création</th>
+                                            <th style="min-width:80px;">Etat</th>
+                                            <th style="min-width:80px;">Date d'état</th>
+                                            <th style="min-width:80px;">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let reclamation of reclamations">
+                                            <td>{{reclamation.telADSL}}</td>
+                                            <td>{{reclamation.objet}}</td>
+                                            <td>{{reclamation.dateReclamation}}</td>
+                                            <td>{{reclamation.user.nom}} {{reclamation.user.prenom}}</td>
+                                            <td>{{reclamation.etat}}</td>
+                                            <td>{{reclamation.dateEtat}}</td>
+                                            <td> 
+                                                <div class="btn-group" placement="top" ngbTooltip="Modifier Réclamation">
+                                                    <a class=" dropdown_icon" 
+                                                    (click)="openUpdateReclamation(reclamation)">
+                                                    <i class="fa fa-pencil-square-o"></i> </a>
+                                                    
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>  
+                                </table>
+                                <div *ngIf="!reclamations" class="alert alert-warning">
+                                    <h2>Aucune Reclamation TT Trouvée</h2>
+                                </div>
+                                </div>
+                        </ng-template>
+                    </ng-container>
+
+
+
+
+
                 </nav>
 
             <div [ngbNavOutlet]="nav" class="mt-2"></div>
