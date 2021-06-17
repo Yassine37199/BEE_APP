@@ -1,3 +1,6 @@
+import { Abonnement } from "./abonnement";
+import { User } from "./user";
+
 export interface ReclamationTT {
     idReclamation? : number;
     telADSL : number;
@@ -5,4 +8,6 @@ export interface ReclamationTT {
     objet : string;
     etat : string;
     dateEtat : Date;
+    abonnement? : Abonnement,
+    user? : User
 }

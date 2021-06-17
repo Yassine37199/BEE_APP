@@ -184,7 +184,8 @@ export class AddDemandeComponent implements OnInit {
                     gouvernorat : this.DemandeForm.get('gouvernorat').value,
                     telADSL :  this.DemandeForm.get('telADSL').value,
                     typeDemande : this.DemandeForm.get('typeDemande').value,
-                    etat : 'active'
+                    etat : 'active',
+                    agentBackOffice : null
                   }
 
       this.demandeservice.addDemande(demande,

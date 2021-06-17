@@ -1,0 +1,30 @@
+.content-body {  
+    background-color: #F5F7FA;
+}
+
+.container-fluid {
+    margin-bottom: 25px;
+}
+
+section .row {
+    justify-content: center;
+}
+
+.grey-bg .card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: rgb(67, 167, 206);
+}
+
+.grey-bg .card .media-body {
+    color: white;
+    
+}
+
+section .card  {
+    width: 70%;
+    margin: 10px 0;
+    margin-left: 35px;
+
+}

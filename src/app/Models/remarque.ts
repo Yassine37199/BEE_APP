@@ -5,6 +5,6 @@ export interface Remarque {
     idRemarque? : number;
     text? : string;
     demandeabonnement? : DemandeAbonnement;
-    abonnement : Abonnement;
+    abonnement? : Abonnement;
 
 }

@@ -48,6 +48,7 @@ export class UpdateDemandeComponent implements OnInit {
   offreToAdd : Offre;
 
   Form : NgForm;
+  agentBackOffice: any;
 
   constructor(private demandeservice : DemandeAbonnementService ,
               private router : Router ,
@@ -89,7 +90,8 @@ export class UpdateDemandeComponent implements OnInit {
         this.typeDemande = response.typeDemande;
         this.client = this.DemandeToUpdate.client.cin;
         this.offre = this.DemandeToUpdate.offre.labelle;
-        this.agence = this.DemandeToUpdate.agence.intitule 
+        this.agence = this.DemandeToUpdate.agence.intitule;
+        this.agentBackOffice = this.DemandeToUpdate.agentBackOffice
       }
     )
   }
@@ -212,7 +214,7 @@ async onUpdateDemande() {
         ville : this.ville,
         telADSL : this.telADSL,
         typeDemande : this.typeDemande,
-        
+        agentBackOffice : this.agentBackOffice 
       }
 
         this.demandeservice.updateDemande(this.id , 

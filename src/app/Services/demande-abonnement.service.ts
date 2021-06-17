@@ -26,7 +26,15 @@ export class DemandeAbonnementService {
   public getDemande(idDemandeAbonnement : number) : Observable<DemandeAbonnement> {
     return this.http.get<DemandeAbonnement>(`${this.apiServerUrl}/demandeAbonnement/${idDemandeAbonnement}`);
   }
-
+  
+  // get Liste des demandes pour les agents backoffice
+  public getDemandeByBackOffice(agentBack : string) : Observable<DemandeAbonnement[]> {
+    return this.http.get<DemandeAbonnement[]>(`${this.apiServerUrl}/demandeAbonnement/get/backoffice/${agentBack}`);
+  }
+  
+  public getDemandeRepartition() : Observable<DemandeAbonnement[]>{
+    return this.http.get<DemandeAbonnement[]>(`${this.apiServerUrl}/demandeAbonnement/get/repartiton`);
+  }
   
   // Ajouter Une Demande d'abonnement
   public addDemande(demande : DemandeAbonnement , idClient : number , idOffre : number , idAgence : number) : Observable<DemandeAbonnement> {

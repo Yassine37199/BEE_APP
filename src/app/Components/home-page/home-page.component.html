@@ -67,7 +67,11 @@
 
 
 
-<app-stats-cards></app-stats-cards>
+<app-stats-cards *ngIf="authservice.getCurrentUser().role.nomrole !== 'agent Backoffice'"></app-stats-cards>
+<app-stats-dmndes *ngIf="authservice.getCurrentUser().role.nomrole === 'agent Backoffice'"></app-stats-dmndes>
+
+
+
 
     <div class="wrapper wrapper--w790">
         <div class="card card-5">
@@ -120,7 +124,7 @@
 <div class="container p-30">
     <div class="row">
         <div class="col-md-12 main-datatable">
-            <div class="card_body">
+            <div class="card_body" *ngIf="authservice.getCurrentUser().role.nomrole !== 'agent Backoffice'">
                 <div class="row d-flex">
                 <div class="overflow-x">
                     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
@@ -211,5 +215,86 @@
                 </div>
             </div>
         </div>
+
+
+
+        <div class="card_body" *ngIf="authservice.getCurrentUser().role.nomrole === 'agent Backoffice'">
+                <div class="row d-flex">
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th style="min-width:100px;">Fréquance Paiement</th>
+                                <th style="min-width:80px;">Adresse d'Installation</th>
+                                <th style="min-width:100px;">Ville</th>
+                                <th style="min-width:100px;">Governorat</th>
+                                <th style="min-width:50px;">Etat</th>
+                                <th style="min-width:50px;">Télephone ADSL</th>
+                                <th style="min-width:50px;">Type</th>
+                                <th style="min-width:80px;">Client</th>
+                                <th style="min-width:50px;">Offre</th>
+                                <th style="min-width:50px;">Agence</th>
+                                <th style="min-width:30px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let demande of mesDemandes">
+                                <td>{{demande.frequencePaiement}}</td>
+                                <td>{{demande.adresseInstallation}}</td>
+                                <td>{{demande.ville}}</td>
+                                <td>{{demande.gouvernorat}}</td>
+                                <td>{{demande.etat}}</td>
+                                <td>{{demande.telADSL}}</td>
+                                <td>{{demande.typeDemande}}</td>
+                                <td>{{demande.client.name}}</td>
+                                <td>{{demande.offre.labelle}}</td>
+                                <td>{{demande.agence.intitule}}</td>
+                                <td>
+                                    <div class="btn-group" placement="top" ngbTooltip="Modifier Demande">
+                                        <a class=" dropdown_icon" 
+                                        (click)="openUpdateDemande(demande)">
+                                        <i class="fa fa-pencil-square-o"></i> </a>
+                                        
+                                    </div> 
+                                    <div 
+                                    class="btn-group" 
+                                    placement="top" 
+                                    ngbTooltip="Ajouter Abonnement" 
+                                    (click)="openAjoutAbonnement(demande)">
+                                        <a class="dropdown_icon">
+                                            <i class='bx bxs-file-plus'></i>
+                                        </a>
+                                        
+                                    </div>
+                                    <div 
+                                    class="btn-group" 
+                                    placement="top" 
+                                    ngbTooltip="Remarques" 
+                                    (click)="open(content , demande)">
+                                        <a class="dropdown_icon">
+                                            <i class='bx bxs-message-alt-error'></i>
+                                        </a>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody> 
+                    </table>
+                    <div *ngIf="!mesDemandes" class="alert alert-warning">
+                        <h2>Aucune Demande Trouvée</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        </div>
     </div>
 </div>
+
+
+
+
+

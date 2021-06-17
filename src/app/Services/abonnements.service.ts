@@ -21,6 +21,10 @@ export class AbonnementsService {
   public getAbonnementsByCIN(cin : number) : Observable<Abonnement[]> {
     return this.http.get<Abonnement[]>(`${this.apiServerUrl}/abonnement/cin/${cin}`);
   }
+
+  public getAbonnementsByRefTT(reftt : string) : Observable<Abonnement[]> {
+    return this.http.get<Abonnement[]>(`${this.apiServerUrl}/abonnement/reftt/${reftt}`);
+  }
   
   
   public getAbonnement(idAbonnement : number) : Observable<Abonnement> {

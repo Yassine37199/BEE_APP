@@ -14,6 +14,7 @@ import { ListDemandesComponent } from './Components/Demande_abonnement/list-dema
 import { UpdateDemandeComponent } from './Components/Demande_abonnement/update-demande/update-demande.component';
 import { Error404Component } from './Components/error404/error404.component';
 import { HomePageComponent } from './Components/home-page/home-page.component';
+import { HomepageRecouvrementComponent } from './Components/homepage-recouvrement/homepage-recouvrement.component';
 import { LoginComponent } from './Components/login/login.component';
 import { LogoutComponent } from './Components/logout/logout.component';
 import { AddModemsComponent } from './Components/Modem/add-modems/add-modems.component';
@@ -27,6 +28,7 @@ import { ListPdvComponent } from './Components/Point-Vente/list-pdv/list-pdv.com
 import { UpdatePdvComponent } from './Components/Point-Vente/update-pdv/update-pdv.component';
 import { ProfilComponent } from './Components/profil/profil.component';
 import { AddReclamationComponent } from './Components/Reclamation/add-reclamation/add-reclamation.component';
+import { UpdateReclamationComponent } from './Components/Reclamation/update-reclamation/update-reclamation.component';
 import { AddRegionComponent } from './Components/Region/add-region/add-region.component';
 import { ListRegionComponent } from './Components/Region/list-region/list-region.component';
 import { RepartitionComponent } from './Components/repartition/repartition.component';
@@ -46,6 +48,7 @@ const routes: Routes = [
   {path : '' , redirectTo : '/homepage' , pathMatch : 'full'},
   // Homepage 
   {path : 'homepage' , component : HomePageComponent , canActivate:[AuthGuardService]},
+  {path : 'homepage-recouv' , component : HomepageRecouvrementComponent , canActivate:[AuthGuardService]},
   // Tickets 
   {path : 'add-ticket/:idAbonnement' , component : AddTicketComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},
@@ -61,7 +64,7 @@ const routes: Routes = [
   data:{roles : [RolesType.ADMIN]}},
   {path : 'update-user/:id' , component : UpdateUserComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},
-  {path : 'profil-details/:id' , component :  ProfilComponent , canActivate:[AuthGuardService]},
+  {path : 'profil-details' , component :  ProfilComponent , canActivate:[AuthGuardService]},
   // Régions
   {path : 'list-regions' , component : ListRegionComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},
@@ -125,6 +128,8 @@ const routes: Routes = [
   data:{roles : [RolesType.ADMIN]}},
   // Réclamation TT 
   {path : 'add-rec/:idAbonnement' , component : AddReclamationComponent , canActivate:[AuthGuardService], 
+  data:{roles : [RolesType.ADMIN]}},
+  {path : 'update-rec/:id' , component : UpdateReclamationComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},
   // Auth
   {path : 'login' , component : LoginComponent},

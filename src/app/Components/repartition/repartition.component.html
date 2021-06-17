@@ -2,114 +2,48 @@
     <div class="wrapper wrapper--w790">
         <div class="card card-5">
             <div class="card-heading">
-                <h2 class="title">Répartition Demandes (4 Demandes)</h2>
+                <h2 class="title">Répartition Demandes ({{countDemandes}} Demandes)</h2>
             </div>
-            <div class="card-body">
-                <form>
+            <div class="card-body" *ngFor="let user of usersBackoffice">
+                <form #repartForm="ngForm">
                   
                     <div class="form-row m-b-55">
                         <div class="value">
                             <div class="row row-refine">
                                 <div class="col-8">
                                     <div class="input-group-desc">
-                                        <input class="input--style-5" type="text" name="area_code">
+                                        <select class="input--style-5" style="padding: 10px;" name="agent" ngModel>
+                                            <optgroup *ngFor="let user of usersBackoffice">
+                                                <option>{{user}}</option>
+                                            </optgroup>
+                                        </select>
+
                                         <label class="label--desc">Agent Backoffice</label>
                                     </div>
                                 </div>
                                
                                 <div class="col-2">
                                     <div class="input-group-desc">
-                                        <input class="input--style-5" type="text" name="phone">
+                                        <input class="input--style-5" type="text" name="count" ngModel>
                                         <label class="label--desc">Nombre Demandes</label>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        
-
-
-                    </div>
-
-                    <div class="form-row m-b-55">
-                        <div class="value">
-                            <div class="row row-refine">
-                                <div class="col-8">
-                                    <div class="input-group-desc">
-                                        <input class="input--style-5" type="text" name="area_code">
-                                        <label class="label--desc">Agent Backoffice</label>
-                                    </div>
-                                </div>
-                                
                                 <div class="col-2">
                                     <div class="input-group-desc">
-                                        <input class="input--style-5" type="text" name="phone">
-                                        <label class="label--desc">Nombre Demandes</label>
+                                        <button class="btn btn--radius-2 btn--red" (click)="onSubmit(repartForm.value)">Envoyer</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         
-
-
-                    </div>
-
-                    <div class="form-row m-b-55">
-                        <div class="value">
-                            <div class="row row-refine">
-                                <div class="col-8">
-                                    <div class="input-group-desc">
-                                        <input class="input--style-5" type="text" name="area_code">
-                                        <label class="label--desc">Agent Backoffice</label>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-2">
-                                    <div class="input-group-desc">
-                                        <input class="input--style-5" type="text" name="phone">
-                                        <label class="label--desc">Nombre Demandes</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        
-
-
-                    </div>
-
-                    <div class="form-row m-b-55">
-                        <div class="value">
-                            <div class="row row-refine">
-                                <div class="col-8">
-                                    <div class="input-group-desc">
-                                        <input class="input--style-5" type="text" name="area_code">
-                                        <label class="label--desc">Agent Backoffice</label>
-                                    </div>
-                                </div>
-                               
-                                <div class="col-2">
-                                    <div class="input-group-desc">
-                                        <input class="input--style-5" type="text" name="phone">
-                                        <label class="label--desc">Nombre Demandes</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        
-
-
+                            
+        
                     </div>
                     
-                    <div>
-                        <button class="btn btn--radius-2 btn--red" type="submit">Envoyer</button>
-                    </div>
+                   
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-<app-list-demandes></app-list-demandes>

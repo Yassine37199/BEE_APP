@@ -1,4 +1,6 @@
 import { Client } from "./client";
+import { Offre } from "./offre";
+import { PointVente } from "./point-vente";
 
 export interface DemandeAbonnement {
     idDemandeAbonnement? : number,
@@ -12,5 +14,9 @@ export interface DemandeAbonnement {
     idClient? : number,
     idOffre? : number,
     idAgence? : number
-    client? : Client
+    client? : Client,
+    agence? : PointVente,
+    offre? : Offre
+    agentBackOffice? : string,
+
 }

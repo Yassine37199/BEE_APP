@@ -13,7 +13,19 @@ export class FactureService {
 
   constructor(private http : HttpClient) { }
 
-  public FactureSuspendu(refTT : string) : Observable<Facture[]> {
+  public FactureImpayeByRefTT(refTT : string) : Observable<Facture[]> {
+    return this.http.get<Facture[]>(`${this.apiServerUrl}/facture/get/impaye/${refTT}`)
+  }
+
+  public FactureImpaye() : Observable<Facture[]> {
+    return this.http.get<Facture[]>(`${this.apiServerUrl}/facture/get/impaye`)
+  }
+
+  public FacturePaye(refTT : string) : Observable<Facture[]> {
+    return this.http.get<Facture[]>(`${this.apiServerUrl}/facture/get/paye/${refTT}`)
+  }
+
+  public FacturesByRefTT(refTT : string) : Observable<Facture[]> {
     return this.http.get<Facture[]>(`${this.apiServerUrl}/facture/get/${refTT}`)
   }
 }

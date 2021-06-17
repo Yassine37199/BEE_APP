@@ -206,5 +206,9 @@ public getReclamations() {
     this.router.navigate(['update-ticket/' + myObj['idTicket']])
   }
 
+  openUpdateReclamation(myObj) {
+    this.router.navigate(['update-rec/' + myObj['idReclamation']])
+  }
+
 
 }

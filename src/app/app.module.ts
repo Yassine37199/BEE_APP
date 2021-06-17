@@ -55,6 +55,8 @@ import { ProfilComponent } from './Components/profil/profil.component';
 import { RepartitionComponent } from './Components/repartition/repartition.component';
 import { AddReclamationComponent } from './Components/Reclamation/add-reclamation/add-reclamation.component';
 import { UpdateReclamationComponent } from './Components/Reclamation/update-reclamation/update-reclamation.component';
+import { HomepageRecouvrementComponent } from './Components/homepage-recouvrement/homepage-recouvrement.component';
+import { StatsDmndesComponent } from './Components/stats-dmndes/stats-dmndes.component';
 
 
 @NgModule({
@@ -105,6 +107,8 @@ import { UpdateReclamationComponent } from './Components/Reclamation/update-recl
     RepartitionComponent,
     AddReclamationComponent,
     UpdateReclamationComponent,
+    HomepageRecouvrementComponent,
+    StatsDmndesComponent,
   ],
   imports: [
     BrowserModule,

@@ -31,7 +31,7 @@ export class ReclamationService {
 
 
   // Modifier Une Reclamation TT
-  public updateReclamation(idReclamation : number , reclamation : ReclamationTT) : Observable<ReclamationTT> {
-    return this.http.put<ReclamationTT>(`${this.apiServerUrl}/reclamationTT/update/${idReclamation}` , reclamation);
+  public updateReclamation(idReclamation : number , reclamation : ReclamationTT , idAbonnement : number) : Observable<ReclamationTT> {
+    return this.http.put<ReclamationTT>(`${this.apiServerUrl}/reclamationTT/update/${idReclamation}/${idAbonnement}` , reclamation);
   }
 }

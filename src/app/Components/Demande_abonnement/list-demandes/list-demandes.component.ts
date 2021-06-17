@@ -1,12 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { DemandeAbonnement } from 'src/app/Models/demande-abonnement';
 import { Remarque } from 'src/app/Models/remarque';
 import { AbonnementsService } from 'src/app/Services/abonnements.service';
+import { AuthService } from 'src/app/Services/auth.service';
 import { DemandeAbonnementService } from 'src/app/Services/demande-abonnement.service';
+import { RemarqueService } from 'src/app/Services/remarque.service';
 
 @Component({
   selector: 'app-list-demandes',
@@ -24,11 +27,13 @@ export class ListDemandesComponent implements OnInit {
   
 
   dtTrigger : Subject<any> = new Subject<any>();
+  RemarqueForm: any;
   constructor(private demandeservice : DemandeAbonnementService ,
               private router : Router,
               private modalService : NgbModal,
-              private abonnementservice : AbonnementsService
-              //private remarqueservice : RemarqueService
+              private abonnementservice : AbonnementsService,
+              private remarqueservice : RemarqueService,
+              private authservice : AuthService
               ) { }
 
   ngOnInit(): void {
@@ -46,8 +51,23 @@ export class ListDemandesComponent implements OnInit {
         console.log(response)
       }
     )
+
+    this.RemarqueForm = new FormGroup({
+      text : new FormControl('' , Validators.required),
+    });
     
   }
+
+
+// Get Reclamations From Backend
+public getRemarques(idDemandeAbonnement : number) {
+  this.remarqueservice.getRemarqueByDemande(idDemandeAbonnement).subscribe(
+    (response : Remarque[]) => {
+      this.remarques = response
+      console.log(response)
+    }
+  )
+}
 
   public getDemandes() : void {
     this.dtOptions = {
@@ -65,26 +85,26 @@ export class ListDemandesComponent implements OnInit {
         alert(error.message);
       }
     )
+  }
 
-    /*this.remarqueservice.getRemarques().subscribe(
-      (response : Remarque[]) => {
-        this.remarques = response;
-      }
-    )*/
-  } 
-  
+  // Ajouter une remarque
 
-  /* Check if Demande have Abonnement
-  haveAbonnement(demande : DemandeAbonnement) {
-    this.abonnementservice.getAbonnementByDemande(demande.idDemandeAbonnement).subscribe(
-      (response) => {
-        if (response !== null) return true;
-        else return false;
-      }
-    )
-  }*/
- 
+ public addRemarque() : void {
+  if(this.RemarqueForm.valid){
+  this.remarqueservice.addRemarqueForDemande(
+    {...this.RemarqueForm.value},
+     this.authservice.getCurrentUser().idUser,
+    this.demandeToDisplay.idDemandeAbonnement
+    ).subscribe(
+    (response : Remarque) => {
+      console.log(response);
+      this.remarqueservice.getRemarqueByDemande(this.demandeToDisplay.idDemandeAbonnement);
+    }
+  )
+}
+}
 
+   
 
   openUpdateDemande(myObj : DemandeAbonnement) {
     this.router.navigate(['update-demande/' + myObj['idDemandeAbonnement']])
@@ -102,8 +122,7 @@ export class ListDemandesComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
     this.demandeToDisplay = demande;
-    //this.getRemarquesByAbonnement(this.abonnementToDisplay.idAbonnement);
-    console.log(this.remarques);
+    this.getRemarques(this.demandeToDisplay.idDemandeAbonnement);
   }
 
   openFormModal(content) {

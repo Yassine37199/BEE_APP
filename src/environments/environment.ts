@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl : 'http://localhost:8092',
+  TestFactureUrl : 'http://localhost:8083',
   factureApiUrl : 'http://localhost:8080/facturesApi-0.0.1',
   historiqueCnxApiUrl : 'http://localhost:8080/historique_api-0.0.1'
 

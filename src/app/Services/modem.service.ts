@@ -22,6 +22,10 @@ export class ModemService {
     return this.http.get<Modem>(`${this.apiServerUrl}/configmodem/${idConfig}`);
   }
 
+  public getModemByLogin(login : string) : Observable<Modem[]> {
+    return this.http.get<Modem[]>(`${this.apiServerUrl}/configmodem/login/${login}`);
+  }
+
   // Ajouter Un Modem
   public addModem(modem : Modem , idAbonnement : number) : Observable<Modem> {
     return this.http.post<Modem>(`${this.apiServerUrl}/configmodem/add/${idAbonnement}` , modem);

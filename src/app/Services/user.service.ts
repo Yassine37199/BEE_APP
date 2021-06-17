@@ -22,6 +22,10 @@ export class UserService {
     return this.http.get<User[]>(`${this.apiServerUrl}/user/get/N2`);
   }
 
+  public getUsersBackOffice() : Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiServerUrl}/user/get/backoffice`);
+  }
+
   public getUsersAdmin() : Observable<User[]> {
     return this.http.get<User[]>(`${this.apiServerUrl}/user/get/admin`);
   }

@@ -18,6 +18,8 @@ import { TicketService } from 'src/app/Services/ticket.service';
 import * as moment from "moment"
 import { CommentaireService } from 'src/app/Services/commentaire.service';
 import { Commentaire } from 'src/app/Models/commentaire';
+import { DemandeAbonnementService } from 'src/app/Services/demande-abonnement.service';
+import { DemandeAbonnement } from 'src/app/Models/demande-abonnement';
 
 @Component({
   selector: 'app-home-page',
@@ -28,33 +30,35 @@ export class HomePageComponent implements OnInit {
 
   dtOptions : DataTables.Settings = {};
   mesTickets : Ticket[];
+  mesDemandes : DemandeAbonnement[];
   closeResult = '';
   TicketToDisplay : Ticket;
   idUser : number;
   critere : string;
   searchValue : string;
   commentaires : Commentaire[];
-  
 
   dtTrigger : Subject<any> = new Subject<any>();
   CommentForm: any;
   constructor(private ticketservice : TicketService , 
               private router : Router,
-              private authservice : AuthService,
+              public authservice : AuthService,
               private regionservice : RegionService,
               private modalService : NgbModal,
               private emailService : EmailService,
               private toastrservice : ToastrService,
-              private commentaireservice : CommentaireService) { }
+              private commentaireservice : CommentaireService,
+              private demandeservice : DemandeAbonnementService) { }
 
   ngOnInit(): void {
-    if(this.authservice.getCurrentUser().role.nomrole !== RolesType.AGENT_SUPPORT_TECHNIQUE_N2){
-      this.getMesTickets();
-    }
-    else {
+    if(this.authservice.getCurrentUser().role.nomrole === RolesType.AGENT_SUPPORT_TECHNIQUE_N2){
       this.getMesTicketsEscalade();
-
     }
+    else if (this.authservice.getCurrentUser().role.nomrole === RolesType.AGENT_BACKOFFICE){
+
+      this.getMesDemandes();
+    }
+    else {this.getMesTickets()}
 
     this.CommentForm = new FormGroup({
       text : new FormControl('' , Validators.required),
@@ -117,6 +121,27 @@ export class HomePageComponent implements OnInit {
     this.ticketservice.getTicketsByUserN2(nomAgent).subscribe(
       (response : Ticket[]) => {
         this.mesTickets = response;
+        this.dtTrigger.next()
+      },
+      (error : HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+  }
+
+  public getMesDemandes() : void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+
+    };
+    
+    
+    let EmailAgent : string = this.authservice.getCurrentUser().email;
+    this.demandeservice.getDemandeByBackOffice(EmailAgent).subscribe(
+      (response : DemandeAbonnement[]) => {
+        console.log(response);
+        this.mesDemandes = response;
         this.dtTrigger.next()
       },
       (error : HttpErrorResponse) => {
@@ -252,6 +277,10 @@ export class HomePageComponent implements OnInit {
   ngOnDestroy(): void  {
     this.dtTrigger.unsubscribe();
   }
+
+  
+
+  
 
   showSuccess() {
     this.toastrservice.success('Email envoyé avec succée');

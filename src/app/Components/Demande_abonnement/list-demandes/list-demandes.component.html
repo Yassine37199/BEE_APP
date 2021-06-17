@@ -1,3 +1,55 @@
+<!-- Listes des Remarques Popup-->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <div>
+            <button class="btn btn-primary" (click)="openFormModal(formContent)">Ajouter Remarque</button>
+        </div>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="container mt-5">
+            <div class="row d-flex justify-content-center">
+                
+                <div class="col-md-8" *ngFor="let remarque of remarques">
+                    <div class="card p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="user d-flex flex-row align-items-center"> <img src="https://www.pikpng.com/pngl/m/70-706939_headphones-clipart-word-work-center-call-center-agent.png" width="30" class="user-img rounded-circle mr-2"> <span><small class="font-weight-bold text-primary">{{remarque.user.nom}} {{remarque.user.prenom}}</small> <small class="font-weight-bold">{{remarque.text}}</small></span> </div> <small>{{remarque.dateCreation}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </ng-template>
+
+
+<!-- Ajouter Remarque Popup -->
+<ng-template #formContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-form">Ajouter une Remarque</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="RemarqueForm" (ngSubmit)="addRemarque()">
+            <div class="form-group">
+              <label for="text">Texte</label>
+              <textarea formControlName="text"  class="form-control" id="text" name="text" placeholder="Entrez le texte de la remarque..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-success" (click)="modal.close()">Ajouter</button>
+        </form>
+    </div>
+  </ng-template>
+
+
+
+
+
+
+
 <div class="container p-30">
     <div class="row">
         <div class="col-md-12 main-datatable">
@@ -49,6 +101,16 @@
                                     (click)="openAjoutAbonnement(demande)">
                                         <a class="dropdown_icon">
                                             <i class='bx bxs-file-plus'></i>
+                                        </a>
+                                        
+                                    </div>
+                                    <div 
+                                    class="btn-group" 
+                                    placement="top" 
+                                    ngbTooltip="Remarques" 
+                                    (click)="open(content , demande)">
+                                        <a class="dropdown_icon">
+                                            <i class='bx bxs-message-alt-error'></i>
                                         </a>
                                         
                                     </div>

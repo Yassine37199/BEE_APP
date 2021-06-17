@@ -1,0 +1,124 @@
+<app-stats-cards></app-stats-cards>
+
+<button class="btn btn-primary" style="margin-left : 600px" (click)="sendSMS()">Envoyer les SMS </button>
+<div class="wrapper wrapper--w790">
+    <div class="card card-5">
+        
+        <div class="card-body">
+            
+            <form>
+                <div class="form-row">
+                    <div class="name">Critére de Recharche</div>
+                    <div class="value">
+                        <div class="input-group">
+                            <input
+                            class="input--style-5"
+                             
+                            id="critere" 
+                            name="critere"
+                            
+                            value="CIN Client">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="name">Chercher</div>
+                    <div class="value">
+                        <div class="input-group">
+                            <input class="input--style-5" 
+                            type="text" 
+                            
+                            id="searchValue" 
+                            name="searchValue">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="btn btn--radius-2 btn--red"><i class='bx bx-search' ></i></button>
+                </div>
+
+                </form>
+            </div>
+        </div>
+</div>
+
+
+
+
+
+<div class="container p-30">
+    <div class="row">
+        <div class="col-md-12 main-datatable">
+            <div class="card_body">
+                <div class="row d-flex">
+                    
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%;" id="filtertable" class="table cust-datatable dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th style="min-width:100px;">Réf TT</th>
+                                <th style="min-width:100px;">Date 1er Connexion</th>
+                                <th style="min-width:80px;">Date Derniere Connexion</th>
+                                <th style="min-width:100px;">Date Reclamation TT</th>
+                                <th style="min-width:100px;">Date Résolu</th>
+                                <th style="min-width:50px;">Agence Création</th>
+                                <th style="min-width:50px;">Agence Livraison</th>
+                                <th style="min-width:50px;">Date 1er Facture</th>
+                                <th style="min-width:80px;">Date 1er Facture Payé</th>
+                                <th style="min-width:80px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>RefTT2021254158</td>
+                                <td>2021-06-10</td>
+                                <td>2021-06-15</td>
+                                <td>2021-06-10</td>
+                                <td>2021-06-10</td>
+                                <td>Agence</td>
+                                <td>Agence</td>
+                                <td>2021-06-10</td>
+                                <td>2021-06-10</td>
+                
+                                <td>
+                                    <div class="btn-group" placement="top" ngbTooltip="Modifier Demande">
+                                        <a class=" dropdown_icon" 
+                                        >
+                                        <i class='bx bx-expand'></i> </a>
+                                        
+                                    </div> 
+                                    
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>RefTT2021254158</td>
+                                <td>2021-06-09</td>
+                                <td>2021-06-15</td>
+                                <td>2021-06-09</td>
+                                <td>2021-06-09</td>
+                                <td>Agence Bee</td>
+                                <td>Agence</td>
+                                <td>2021-06-10</td>
+                                <td>2021-06-10</td>
+                
+                                <td>
+                                    <div class="btn-group" placement="top" ngbTooltip="Modifier Demande">
+                                        <a class=" dropdown_icon" >
+                                            <i class='bx bx-expand'></i> </a>
+                                        
+                                    </div> 
+                                    
+                                </td>
+                            </tr>
+                        </tbody> 
+                    </table>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

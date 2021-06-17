@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Email } from 'src/app/Models/Email';
 import { User } from 'src/app/Models/user';
 import { AuthService } from 'src/app/Services/auth.service';
@@ -55,7 +56,8 @@ export class LoginComponent implements OnInit {
     private loginservice : AuthService,
     private userservice : UserService,
     private modalService : NgbModal,
-    private emailservice : EmailService) { }
+    private emailservice : EmailService,
+    private toastr : ToastrService) { }
 
   ngOnInit(): void {
     addcl();
@@ -113,11 +115,16 @@ private getDismissReason(reason: any): string {
         }
         console.log(mail);
         this.emailservice.SendMail(mail).subscribe(
-          (response) => console.log(response) 
+          (response) => {
+            console.log(response)
+            this.showSuccess()
+          }
         )
       }
     )
   }
 
-
+  showSuccess() {
+    this.toastr.success('Email envoyée avec succée !');
+    }
 }
