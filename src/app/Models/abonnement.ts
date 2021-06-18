@@ -6,4 +6,5 @@ export interface Abonnement {
     etatTT : string;
     agenceLivraison : string;
     demandeAbonnement : DemandeAbonnement
+    active? : boolean;
 }

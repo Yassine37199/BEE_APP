@@ -65,7 +65,7 @@ export class UpdateAbonnementComponent implements OnInit {
 
 public onUpdateAbonnement(abonnementUpdate : Abonnement) : void {
     if(window.confirm("Modifier cet abonnement ?")){
-        this.abonnementservice.updateAbonnement(this.id , this.abonnementToUpdate.demandeAbonnement.idDemandeAbonnement , {...abonnementUpdate}).subscribe(
+        this.abonnementservice.updateAbonnement(this.id , this.abonnementToUpdate.demandeAbonnement.idDemandeAbonnement , {...abonnementUpdate , active : abonnementUpdate.active}).subscribe(
           (response : Abonnement) => {
             this.abonnementservice.getAbonnements();
             this.router.navigate(['list-abonnements']);

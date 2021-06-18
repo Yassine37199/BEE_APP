@@ -33,13 +33,13 @@ get f() { return this.OffreForm.controls; }
 
 // Add Role
 public addOffre() {
-if (this.OffreForm.valid) {
-this.offreservice.addOffre(this.OffreForm.value).subscribe(
-(response : Offre) => {
-console.log(response);
-this.offreservice.getOffres();
-this.router.navigate(['list-offres'])
-this.showSuccess();
+  if (this.OffreForm.valid) {
+  this.offreservice.addOffre({...this.OffreForm.value , active : true}).subscribe(
+  (response : Offre) => {
+  console.log(response);
+  this.offreservice.getOffres();
+  this.router.navigate(['list-offres'])
+  this.showSuccess();
 }
 )
 }

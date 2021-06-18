@@ -19,6 +19,7 @@
                                 <th style="min-width:50px;">Code Postal</th>
                                 <th style="min-width:50px;">Date de Naissance</th>
                                 <th style="min-width:50px;">Télephone</th>
+                                <th style="min-width:80px;">Active</th>
                                 <th style="min-width:30px;">Actions</th>
                             </tr>
                         </thead>
@@ -34,11 +35,20 @@
                                 <td>{{client.dateNaissance}}</td>
                                 <td>{{client.telephone}}</td>
                                 <td>
+                                    <span *ngIf="client.active === true" class="mode mode_on">active</span>
+                                    <span *ngIf="client.active === false" class="mode mode_off">inactive</span>
+                                </td>
+                                <td>
                                     <div class="btn-group" placement="top" ngbTooltip="Modifier Client">
                                         <a class=" dropdown_icon" 
                                         (click)="openUpdateClient(client)">
                                         <i class="fa fa-pencil-square-o"></i> </a>
                                         
+                                    </div>
+                                    <div class="btn-group" placement="top" ngbTooltip="Archiver Client">
+                                        <a class=" dropdown_icon" 
+                                        (click)="ArchiverClient(client)">
+                                        <i class='bx bxs-archive'></i> </a>  
                                     </div>
                                 </td>
                             </tr>

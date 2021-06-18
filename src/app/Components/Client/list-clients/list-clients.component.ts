@@ -51,6 +51,17 @@ export class ListClientsComponent implements OnInit {
     this.dtTrigger.unsubscribe();
   }
 
+  async ArchiverClient(client : Client){
+    await this.clientservice.updateClient(client.idClient,
+      {...client , active : !client.active}).subscribe(
+        (response) => {
+          console.log(response);
+          this.getClients();
+          this.router.navigate(['/list-clients'])
+        }
+      )
+  }
+
   
 
 }

@@ -12,6 +12,7 @@
                             <tr>
                                 <th style="min-width:300px;">Labelle Offre</th>
                                 <th style="min-width:300px;">Débit Offre</th>
+                                <th style="min-width:100px;">Active</th>
                                 <th style="min-width:250px;">Actions</th>
                             </tr>
                         </thead>
@@ -20,11 +21,20 @@
                                 <td>{{offre.labelle}}</td>
                                 <td>{{offre.debit}}</td>
                                 <td>
+                                    <span *ngIf="offre.active === true" class="mode mode_on">active</span>
+                                    <span *ngIf="offre.active === false" class="mode mode_off">inactive</span>
+                                </td>
+                                <td>
                                     <div class="btn-group" placement="top" ngbTooltip="Modifier Offre">
                                         <a class=" dropdown_icon" 
                                         (click)="openUpdateOffre(offre)">
                                         <i class="fa fa-pencil-square-o"></i> </a>
                                         
+                                    </div>
+                                    <div class="btn-group" placement="top" ngbTooltip="Archiver Offre">
+                                        <a class=" dropdown_icon" 
+                                        (click)="ArchiverOffre(offre)">
+                                        <i class='bx bxs-archive'></i> </a>  
                                     </div>
                                 </td>
                             </tr>

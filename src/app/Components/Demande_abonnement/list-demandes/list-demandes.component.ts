@@ -163,6 +163,17 @@ public getRemarques(idDemandeAbonnement : number) {
     }
   }
 
+  async ArchiverDemande(demande : DemandeAbonnement){
+    await this.demandeservice.updateDemande(demande.idDemandeAbonnement , demande.client.idClient, demande.offre.idOffre,
+     demande.agence.idAgence ,  {...demande , active : !demande.active}).subscribe(
+        (response) => {
+          console.log(response);
+          this.getDemandes();
+          this.router.navigate(['/list-demandes'])
+        }
+      )
+  }
+
 
   ngOnDestroy(): void  {
     this.dtTrigger.unsubscribe();

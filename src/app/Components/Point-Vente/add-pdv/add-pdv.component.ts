@@ -63,7 +63,7 @@ get f() { return this.PDVForm.controls; }
 // Add Role
 public addPDV() {
   if (this.PDVForm.valid) {
-    this.pointventeservice.addPoint(this.PDVForm.value).subscribe(
+    this.pointventeservice.addPoint({...this.PDVForm.value , active : true}).subscribe(
     (response : PointVente) => {
     console.log(response);
     this.pointventeservice.getPoints();

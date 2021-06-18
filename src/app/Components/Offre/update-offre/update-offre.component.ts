@@ -38,7 +38,7 @@ export class UpdateOffreComponent implements OnInit {
 
 public onUpdateOffre(offre : Offre) : void {
   if(window.confirm("Modifier cet Offre ?")){
-      this.offreservice.updateOffre(this.id , {...offre , idOffre : this.id}).subscribe(
+      this.offreservice.updateOffre(this.id , {...offre , idOffre : this.id , active : this.OffreToUpdate.active}).subscribe(
         (response : Offre) => {
           this.offreservice.getOffres();
           this.router.navigate(['list-offres']);

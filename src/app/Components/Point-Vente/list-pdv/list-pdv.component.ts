@@ -43,6 +43,18 @@ export class ListPdvComponent implements OnInit {
   }
 
 
+  async ArchiverPoint(point : PointVente){
+    await this.pointventeservice.updatePoint(point.idAgence,
+      {...point , active : !point.active}).subscribe(
+        (response) => {
+          console.log(response);
+          this.getPoints();
+          this.router.navigate(['/list-pdv'])
+        }
+      )
+  }
+
+
 
 
   openUpdatePoint(myObj : PointVente) {

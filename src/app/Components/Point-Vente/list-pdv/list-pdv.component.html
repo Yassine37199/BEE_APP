@@ -20,6 +20,7 @@
                                 <th style="min-width:50px;">Région</th>
                                 <th style="min-width:50px;">Etat</th>
                                 <th style="min-width:150px;">Détails</th>
+                                <th style="min-width:80px;">Active</th>
                                 <th style="min-width:50px;">Actions</th>
                             </tr>
                         </thead>
@@ -36,11 +37,20 @@
                                 <td>{{point.etat}}</td>
                                 <td>{{point.details}}</td>
                                 <td>
+                                    <span *ngIf="point.active === true" class="mode mode_on">active</span>
+                                    <span *ngIf="point.active === false" class="mode mode_off">inactive</span>
+                                </td>
+                                <td>
                                     <div class="btn-group" placement="top" ngbTooltip="Modifier Point de Vente">
                                         <a class=" dropdown_icon" 
                                         (click)="openUpdatePoint(point)">
                                         <i class="fa fa-pencil-square-o"></i> </a>
                                         
+                                    </div>
+                                    <div class="btn-group" placement="top" ngbTooltip="Archiver Point">
+                                        <a class=" dropdown_icon" 
+                                        (click)="ArchiverPoint(point)">
+                                        <i class='bx bxs-archive'></i> </a>  
                                     </div>
                                 </td>
                             </tr>

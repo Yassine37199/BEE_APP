@@ -9,4 +9,5 @@ export interface Client {
     codePostal : number;
     dateNaissance : Date;
     telephone : number;
+    active? : boolean
 }

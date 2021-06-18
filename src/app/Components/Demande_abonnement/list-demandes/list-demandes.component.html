@@ -72,6 +72,7 @@
                                 <th style="min-width:80px;">Client</th>
                                 <th style="min-width:50px;">Offre</th>
                                 <th style="min-width:50px;">Agence</th>
+                                <th style="min-width:80px;">Active</th>
                                 <th style="min-width:30px;">Actions</th>
                             </tr>
                         </thead>
@@ -87,6 +88,10 @@
                                 <td>{{demande.client.name}}</td>
                                 <td>{{demande.offre.labelle}}</td>
                                 <td>{{demande.agence.intitule}}</td>
+                                <td>
+                                    <span *ngIf="demande.active === true" class="mode mode_on">active</span>
+                                    <span *ngIf="demande.active === false" class="mode mode_off">inactive</span>
+                                </td>
                                 <td>
                                     <div class="btn-group" placement="top" ngbTooltip="Modifier Demande">
                                         <a class=" dropdown_icon" 
@@ -113,6 +118,11 @@
                                             <i class='bx bxs-message-alt-error'></i>
                                         </a>
                                         
+                                    </div>
+                                    <div class="btn-group" placement="top" ngbTooltip="Archiver Demande">
+                                        <a class=" dropdown_icon" 
+                                        (click)="ArchiverDemande(demande)">
+                                        <i class='bx bxs-archive'></i> </a>  
                                     </div>
                                 </td>
                             </tr>

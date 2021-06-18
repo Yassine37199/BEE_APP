@@ -42,6 +42,17 @@ export class ListOffresComponent implements OnInit {
       }
     )
   }
+
+  async ArchiverOffre(offre : Offre){
+    await this.offreservice.updateOffre(offre.idOffre,
+      {...offre , active : !offre.active}).subscribe(
+        (response) => {
+          console.log(response);
+          this.getOffres();
+          this.router.navigate(['/list-offres'])
+        }
+      )
+  }
   
   // Open Update Page
   openUpdateOffre(myObj) {

@@ -13,6 +13,7 @@
                                 <th style="min-width:200px;">Agence Livraison</th>
                                 <th style="min-width:100px;">Client</th>
                                 <th style="min-width:100px;">Offre</th>
+                                <th style="min-width:100px;">Active</th>
                                 <th style="min-width:50px;">Actions</th>
                             </tr>
                         </thead>
@@ -24,6 +25,10 @@
                                 <td>{{abonnement.demandeAbonnement.client.name}}</td>
                                 <td>{{abonnement.demandeAbonnement.offre.labelle}}</td>
                                 <td>
+                                    <span *ngIf="abonnement.active === true" class="mode mode_on">active</span>
+                                    <span *ngIf="abonnement.active === false" class="mode mode_off">inactive</span>
+                                </td>
+                                <td>
                                     <div class="btn-group" placement="top" ngbTooltip="Modifier Abonnement">
                                         <a class=" dropdown_icon" 
                                         (click)="openUpdateAbonnement(abonnement)">
@@ -33,6 +38,11 @@
                                         <a class=" dropdown_icon" 
                                         (click)="openAddModem(abonnement)">
                                         <i class='bx bxs-plus-square' ></i> </a>  
+                                    </div>
+                                    <div class="btn-group" placement="top" ngbTooltip="Archiver Abonnement">
+                                        <a class=" dropdown_icon" 
+                                        (click)="ArchiverAbonnement(abonnement)">
+                                        <i class='bx bxs-archive'></i> </a>  
                                     </div>
                                 </td>
                             </tr>

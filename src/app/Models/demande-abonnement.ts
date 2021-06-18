@@ -18,5 +18,6 @@ export interface DemandeAbonnement {
     agence? : PointVente,
     offre? : Offre
     agentBackOffice? : string,
+    active? : boolean
 
 }

@@ -60,6 +60,17 @@ export class ListAbonnementsComponent implements OnInit {
     )*/
   }
 
+  async ArchiverAbonnement(abonnement : Abonnement){
+    await this.abonnementservice.updateAbonnement(abonnement.idAbonnement , abonnement.demandeAbonnement.idDemandeAbonnement,
+      {...abonnement , active : !abonnement.active}).subscribe(
+        (response) => {
+          console.log(response);
+          this.getAbonnements();
+          this.router.navigate(['/list-abonnements'])
+        }
+      )
+  }
+
  
 
 

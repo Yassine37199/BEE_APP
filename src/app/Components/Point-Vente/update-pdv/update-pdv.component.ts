@@ -58,7 +58,7 @@ export class UpdatePdvComponent implements OnInit {
 
 public onUpdatePDV(point : PointVente) : void {
   if(window.confirm("Modifier cet Point de vente?")){
-      this.pdvservice.updatePoint(this.id , {...point , idAgence : this.id}).subscribe(
+      this.pdvservice.updatePoint(this.id , {...point , idAgence : this.id , active : this.PDVToUpdate.active}).subscribe(
         (response : PointVente) => {
           this.pdvservice.getPoints();
           this.router.navigate(['list-pdv']);

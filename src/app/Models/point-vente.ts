@@ -10,4 +10,5 @@ export interface PointVente {
     region? : string;
     etat? : string;
     details? : string;
+    active? : boolean;
 }
