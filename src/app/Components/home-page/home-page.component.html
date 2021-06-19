@@ -84,17 +84,11 @@
                         <div class="name">Critére de Recharche</div>
                         <div class="value">
                             <div class="input-group">
-                                <input
-                                class="input--style-5"
-                                [(ngModel)]="critere" 
-                                id="critere" 
-                                name="critere"
-                                [ngbTypeahead]="search"
-                                (focus)="focus$.next($any($event).target.value)"
-                                (click)="click$.next($any($event).target.value)"
-                                #instance="ngbTypeahead"
-                                value="CIN Client">
-
+                                <select class="input--style-5" style="padding: 10px;" name="critere" [(ngModel)]="critere" >
+                                    <optgroup *ngFor="let critere of criteres">
+                                        <option>{{critere}}</option>
+                                    </optgroup>
+                                </select>
                             </div>
                         </div>
                     </div>

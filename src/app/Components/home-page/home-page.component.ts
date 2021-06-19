@@ -22,6 +22,7 @@ import { DemandeAbonnementService } from 'src/app/Services/demande-abonnement.se
 import { DemandeAbonnement } from 'src/app/Models/demande-abonnement';
 import { ReclamationService } from 'src/app/Services/reclamation.service';
 import { ReclamationTT } from 'src/app/Models/reclamation';
+import { SmsService } from 'src/app/Services/sms.service';
 
 @Component({
   selector: 'app-home-page',
@@ -36,6 +37,7 @@ export class HomePageComponent implements OnInit {
   closeResult = '';
   TicketToDisplay : Ticket;
   idUser : number;
+  criteres = ['Adresse Mac' , 'CIN Client' , 'Reférence TT'];
   critere : string;
   searchValue : string;
   commentaires : Commentaire[];
@@ -53,7 +55,8 @@ export class HomePageComponent implements OnInit {
               private toastrservice : ToastrService,
               private commentaireservice : CommentaireService,
               private demandeservice : DemandeAbonnementService,
-              private reclamationservice : ReclamationService) { }
+              private reclamationservice : ReclamationService,
+              private smsservice : SmsService) { }
 
   ngOnInit(): void {
     if(this.authservice.getCurrentUser().role.nomrole === RolesType.AGENT_SUPPORT_TECHNIQUE_N2){
@@ -205,8 +208,13 @@ export class HomePageComponent implements OnInit {
     }
     this.ticketservice.updateTicket(ticket.idTicket , ticket, ticket.abonnement.idAbonnement).subscribe(
       response => {
-        console.log(response);
-        this.getMesTickets();
+        this.smsservice.SendSMS({
+          phoneNumber : `+216${response.abonnement.demandeAbonnement.client.telephone.toString()}`,
+          message : `Cher Client, Votre problème a été résolu dans ${moment(new Date()).format("DD MM YYYY hh:mm:ss")}, Merci pour votre patience`
+        }).subscribe(
+          (response) => console.log(response)
+        )
+        this.getMesTickets(); 
       }
     )
 
