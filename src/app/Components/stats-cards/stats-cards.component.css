@@ -10,11 +10,20 @@ section .row {
     justify-content: center;
 }
 
+
 .grey-bg .card {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    background-color: rgb(67, 170, 67);
+    
+}
+
+.blue {
+    background-color: #5357A6;
+}
+
+.green {
+    background-color: #60BF9C;
 }
 
 .grey-bg .card .media-body {

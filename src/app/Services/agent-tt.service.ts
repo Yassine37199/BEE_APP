@@ -24,7 +24,7 @@ export class AgentTTService {
   
   
   public getAgentTT(idAgentTT : number) : Observable<AgentTT> {
-    return this.http.get<AgentTT>(`${this.apiServerUrl}/agentTT/${idAgentTT}`);
+    return this.http.get<AgentTT>(`${this.apiServerUrl}/agentTT/get/${idAgentTT}`);
   }
 
   

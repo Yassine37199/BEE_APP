@@ -36,5 +36,9 @@ export class ModemService {
     return this.http.put<Modem>(`${this.apiServerUrl}/configmodem/update/${idConfig}` , modem);
   }
 
+  public deleteModem(idConfig : number){
+    return this.http.delete<Modem>(`${this.apiServerUrl}/configmodem/delete/${idConfig}`);
+  }
+
   
 }

@@ -129,7 +129,7 @@ public onUpdateTicket(ticket : Ticket) : void {
   }
 
   showSuccess() {
-    this.toastr.success('Role modifié avec succée !');
+    this.toastr.success('Ticket modifié avec succée !');
     }
 
 }

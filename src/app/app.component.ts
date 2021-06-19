@@ -40,12 +40,14 @@ function togglenav(){
 })
 export class AppComponent implements OnInit {
    $: any;
+   role : string;
    user = JSON.parse(sessionStorage.getItem('user'));
    constructor(public authservice : AuthService){}
 
 
+
   ngOnInit(): void {
-       
+       this.role = this.authservice.getCurrentUser().role.nomrole;
   }
 
 ToggleSidebar(){

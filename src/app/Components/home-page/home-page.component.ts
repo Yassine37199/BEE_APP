@@ -20,6 +20,8 @@ import { CommentaireService } from 'src/app/Services/commentaire.service';
 import { Commentaire } from 'src/app/Models/commentaire';
 import { DemandeAbonnementService } from 'src/app/Services/demande-abonnement.service';
 import { DemandeAbonnement } from 'src/app/Models/demande-abonnement';
+import { ReclamationService } from 'src/app/Services/reclamation.service';
+import { ReclamationTT } from 'src/app/Models/reclamation';
 
 @Component({
   selector: 'app-home-page',
@@ -37,6 +39,8 @@ export class HomePageComponent implements OnInit {
   critere : string;
   searchValue : string;
   commentaires : Commentaire[];
+  reclamationEmail : ReclamationTT;
+  role;
 
   dtTrigger : Subject<any> = new Subject<any>();
   CommentForm: any;
@@ -48,7 +52,8 @@ export class HomePageComponent implements OnInit {
               private emailService : EmailService,
               private toastrservice : ToastrService,
               private commentaireservice : CommentaireService,
-              private demandeservice : DemandeAbonnementService) { }
+              private demandeservice : DemandeAbonnementService,
+              private reclamationservice : ReclamationService) { }
 
   ngOnInit(): void {
     if(this.authservice.getCurrentUser().role.nomrole === RolesType.AGENT_SUPPORT_TECHNIQUE_N2){
@@ -63,6 +68,9 @@ export class HomePageComponent implements OnInit {
     this.CommentForm = new FormGroup({
       text : new FormControl('' , Validators.required),
     });
+    
+    this.role = this.authservice.getCurrentUser().role.nomrole;
+
   }
   
   
@@ -205,14 +213,21 @@ export class HomePageComponent implements OnInit {
   }
 
 
-  sendMailN2(ticket : Ticket , addForm : NgForm){
+  async sendMailN2(ticket : Ticket , addForm : NgForm){
+    await this.reclamationservice.getReclamationByAbonnement(ticket.abonnement.idAbonnement).subscribe(
+      (response) => {
+        console.log(response[0]);
+        this.reclamationEmail = response[0]
+      }
+    )
+
     this.regionservice.findRegionByName(ticket.abonnement.demandeAbonnement.gouvernorat).subscribe(
       (response : Region) => {
         let mail : Email = {
           fromPassword : "chronoyass284125077319",
           from : this.authservice.getCurrentUser().email,
           to : response.agentTT.email,
-          content : `Probléme de ${ticket.sujet} pour le client de Reférence TT : ${ticket.abonnement.refTT}`,
+          content : `Probléme de ${this.reclamationEmail.objet} pour le client de telADSL : ${this.reclamationEmail.telADSL}`,
           subject : `Mail de Réclamation de l'agent N2 ${response.user.nom} pour Mr/Mme ${response.agentTT.name}`      
          }
          console.log(mail);

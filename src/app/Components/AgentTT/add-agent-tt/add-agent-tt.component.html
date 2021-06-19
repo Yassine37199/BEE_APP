@@ -1,1 +1,49 @@
-<p>add-agent-tt works!</p>
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Ajouter Un Agent Tunisie Télécom</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="AgentForm" (ngSubmit)="addAgentTT()">
+                    <div class="form-row">
+                        <div class="name">Nom Agent Tunisie Télécom<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" formControlName="name" id="name" name="name">
+
+                                <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.name.errors?.required">
+                                        Nom est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Email Agent Tunisie Télécom<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="email" formControlName="email" id="email" name="email">
+
+                                <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="alert alert-danger">
+                                    <div *ngIf="f.email.errors?.required">
+                                        Email est obligatoire
+                                    </div>
+                                    <div *ngIf="f.email.errors?.pattern">
+                                        Email est incorrect
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--red" type="submit">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

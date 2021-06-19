@@ -1,8 +1,9 @@
 <div class="sidebar" *ngIf="authservice.getCurrentUser() !== null">
   <div class="logo_content">
     <div class="logo" (click)="clicked()">
-      <i class='bx bx-user-circle'></i>
-      <div class="logo_name" >{{authservice.getCurrentUser().nom}} {{authservice.getCurrentUser().prenom}}</div>
+      <!-- <i class='bx bx-user-circle'></i> -->
+      <!-- <div class="logo_name" >{{authservice.getCurrentUser().nom}} {{authservice.getCurrentUser().prenom}}</div> -->
+      <img src="../assets/logoBee.png" />
     </div>
     <i class='bx bx-menu' id="btn" (click)="ToggleSidebar()" ></i>
   </div>
@@ -19,75 +20,89 @@
       </a> 
       <span class="tooltip">Acceuil</span>
     </li>
-    <li>
+    <li *ngIf="role === 'admin'">
       <a [routerLink]="['/list-offres']">
         <i class='bx bx-gift' ></i>
         <span class="links_name">Offres</span>
       </a> 
       <span class="tooltip">Offres</span>
     </li>
-    <li>
+    <li *ngIf="role === 'admin'">
       <a [routerLink]="['/list-users']">
         <i class='bx bx-user' ></i>
         <span class="links_name">Comptes</span>
       </a>
       <span class="tooltip">Comptes</span>
     </li>
-    <li>
+    <li *ngIf="role === 'admin' || role === 'agent Backoffice'">
       <a [routerLink]="['/list-clients']">
         <i class='bx bxs-user-account' ></i>
         <span class="links_name">Clients</span>
       </a>
       <span class="tooltip">Clients</span>
     </li>
-    <li>
+    <li *ngIf="role === 'admin'">
       <a [routerLink]="['/list-roles']">
         <i class='bx bx-purchase-tag' ></i>
         <span class="links_name">Roles</span>
       </a>
       <span class="tooltip">Roles</span>
     </li>
-    <li>
+    <li *ngIf="role === 'admin'">
       <a [routerLink]="['/list-pdv']">
         <i class='bx bx-home-circle' ></i>
         <span class="links_name">Points de Vente</span>
       </a>
       <span class="tooltip">Points de Vente</span>
     </li>
-    <li>
+    <li *ngIf="role === 'admin' || role === 'agent Backoffice'">
       <a [routerLink]="['/list-mdms']">
         <i class='bx bx-cart-alt' ></i>
         <span class="links_name">Modems</span>
       </a>
       <span class="tooltip">Modems</span>
     </li>
-    <li>
+    <li *ngIf="role === 'admin' || role === 'agent Backoffice'">
       <a [routerLink]="['/list-demandes']">
         <i class='bx bx-heart' ></i>
         <span class="links_name">Demandes</span>
       </a>
       <span class="tooltip">Demandes</span>
     </li>
-    <li>
+    <li *ngIf="role === 'admin' || role === 'agent Backoffice'">
       <a [routerLink]="['/list-abonnements']">
         <i class='bx bx-file' ></i>
         <span class="links_name">Abonnements</span>
       </a>
       <span class="tooltip">Abonnements</span>
     </li>
-    <li>
+    <li  *ngIf="role === 'admin'">
       <a [routerLink]="['/list-agents']">
         <i class='bx bxs-contact' ></i>
         <span class="links_name">Agents TT</span>
       </a>
       <span class="tooltip">Agents TT</span>
     </li>
-    <li>
+    <li *ngIf="role === 'admin'">
       <a [routerLink]="['/list-regions']">
         <i class='bx bxs-directions'></i>
         <span class="links_name">Régions</span>
       </a>
       <span class="tooltip">Région</span>
+    </li>
+    <li>
+      <a [routerLink]="['/profil-details']">
+        <i class='bx bxs-user-detail'></i>
+        <span class="links_name">Profile</span>
+      </a>
+      <span class="tooltip">Profile</span>
+    </li>
+    <li *ngIf="role === 'admin' || role === 'agent Backoffice'">
+      <a [routerLink]="['/repartition-demande']">
+        <i class='bx bx-transfer'></i>
+        <span class="links_name">Répartition Demandes</span>
+      </a>
+      <span class="tooltip">Répartition</span>
     </li>
   </ul>
   

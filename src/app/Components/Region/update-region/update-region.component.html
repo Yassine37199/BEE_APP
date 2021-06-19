@@ -1,1 +1,71 @@
-<p>update-region works!</p>
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Ajouter Un Région</h2>
+            </div>
+            <div class="card-body">
+                <form #editForm="ngForm">
+                    <div class="form-row">
+                        <div class="name">Région<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                ngModel="{{RegionToUpdate?.regionName}}"
+                                id="regionName" 
+                                name="regionName"
+                                [ngbTypeahead]="searchRegion"
+                                (focus)="focusRegion$.next($any($event).target.value)"
+                                (click)="clickRegion$.next($any($event).target.value)"
+                                #instanceRegion="ngbTypeahead">
+                               
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Agent Support Technique N2</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                ngModel="{{RegionToUpdate?.user.email}}"
+                                id="userN2" 
+                                name="userN2"
+                                [ngbTypeahead]="search"
+                                (focus)="focus$.next($any($event).target.value)"
+                                (click)="click$.next($any($event).target.value)"
+                                #instance="ngbTypeahead">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Agent Tunisie Télécom</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                ngModel="{{RegionToUpdate?.agentTT.email}}"
+                                id="agentTT" 
+                                name="agentTT"
+                                [ngbTypeahead]="searchTT"
+                                (focus)="focusTT$.next($any($event).target.value)"
+                                (click)="clickTT$.next($any($event).target.value)"
+                                #instanceTT="ngbTypeahead">
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--green" (click)="onUpdateRegion(editForm.value)">Modifier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

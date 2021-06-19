@@ -89,6 +89,7 @@ tr :hover {
     width: -webkit-calc(100% - 125px);
     width: -moz-calc(100% - 125px);
     width: calc(100% - 125px);
+    
   }
   
   @media (max-width: 767px) {
@@ -496,6 +497,7 @@ tr :hover {
   }
   
   .input-group {
+    display: flex;
     position: relative;
     margin: 0;
   }
@@ -741,3 +743,14 @@ tr :hover {
     cursor: pointer
 }
   
+.searchButton {
+  width: 70px;
+  height: 45px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+}

@@ -1,1 +1,37 @@
-<p>update-agent-tt works!</p>
+<div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Modifier Un Agent Tunisie Télécom</h2>
+            </div>
+            <div class="card-body">
+                <form #editForm="ngForm">
+                    <div class="form-row">
+                        <div class="name">Nom Agent Tunisie Télécom<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="text" ngModel="{{AgentToUpdate?.name}}" id="name" name="name">
+
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Email Agent Tunisie Télécom<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="email" ngModel="{{AgentToUpdate?.email}}" id="email" name="email">
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <button class="btn btn--radius-2 btn--green" (click)="onUpdateAgent(editForm.value)">Modifier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

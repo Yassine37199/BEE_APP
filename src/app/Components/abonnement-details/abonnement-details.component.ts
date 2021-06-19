@@ -3,14 +3,19 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Commentaire } from 'src/app/Models/commentaire';
+import { Email } from 'src/app/Models/Email';
 import { ReclamationTT } from 'src/app/Models/reclamation';
+import { Region } from 'src/app/Models/region';
 import { Remarque } from 'src/app/Models/remarque';
 import { Ticket } from 'src/app/Models/ticket';
 import { AuthService } from 'src/app/Services/auth.service';
 import { CommentaireService } from 'src/app/Services/commentaire.service';
+import { EmailService } from 'src/app/Services/email.service';
 import { ReclamationService } from 'src/app/Services/reclamation.service';
+import { RegionService } from 'src/app/Services/region.service';
 import { RemarqueService } from 'src/app/Services/remarque.service';
 import { TicketService } from 'src/app/Services/ticket.service';
 
@@ -35,6 +40,7 @@ export class AbonnementDetailsComponent implements OnInit {
 
   activeId = 1
   RemarqueForm: FormGroup;
+  reclamationEmail: any;
 
   constructor(private ticketservice : TicketService,
               private router : Router,
@@ -43,7 +49,10 @@ export class AbonnementDetailsComponent implements OnInit {
               private commentaireservice : CommentaireService,
               private authservice : AuthService,
               private remarqueservice : RemarqueService,
-              private reclamationservice : ReclamationService) { }
+              private reclamationservice : ReclamationService,
+              private regionservice : RegionService,
+              private emailservice : EmailService,
+              private toastrservice : ToastrService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -197,6 +206,82 @@ public getReclamations() {
 }
 }
 
+escaladerTicket(ticket : Ticket){
+  console.log(ticket.abonnement.demandeAbonnement.gouvernorat);
+  this.regionservice.findRegionByName(ticket.abonnement.demandeAbonnement.gouvernorat).subscribe(
+    (response) => {
+    ticket = {
+      ...ticket,
+      dateCreation : ticket.dateCreation,
+      statutN2 : "escaladée",
+      agentN2 : `${response.user.nom} ${response.user.prenom}`
+    }
+    this.ticketservice.updateTicket(ticket.idTicket , ticket , ticket.abonnement.idAbonnement).subscribe(
+      response => {
+        console.log(response);
+        this.getTicketsByAbonnement();
+      }
+    )
+  }
+)
+}
+
+public resolutionTicket(ticket : Ticket){
+  ticket = {
+    ...ticket,
+    statut : "résolu",
+    dateResolution : new Date(),
+    agentResolution : `${this.authservice.getCurrentUser().nom} ${this.authservice.getCurrentUser().prenom}`
+  }
+  this.ticketservice.updateTicket(ticket.idTicket , ticket, ticket.abonnement.idAbonnement).subscribe(
+    response => {
+      console.log(response);
+      this.getTicketsByAbonnement();
+    }
+  )
+
+}
+
+
+async sendMailN2(ticket : Ticket , addForm : NgForm){
+  await this.reclamationservice.getReclamationByAbonnement(ticket.abonnement.idAbonnement).subscribe(
+    (response) => {
+      console.log(response[0]);
+      this.reclamationEmail = response[0]
+    }
+  )
+
+  this.regionservice.findRegionByName(ticket.abonnement.demandeAbonnement.gouvernorat).subscribe(
+    (response : Region) => {
+      let mail : Email = {
+        fromPassword : "chronoyass284125077319",
+        from : this.authservice.getCurrentUser().email,
+        to : response.agentTT.email,
+        content : `Probléme de ${this.reclamationEmail.objet} pour le client de telADSL : ${this.reclamationEmail.telADSL}`,
+        subject : `Mail de Réclamation de l'agent N2 ${response.user.nom} pour Mr/Mme ${response.agentTT.name}`      
+       }
+       console.log(mail);
+       this.emailservice.SendMail(mail).subscribe(
+         (response : Email) => {
+          console.log(response)
+          this.showSuccess();
+         }
+       )
+       
+    }
+
+  )
+  
+  
+}
+
+showSuccess() {
+  this.toastrservice.success('Email envoyé avec succée');
+  }
+
+showError() {
+  this.toastrservice.error('remplissez tous les champs correctement !');
+}
 
   
   

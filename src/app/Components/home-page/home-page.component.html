@@ -75,7 +75,9 @@
 
     <div class="wrapper wrapper--w790">
         <div class="card card-5">
-            
+            <div class="card-heading">
+                <h2 class="title">Chercher un Abonnement </h2>
+            </div>
             <div class="card-body">
                 <form>
                     <div class="form-row">
@@ -111,7 +113,7 @@
                     </div>
 
                     <div>
-                        <button class="btn btn--radius-2 btn--red" (click)="searchAbonnement()"><i class='bx bx-search' ></i></button>
+                        <button class="searchButton" (click)="searchAbonnement()"><i class='fa fa-search' ></i></button>
                     </div>
 
                     </form>
@@ -135,7 +137,6 @@
                                 <th style="min-width:50px;">Type Ticket</th>
                                 <th style="min-width:80px;">Severité</th>
                                 <th style="min-width:50px;">Date Résolution</th>
-                                <th style="min-width:80px;">Date Création</th>
                                 <th style="min-width:150px;">Statut N2</th>
                                 <th style="min-width:100px;">Agent de Résolution</th>
                                 <th style="min-width:50px;">Agent de Création</th>
@@ -158,7 +159,6 @@
                                     <span *ngIf="ticket.severite === 'faible'" class="mode mode_on">{{ticket.severite}}</span>
                                 </td>
                                 <td>{{ticket.dateResolution | date : 'medium'}}</td>
-                                <td>{{ticket.dateCreation | date : 'medium'}}</td>
                                 <td><span *ngIf="ticket.statutN2 === 'non escaladée'" class="mode mode_off">{{ticket.statutN2}}</span>
                                     <span *ngIf="ticket.statutN2 === 'escaladée'" class="mode mode_done">{{ticket.statutN2}}</span></td>
                                 <td>{{ticket.agentResolution}}</td>
@@ -182,6 +182,7 @@
                                     </div>
                                     <div class="btn-group" placement="top" 
                                     ngbTooltip="Escalader Ticket"
+                                    *ngIf="role === 'agent support technique' || role === 'admin'"
                                     >
                                         <a class="dropdown_icon" 
                                         (click)="escaladerTicket(ticket)"
@@ -199,6 +200,7 @@
                                     </div>
                                     <div class="btn-group" placement="top" 
                                     ngbTooltip="Envoyer Mail TT"
+                                    *ngIf="role === 'agent support technique N2' || role === 'admin'"
                                     >
                                         <a class="dropdown_icon" 
                                         (click)="open(content , ticket)"

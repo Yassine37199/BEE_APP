@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Modem } from 'src/app/Models/modem';
 import { ModemService } from 'src/app/Services/modem.service';
@@ -17,7 +18,8 @@ export class ListModemsComponent implements OnInit {
   dtTrigger : Subject<any> = new Subject<any>();
 
   constructor(private modemservice : ModemService,
-              private router : Router) { }
+              private router : Router,
+              private toastr : ToastrService) { }
 
   ngOnInit(): void {
     this.getModems();
@@ -46,10 +48,29 @@ export class ListModemsComponent implements OnInit {
   openUpdateModem(myObj : Modem) {
     this.router.navigate(['update-modem/' + myObj['idConfig']])
   }
+
+  deleteModem(modem : Modem) {
+    this.modemservice.deleteModem(modem.idConfig).subscribe(
+      (response)=> {
+        console.log(response)
+        this.modemservice.getModems();
+        this.router.navigate(['list-mdms'])
+        this.showSuccess();
+      }
+    )
+  }
   
   ngOnDestroy(): void  {
     this.dtTrigger.unsubscribe();
   }
+
+    showSuccess() {
+    this.toastr.success('Modem ajouté avec succée !');
+    }
+    
+    showError() {
+    this.toastr.error('Remplir tous les champs correctement !');
+    }
 
 
 }
