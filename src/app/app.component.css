@@ -237,7 +237,7 @@ body{
   height: 100%;
   width: calc(100% - 78px);
   left: 78px;
-  background: white;
+  background: #fafafa;
   box-shadow: 0 5px 10px rgba(0,0,0,0.2px);
   transition: all 0.5s ease;
 }

@@ -57,6 +57,7 @@ import { AddReclamationComponent } from './Components/Reclamation/add-reclamatio
 import { UpdateReclamationComponent } from './Components/Reclamation/update-reclamation/update-reclamation.component';
 import { HomepageRecouvrementComponent } from './Components/homepage-recouvrement/homepage-recouvrement.component';
 import { StatsDmndesComponent } from './Components/stats-dmndes/stats-dmndes.component';
+import { NavbarComponent } from './Components/navbar/navbar.component';
 
 
 @NgModule({
@@ -109,6 +110,7 @@ import { StatsDmndesComponent } from './Components/stats-dmndes/stats-dmndes.com
     UpdateReclamationComponent,
     HomepageRecouvrementComponent,
     StatsDmndesComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
