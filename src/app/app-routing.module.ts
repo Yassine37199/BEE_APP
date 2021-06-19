@@ -50,11 +50,9 @@ import { AuthGuardService } from './Services/auth-guard.service';
 
 const routes: Routes = [
   {path : '' , redirectTo : '/homepage' , pathMatch : 'full' , data:{roles : [RolesType.ADMIN , RolesType.AGENT_BACKOFFICE , RolesType.AGENT_SUPPORT_TECHNIQUE ,  RolesType.AGENT_SUPPORT_TECHNIQUE_N2]}},
-  {path : '' , redirectTo : '/homepage-recouv' , pathMatch : 'full' , data:{roles : [RolesType.AGENT_RECOUVREMENT_RESILIATION]}},
   // Homepage 
   {path : 'homepage' , component : HomePageComponent , canActivate:[AuthGuardService],
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_BACKOFFICE , RolesType.AGENT_SUPPORT_TECHNIQUE ,  RolesType.AGENT_SUPPORT_TECHNIQUE_N2]}},
-  {path : 'homepage-recouv' , component : HomepageRecouvrementComponent , canActivate:[AuthGuardService]},
   // Tickets 
   {path : 'add-ticket/:idAbonnement' , component : AddTicketComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE ,  RolesType.AGENT_SUPPORT_TECHNIQUE_N2 , RolesType.AGENT_CALLCENTER]}},
