@@ -13,13 +13,6 @@
     </div>
   </div>
   <ul class="nav_list">
-    <li>
-      <a [routerLink]="['/']">
-        <i class='bx bx-home' ></i>
-        <span class="links_name">Acceuil</span>
-      </a> 
-      <span class="tooltip">Acceuil</span>
-    </li>
     <li *ngIf="role === 'admin'">
       <a [routerLink]="['/list-offres']">
         <i class='bx bx-gift' ></i>
@@ -89,13 +82,6 @@
         <span class="links_name">Régions</span>
       </a>
       <span class="tooltip">Région</span>
-    </li>
-    <li>
-      <a [routerLink]="['/profil-details']">
-        <i class='bx bxs-user-detail'></i>
-        <span class="links_name">Profile</span>
-      </a>
-      <span class="tooltip">Profile</span>
     </li>
     <li *ngIf="role === 'admin' || role === 'agent Backoffice'">
       <a [routerLink]="['/repartition-demande']">

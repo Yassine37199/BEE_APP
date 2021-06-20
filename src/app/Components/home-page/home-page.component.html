@@ -84,10 +84,17 @@
                         <div class="name">Critére de Recharche</div>
                         <div class="value">
                             <div class="input-group">
-                                <select class="input--style-5" style="padding: 10px;" name="critere" [(ngModel)]="critere" >
-                                    <optgroup *ngFor="let critere of criteres">
-                                        <option>{{critere}}</option>
-                                    </optgroup>
+                                <select 
+                                    class="input--style-5" 
+                                    style="padding: 10px;" 
+                                    name="critere" 
+                                    [(ngModel)]="critere"
+                                    >
+                                        <option value="" disabled selected ></option>
+                                        <option selected>Adresse Mac</option>
+                                        <option>CIN Client</option>
+                                        <option>Reférence TT</option>
+                                   
                                 </select>
                             </div>
                         </div>
@@ -101,7 +108,8 @@
                                 type="text" 
                                 [(ngModel)]="searchValue" 
                                 id="searchValue" 
-                                name="searchValue">
+                                name="searchValue"
+                                placeholder="Chercher un abonnement ici...">
                             </div>
                         </div>
                     </div>
