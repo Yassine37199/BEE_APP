@@ -11,6 +11,7 @@ import { ClientDetailsComponent } from './Components/client-details/client-detai
 import { AddClientComponent } from './Components/Client/add-client/add-client.component';
 import { ListClientsComponent } from './Components/Client/list-clients/list-clients.component';
 import { UpdateClientComponent } from './Components/Client/update-client/update-client.component';
+import { ContactFormComponent } from './Components/contact-form/contact-form.component';
 import { AddDemandeComponent } from './Components/Demande_abonnement/add-demande/add-demande.component';
 import { ListDemandesComponent } from './Components/Demande_abonnement/list-demandes/list-demandes.component';
 import { UpdateDemandeComponent } from './Components/Demande_abonnement/update-demande/update-demande.component';
@@ -128,11 +129,12 @@ const routes: Routes = [
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_BACKOFFICE]}},
   // Agents TT 
   {path : 'list-agents' , component : ListAgentsTTComponent , canActivate:[AuthGuardService], 
-  data:{roles : [RolesType.ADMIN]}},
+  data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE_N2]}},
   {path : 'add-agentTT' , component : AddAgentTTComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},
   {path : 'update-agentTT/:id' , component : UpdateAgentTTComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},
+  {path : 'contact/:id' , component : ContactFormComponent , canActivate:[AuthGuardService]},
   // Réclamation TT 
   {path : 'add-rec/:idAbonnement' , component : AddReclamationComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE_N2]}},

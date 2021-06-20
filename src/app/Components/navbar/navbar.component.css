@@ -1,7 +1,5 @@
 
 
-/* Please ❤ this if you like it! */
-
 
 @import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=devanagari,latin-ext');
 
@@ -117,7 +115,7 @@ body{
 	border-color: transparent;
 }
 .nav-link{
-	color: #212121 !important;
+	color: #fff !important;
 	font-weight: 500;
     transition: all 200ms linear;
 }
@@ -159,7 +157,7 @@ body{
 ================================================== */
 
 .bg-light {
-	background-color: #fff !important;
+	background-color: #5357A6 !important;
     transition: all 200ms linear;
 }
 .section {

@@ -69,7 +69,7 @@
       </a>
       <span class="tooltip">Abonnements</span>
     </li>
-    <li  *ngIf="role === 'admin'">
+    <li  *ngIf="role === 'admin' || role === 'agent support technique N2'">
       <a [routerLink]="['/list-agents']">
         <i class='bx bxs-contact' ></i>
         <span class="links_name">Agents TT</span>

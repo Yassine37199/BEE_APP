@@ -58,6 +58,7 @@ import { UpdateReclamationComponent } from './Components/Reclamation/update-recl
 import { HomepageRecouvrementComponent } from './Components/homepage-recouvrement/homepage-recouvrement.component';
 import { StatsDmndesComponent } from './Components/stats-dmndes/stats-dmndes.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
+import { ContactFormComponent } from './Components/contact-form/contact-form.component';
 
 
 @NgModule({
@@ -111,6 +112,7 @@ import { NavbarComponent } from './Components/navbar/navbar.component';
     HomepageRecouvrementComponent,
     StatsDmndesComponent,
     NavbarComponent,
+    ContactFormComponent,
   ],
   imports: [
     BrowserModule,

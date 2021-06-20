@@ -1,0 +1,54 @@
+<div class="container-contact100">
+    <div class="wrap-contact100">
+        <form class="contact100-form validate-form" (ngSubmit)="envoyerMail()">
+            <span class="contact100-form-title">
+                Contactez le Responsable Tunisie Télècom
+            </span>
+
+            <label class="label-input100" for="first-name">Nom du Responsable TT</label>
+            <div class="wrap-input100 validate-input">
+                <input class="input100" type="text" name="NomAgentTT" [(ngModel)]="NomAgentTT" disabled>
+                <span class="focus-input100"></span>
+            </div>
+
+            <label class="label-input100" for="email">Adresse Email du Responsable TT </label>
+            <div class="wrap-input100 validate-input">
+                <input class="input100" type="email" name="EmailAgentTT" [(ngModel)]="EmailAgentTT" disabled>
+                <span class="focus-input100"></span>
+            </div>
+
+            <label class="label-input100" for="phone">Ton Adresse Email </label>
+            <div class="wrap-input100">
+                <input  class="input100" type="email" name="EmailN2" [(ngModel)]="EmailN2" disabled>
+                <span class="focus-input100"></span>
+            </div>
+
+            <label class="label-input100" for="phone">Ton Mot de Passe Gmail</label>
+            <div class="wrap-input100">
+                <input id="password" class="input100" type="password" name="PasswordN2" [(ngModel)]="PasswordN2">
+                <span class="focus-input100"></span>
+            </div>
+
+            <label class="label-input100" for="phone">Sujet</label>
+            <div class="wrap-input100">
+                <input class="input100" type="text" name="Sujet" [(ngModel)]="Sujet">
+                <span class="focus-input100"></span>
+            </div>
+
+            <label class="label-input100" for="message">Message</label>
+            <div class="wrap-input100 validate-input">
+                <textarea id="message" class="input100" name="Message" [(ngModel)]="Message"></textarea>
+                <span class="focus-input100"></span>
+            </div>
+
+            <div class="container-contact100-form-btn">
+                <button class="contact100-form-btn" type="submit">
+                    <span>
+                        Envoyer
+                        <i class='bx bx-right-arrow-alt'></i>
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

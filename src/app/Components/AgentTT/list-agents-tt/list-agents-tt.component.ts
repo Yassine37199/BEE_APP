@@ -50,6 +50,10 @@ export class ListAgentsTTComponent implements OnInit {
     this.router.navigate(['update-agentTT/' + myObj['idAgentTT']])
   }
 
+  openContactAgentTT(myObj : AgentTT){
+    this.router.navigate(['contact/' + myObj['idAgentTT']])
+  }
+
   ngOnDestroy(): void  {
     this.dtTrigger.unsubscribe();
   }

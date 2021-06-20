@@ -234,13 +234,13 @@ body{
 }
 .home_content{
   position: absolute;
-  height: 300vh;
+  height: 350%;
   width: calc(100% - 78px);
   left: 78px;
-  background: #ebe9e9;
+  background: #fafafa;
   box-shadow: 0 5px 10px rgba(0,0,0,0.2px);
   transition: all 0.5s ease;
-} 
+}
 .sidebar.active ~ .home_content{
   z-index: 100;
 }
