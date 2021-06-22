@@ -1,21 +1,45 @@
-<ng-template #content let-modal>
+<ng-template #contentMail let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-form">Entrez Votre Mot de Passe Gmail</h4>
+      <h4 class="modal-title" id="modal-form">Réinitialiser le mot de passe</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-        <form (ngSubmit)="sendPasswordDemand()">
+		<p>Entrez votre Adresse Email</p>
+        <form (ngSubmit)="verifyEmail(content , modal)">
 			<div class="form-group">
-				<label for="text">Adresse Mail Gmail</label>
-				<input type="email" [(ngModel)]="from" class="form-control" id="from" name="from" placeholder="Saisie l'adresse mail de votre compte Gmail">
-			  </div>
-            <div class="form-group">
-              <label for="text">Mot de Passe</label>
-              <input type="password" [(ngModel)]="fromPassword" class="form-control" id="fromPassword" name="fromPassword" placeholder="Saisie le mot de passe de votre compte Gmail">
-            </div>
-            <button type="submit" class="btn btn-success" (click)="modal.close()">Confirmer</button>
+				<label for="email">Adresse Email</label>
+				<input type="email" class="form-control" id="verifEmail" name="verifEmail" [(ngModel)]="verifEmail" />
+				<span class="error-message"  *ngIf='errorEmail'>Adresse Email non valide</span>
+			</div>
+			<div class="btn-grp">
+            <button type="submit" class="btn btn-success">Confirmer</button>
+			</div>
+        </form>
+    </div>
+  </ng-template>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-form">Réinitialiser le mot de passe</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+		<p>Le code de vérification a été envoyé au {{HidePhoneNumber(userVerify.tel)}}</p>
+        <form (ngSubmit)="verifyCode()">
+			<div class="form-group">
+				<label for="text">Code</label>
+				<input type="number" class="form-control" id="codeVerify" name="codeVerify" [(ngModel)]="codeVerify" placeholder="ex : 254785" />
+				<span class="error-message"  *ngIf='errorCode'>Code non valide</span>
+			</div>
+			<div class="btn-grp">
+            <button type="submit" class="btn btn-success">Valider</button>
+			<button type="submit" class="btn btn-danger" (click)="envoyerCode(userVerify.tel)">Renvoyer le Code</button>
+			</div>
         </form>
     </div>
   </ng-template>
@@ -56,8 +80,8 @@
                         [(ngModel)]="password" >
             	   </div>
             	</div>
-            	<a (click)="open(content)">Mot de Passe Oublié ?</a>
-            	<input type="submit" class="btn" value="Login" (click)="checkLogin()">
+            	<a (click)="open(contentMail)">Mot de Passe Oublié ?</a>
+            	<input type="submit" class="btn" value="Connexion" (click)="checkLogin()">
             </form>
         </div>
     </div>

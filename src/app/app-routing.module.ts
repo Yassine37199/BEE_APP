@@ -36,6 +36,7 @@ import { AddRegionComponent } from './Components/Region/add-region/add-region.co
 import { ListRegionComponent } from './Components/Region/list-region/list-region.component';
 import { UpdateRegionComponent } from './Components/Region/update-region/update-region.component';
 import { RepartitionComponent } from './Components/repartition/repartition.component';
+import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
 import { AddRoleComponent } from './Components/Role/add-role/add-role.component';
 import { ListRolesComponent } from './Components/Role/list-roles/list-roles.component';
 import { UpdateRoleComponent } from './Components/Role/update-role/update-role.component';
@@ -47,13 +48,15 @@ import { ListUsersComponent } from './Components/User/list-users/list-users.comp
 import { UpdateUserComponent } from './Components/User/update-user/update-user.component';
 import { RolesType } from './Roles.types';
 import { AuthGuardService } from './Services/auth-guard.service';
+import { HomepageGuardService } from './Services/homepage-guard.service';
 
 
 const routes: Routes = [
-  {path : '' , redirectTo : '/homepage' , pathMatch : 'full' , data:{roles : [RolesType.ADMIN , RolesType.AGENT_BACKOFFICE , RolesType.AGENT_SUPPORT_TECHNIQUE ,  RolesType.AGENT_SUPPORT_TECHNIQUE_N2]}},
+  {path : '' , redirectTo : '/homepage' , pathMatch : 'full'},
   // Homepage 
-  {path : 'homepage' , component : HomePageComponent , canActivate:[AuthGuardService],
-  data:{roles : [RolesType.ADMIN , RolesType.AGENT_BACKOFFICE , RolesType.AGENT_SUPPORT_TECHNIQUE ,  RolesType.AGENT_SUPPORT_TECHNIQUE_N2]}},
+  {path : 'homepage' , component : HomePageComponent , canActivate:[HomepageGuardService]},
+  {path : 'homepage-recouv' , component : HomepageRecouvrementComponent , canActivate:[AuthGuardService],
+  data:{roles : [RolesType.ADMIN , RolesType.AGENT_RECOUVREMENT_RESILIATION]}},
   // Tickets 
   {path : 'add-ticket/:idAbonnement' , component : AddTicketComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE ,  RolesType.AGENT_SUPPORT_TECHNIQUE_N2 , RolesType.AGENT_CALLCENTER]}},
@@ -142,6 +145,7 @@ const routes: Routes = [
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE_N2]}},
   // Auth
   {path : 'login' , component : LoginComponent},
+  {path : 'reset-password/:id' , component : ResetPasswordComponent},
   {path : 'logout' , component : LogoutComponent , canActivate:[AuthGuardService]},
   // Error 
   {path : 'error404' , component : Error404Component},

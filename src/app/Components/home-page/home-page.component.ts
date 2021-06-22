@@ -73,6 +73,7 @@ export class HomePageComponent implements OnInit {
     });
     
     this.role = this.authservice.getCurrentUser().role.nomrole;
+    console.log(Math.floor(100000 + Math.random() * 900000));
 
   }
   
@@ -159,10 +160,6 @@ export class HomePageComponent implements OnInit {
         alert(error.message);
       }
     )
-  }
-
-  // TODO : Escalade Automatique des Tickets
-  escaladeAuto(ticket : Ticket) {
   }
   
 

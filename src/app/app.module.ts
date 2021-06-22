@@ -59,6 +59,7 @@ import { HomepageRecouvrementComponent } from './Components/homepage-recouvremen
 import { StatsDmndesComponent } from './Components/stats-dmndes/stats-dmndes.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
 import { ContactFormComponent } from './Components/contact-form/contact-form.component';
+import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -113,6 +114,7 @@ import { ContactFormComponent } from './Components/contact-form/contact-form.com
     StatsDmndesComponent,
     NavbarComponent,
     ContactFormComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

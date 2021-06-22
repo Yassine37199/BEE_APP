@@ -7,6 +7,7 @@ import { Email } from 'src/app/Models/Email';
 import { User } from 'src/app/Models/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { EmailService } from 'src/app/Services/email.service';
+import { SmsService } from 'src/app/Services/sms.service';
 import { UserService } from 'src/app/Services/user.service';
 
 const inputs = document.querySelectorAll(".input");
@@ -46,22 +47,28 @@ export class LoginComponent implements OnInit {
   user;
   closeResult = '';
   adminUser : User;
-  from : string;
-  fromPassword:string;
+  userVerify : User;
+  verifEmail : string;
 
   successMessage = "Authentication success";
   errorMessage = "Invalide username or password";
+
+  errorEmail: boolean;
+  codeEnvoye: number;
+  codeVerify : number;
+  errorCode: boolean;
 
   constructor(private router : Router,
     private loginservice : AuthService,
     private userservice : UserService,
     private modalService : NgbModal,
-    private emailservice : EmailService,
+    private smsservice : SmsService,
     private toastr : ToastrService) { }
 
   ngOnInit(): void {
     addcl();
     remcl();
+    this.HidePhoneNumber(28412507);
   }
 
 
@@ -90,6 +97,7 @@ open(content) {
   }, (reason) => {
     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
   });
+  this.HidePhoneNumber(28412507);
 }
 
 private getDismissReason(reason: any): string {
@@ -102,26 +110,71 @@ private getDismissReason(reason: any): string {
   }
 }
 
-   sendPasswordDemand(){
-     this.userservice.getUsersAdmin().subscribe(
+  //  sendPasswordDemand(){
+  //    this.userservice.getUsersAdmin().subscribe(
+  //     (response) => {
+  //       this.adminUser = response[0];
+  //       let mail : Email = {
+  //         from : this.from,
+  //         fromPassword : this.fromPassword,
+  //         to : response[0].email,
+  //         content : `Madame, Monsieur, Je ne parviens plus à me connecter au plateforme en raison de la perte du mot de passe associé à mon compte. Je vous serais reconnaissant(e) de bien vouloir m'envoyer un nouveau mot de passe`,
+  //         subject : "Demande de Changement de Mot de Passe"
+  //       }
+  //       console.log(mail);
+  //       this.emailservice.SendMail(mail).subscribe(
+  //         (response) => {
+  //           console.log(response)
+  //           this.showSuccess()
+  //         }
+  //       )
+  //     }
+  //   )
+  // }
+
+  verifyEmail(content , modal){
+    this.userservice.findUserByEmail(this.verifEmail).subscribe(
       (response) => {
-        this.adminUser = response[0];
-        let mail : Email = {
-          from : this.from,
-          fromPassword : this.fromPassword,
-          to : response[0].email,
-          content : `Madame, Monsieur, Je ne parviens plus à me connecter au plateforme en raison de la perte du mot de passe associé à mon compte. Je vous serais reconnaissant(e) de bien vouloir m'envoyer un nouveau mot de passe`,
-          subject : "Demande de Changement de Mot de Passe"
+        if (response) {
+          this.userVerify = response
+          modal.close();
+          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title' , size : 'lg' , centered : true}).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+          }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          });
+          this.envoyerCode(response.tel);
         }
-        console.log(mail);
-        this.emailservice.SendMail(mail).subscribe(
-          (response) => {
-            console.log(response)
-            this.showSuccess()
-          }
-        )
+        else this.errorEmail = true;
       }
     )
+  }
+
+  verifyCode(modal){
+    if(this.codeVerify === this.codeEnvoye){
+      this.router.navigate(['reset-password/' + this.userVerify.idUser])
+      modal.close()
+    }
+    else this.errorCode = true
+  }
+
+  envoyerCode(tel : number){
+    this.codeEnvoye = Math.floor(100000 + Math.random() * 900000);
+    this.smsservice.SendSMS({
+      phoneNumber : `+216${tel.toString()}`,
+      message : `Votre code de validation est : ${this.codeEnvoye}`
+    }).subscribe(
+      (response) => console.log(response)
+    )
+  }
+
+  HidePhoneNumber(n : number){
+    let arr = Array.from(String(n));
+    for (let i = 0;  i < 5; i++) {
+      arr[i] = '*'
+    }
+    let num = arr.join("") 
+    return num;
   }
 
   showSuccess() {
