@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
@@ -28,7 +29,8 @@ export class ContactFormComponent implements OnInit {
               private route : ActivatedRoute,
               private emailservice : EmailService,
               private toastr : ToastrService,
-              private router : Router) { }
+              private router : Router,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -67,12 +69,16 @@ export class ContactFormComponent implements OnInit {
     }
   }
 
+  goBack(){
+    this._location.back()
+  }
+
   showSuccess() {
     this.toastr.success('Email Envoyée avec succée !');
     }
     
-    showError() {
-    this.toastr.error('Remplir tous les champs correctement !');
-    }
+  showError() {
+  this.toastr.error('Remplir tous les champs correctement !');
+  }
 
 }

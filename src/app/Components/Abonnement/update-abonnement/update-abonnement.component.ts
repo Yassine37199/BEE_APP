@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,7 +25,8 @@ export class UpdateAbonnementComponent implements OnInit {
               private router : Router ,
               private route : ActivatedRoute,
               private toastr : ToastrService,
-              private pdvservice : PointVenteService) { }
+              private pdvservice : PointVenteService,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -63,7 +65,7 @@ export class UpdateAbonnementComponent implements OnInit {
   }
 
 
-public onUpdateAbonnement(abonnementUpdate : Abonnement) : void {
+  public onUpdateAbonnement(abonnementUpdate : Abonnement) : void {
     if(window.confirm("Modifier cet abonnement ?")){
         this.abonnementservice.updateAbonnement(this.id , this.abonnementToUpdate.demandeAbonnement.idDemandeAbonnement , {...abonnementUpdate , active : abonnementUpdate.active}).subscribe(
           (response : Abonnement) => {
@@ -77,6 +79,9 @@ public onUpdateAbonnement(abonnementUpdate : Abonnement) : void {
       }
     }
 
+    goBack(){
+      this._location.back()
+    }
 
 
   showSuccess() {

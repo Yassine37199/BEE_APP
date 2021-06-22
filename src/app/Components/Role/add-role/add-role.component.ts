@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,7 +15,8 @@ export class AddRoleComponent implements OnInit {
 
   constructor(private roleservice : RoleService ,
               private router : Router,
-              private toastr : ToastrService) { }
+              private toastr : ToastrService,
+              private _location : Location) { }
 
   RoleForm : FormGroup;
 
@@ -46,6 +48,10 @@ export class AddRoleComponent implements OnInit {
       this.showError();
       return;
     }
+  }
+
+  goBack(){
+    this._location.back()
   }
 
   showSuccess() {

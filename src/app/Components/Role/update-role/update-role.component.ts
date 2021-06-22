@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -19,7 +20,8 @@ export class UpdateRoleComponent implements OnInit {
   constructor(private roleservice : RoleService ,
               private router : Router ,
               private route : ActivatedRoute,
-              private toastr : ToastrService ) { }
+              private toastr : ToastrService,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -48,6 +50,10 @@ public onUpdateRole(role : Role) : void {
         }
       );
     }
+  }
+
+  goBack(){
+    this._location.back()
   }
 
   showSuccess() {

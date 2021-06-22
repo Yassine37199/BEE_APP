@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Commentaire } from 'src/app/Models/commentaire';
@@ -17,6 +18,7 @@ import { EmailService } from 'src/app/Services/email.service';
 import { ReclamationService } from 'src/app/Services/reclamation.service';
 import { RegionService } from 'src/app/Services/region.service';
 import { RemarqueService } from 'src/app/Services/remarque.service';
+import { SmsService } from 'src/app/Services/sms.service';
 import { TicketService } from 'src/app/Services/ticket.service';
 
 @Component({
@@ -52,7 +54,8 @@ export class AbonnementDetailsComponent implements OnInit {
               private reclamationservice : ReclamationService,
               private regionservice : RegionService,
               private emailservice : EmailService,
-              private toastrservice : ToastrService) { }
+              private toastrservice : ToastrService,
+              private smsservice : SmsService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -226,6 +229,7 @@ escaladerTicket(ticket : Ticket){
 )
 }
 
+
 public resolutionTicket(ticket : Ticket){
   ticket = {
     ...ticket,
@@ -235,8 +239,13 @@ public resolutionTicket(ticket : Ticket){
   }
   this.ticketservice.updateTicket(ticket.idTicket , ticket, ticket.abonnement.idAbonnement).subscribe(
     response => {
-      console.log(response);
-      this.getTicketsByAbonnement();
+      this.smsservice.SendSMS({
+        phoneNumber : `+216${response.abonnement.demandeAbonnement.client.telephone.toString()}`,
+        message : `Cher Client, Votre problème a été résolu dans ${moment(new Date()).format("DD MM YYYY hh:mm:ss")}, Merci pour votre patience`
+      }).subscribe(
+        (response) => console.log(response)
+      )
+      this.getTicketsByAbonnement(); 
     }
   )
 

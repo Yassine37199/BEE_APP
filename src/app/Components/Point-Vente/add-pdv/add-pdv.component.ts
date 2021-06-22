@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -18,7 +19,8 @@ export class AddPdvComponent implements OnInit {
 
   constructor(private  pointventeservice : PointVenteService ,
     private router : Router,
-    private toastr : ToastrService) { }
+    private toastr : ToastrService,
+    private _location : Location) { }
 
     PDVForm : FormGroup;
 
@@ -76,6 +78,10 @@ public addPDV() {
     this.showError();
     return;
 }
+}
+
+goBack(){
+  this._location.back()
 }
 
 showSuccess() {

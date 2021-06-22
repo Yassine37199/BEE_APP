@@ -73,7 +73,7 @@ export class HomePageComponent implements OnInit {
     });
     
     this.role = this.authservice.getCurrentUser().role.nomrole;
-    console.log(Math.floor(100000 + Math.random() * 900000));
+
 
   }
   
@@ -92,13 +92,16 @@ export class HomePageComponent implements OnInit {
       (response : Ticket[]) => {
         this.mesTickets = response;
         this.verifEscalade();
-        this.dtTrigger.next()
+        
       },
       (error : HttpErrorResponse) => {
         alert(error.message);
       }
     )
   }
+
+  ngAfterViewInit(): void 
+  {this.dtTrigger.next();}
 
   @ViewChild('instance', {static: true}) instance: NgbTypeahead;
   focus$ = new Subject<string>();
@@ -133,7 +136,6 @@ export class HomePageComponent implements OnInit {
     this.ticketservice.getTicketsByUserN2(nomAgent).subscribe(
       (response : Ticket[]) => {
         this.mesTickets = response;
-        this.dtTrigger.next()
       },
       (error : HttpErrorResponse) => {
         alert(error.message);
@@ -154,7 +156,6 @@ export class HomePageComponent implements OnInit {
       (response : DemandeAbonnement[]) => {
         console.log(response);
         this.mesDemandes = response;
-        this.dtTrigger.next()
       },
       (error : HttpErrorResponse) => {
         alert(error.message);

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,7 +31,8 @@ export class UpdateTicketComponent implements OnInit {
               private route : ActivatedRoute,
               private toastr : ToastrService,
               private authservice : AuthService,
-              private commentservice : CommentaireService) { }
+              private commentservice : CommentaireService,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -126,6 +128,10 @@ public onUpdateTicket(ticket : Ticket) : void {
         }
       );
     }
+  }
+
+  goBack(){
+    this._location.back()
   }
 
   showSuccess() {

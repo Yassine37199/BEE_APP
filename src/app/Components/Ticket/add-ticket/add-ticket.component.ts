@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -40,7 +41,8 @@ export class AddTicketComponent implements OnInit {
               private toastr : ToastrService,
               private authservice : AuthService,
               private route : ActivatedRoute,
-              private commentservice : CommentaireService) { 
+              private commentservice : CommentaireService,
+              private _location : Location) { 
 
   }
 
@@ -173,7 +175,9 @@ export class AddTicketComponent implements OnInit {
     }
   }
 
-  
+  goBack(){
+    this._location.back()
+  }
 
   showSuccess() {
     this.toastr.success('Ticket ajouté avec succée !');

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -27,7 +28,8 @@ export class UpdateUserComponent implements OnInit {
               private router : Router ,
               private route : ActivatedRoute,
               private toastr : ToastrService,
-              private roleservice : RoleService ) { }
+              private roleservice : RoleService,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -92,6 +94,10 @@ public onUpdateUser(userUpdate : User) : void {
       );
     }
   })
+}
+
+goBack(){
+  this._location.back()
 }
 
 toggleFieldTextType() {

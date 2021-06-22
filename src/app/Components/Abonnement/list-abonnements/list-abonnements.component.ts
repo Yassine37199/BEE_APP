@@ -46,7 +46,6 @@ export class ListAbonnementsComponent implements OnInit {
       (response : Abonnement[]) => {
         console.log(response);
         this.abonnements = response;
-        this.dtTrigger.next()
       },
       (error : HttpErrorResponse) => {
         alert(error.message);
@@ -59,6 +58,9 @@ export class ListAbonnementsComponent implements OnInit {
       }
     )*/
   }
+
+  ngAfterViewInit(): void 
+  {this.dtTrigger.next();}
 
   async ArchiverAbonnement(abonnement : Abonnement){
     await this.abonnementservice.updateAbonnement(abonnement.idAbonnement , abonnement.demandeAbonnement.idDemandeAbonnement,

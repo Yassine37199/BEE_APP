@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
@@ -33,7 +34,8 @@ export class UpdateRegionComponent implements OnInit {
               private route : ActivatedRoute,
               private toastr : ToastrService,
               private agentservice : AgentTTService,
-              private userservice : UserService ) { }
+              private userservice : UserService,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -139,6 +141,10 @@ public onUpdateRegion(regionUpdate) : void {
 
     }
   )
+}
+
+goBack(){
+  this._location.back()
 }
 
 

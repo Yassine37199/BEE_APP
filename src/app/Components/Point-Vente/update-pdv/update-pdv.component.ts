@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,7 +23,8 @@ export class UpdatePdvComponent implements OnInit {
   constructor(private pdvservice : PointVenteService ,
               private router : Router ,
               private route : ActivatedRoute,
-              private toastr : ToastrService ) { }
+              private toastr : ToastrService,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -68,6 +70,10 @@ public onUpdatePDV(point : PointVente) : void {
         }
       );
     }
+  }
+
+  goBack(){
+    this._location.back()
   }
 
   showSuccess() {

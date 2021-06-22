@@ -1,3 +1,28 @@
+<ng-template #contentMore let-modal>
+    <div class="modal-header">
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="wrapper wrapper--w790">
+            <div class="card card-5">
+                <div class="card-heading">
+                    <h2 class="title">Agence Intitule :  {{pdvToShow.intitule}}</h2>
+                </div>
+                <div class="card-body">
+                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                        <p class="small text-muted ">Détails :  <span>{{pdvToShow.details}}</span></p>
+                        <p class="small text-muted ">ADRESSE COMPLETE: <span>{{pdvToShow.adresse}}</span></p>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </ng-template>
+
+
+
 <div class="container p-30">
     <div class="row">
         <div class="col-md-12 main-datatable">
@@ -15,11 +40,11 @@
                                 <th style="min-width:50px;">Intitule</th>
                                 <th style="min-width:50px;">Contact</th>
                                 <th style="min-width:50px;">Telephone</th>
-                                <th style="min-width:100px;">Adresse</th>
+                                
                                 <th style="min-width:50px;">Agence Mére</th>
                                 <th style="min-width:50px;">Région</th>
                                 <th style="min-width:50px;">Etat</th>
-                                <th style="min-width:150px;">Détails</th>
+                                
                                 <th style="min-width:80px;">Active</th>
                                 <th style="min-width:50px;">Actions</th>
                             </tr>
@@ -31,11 +56,11 @@
                                 <td>{{point.intitule}}</td>
                                 <td>{{point.contact}}</td>
                                 <td>{{point.tel}}</td>
-                                <td>{{point.adresse}}</td>
+                               
                                 <td>{{point.agence_mere}}</td>
                                 <td>{{point.region}}</td>
                                 <td>{{point.etat}}</td>
-                                <td>{{point.details}}</td>
+                               
                                 <td>
                                     <span *ngIf="point.active === true" class="mode mode_on">active</span>
                                     <span *ngIf="point.active === false" class="mode mode_off">inactive</span>
@@ -51,6 +76,11 @@
                                         <a class=" dropdown_icon" 
                                         (click)="ArchiverPoint(point)">
                                         <i class='bx bxs-archive'></i> </a>  
+                                    </div>
+                                    <div class="btn-group" placement="top" ngbTooltip="Plus Informations">
+                                        <a class=" dropdown_icon" 
+                                        (click)="showPDV(point , contentMore)">
+                                        <i class='bx bxs-show'></i></a>  
                                     </div>
                                 </td>
                             </tr>

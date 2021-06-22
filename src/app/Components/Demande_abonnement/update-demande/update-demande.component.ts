@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -57,7 +58,8 @@ export class UpdateDemandeComponent implements OnInit {
               private toastr : ToastrService,
               private clientservice : ClientService,
               private pdvservice : PointVenteService,
-              private offreservice : OffreService) { }
+              private offreservice : OffreService,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -234,6 +236,11 @@ async onUpdateDemande() {
           }
         );
       }
+    }
+
+
+    goBack(){
+      this._location.back()
     }
 
 

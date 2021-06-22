@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { Client } from 'src/app/Models/client';
 import { ClientService } from 'src/app/Services/client.service';
@@ -12,12 +13,18 @@ import { ClientService } from 'src/app/Services/client.service';
 })
 export class ListClientsComponent implements OnInit {
 
-  dtOptions : DataTables.Settings = {};
+  clientToShow : Client
+  closeResult = '';
+
+  dtOptions : DataTables.Settings = {
+    scrollX : true,
+    scrollY : "100"
+  };
   public clients : Client[];
   
 
   dtTrigger : Subject<any> = new Subject<any>();
-  constructor(private clientservice : ClientService , private router : Router) { }
+  constructor(private clientservice : ClientService , private router : Router, private modalService : NgbModal) { }
 
   ngOnInit(): void {
     this.getClients();
@@ -28,19 +35,20 @@ export class ListClientsComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-
     };
 
     this.clientservice.getClients().subscribe(
       (response : Client[]) => {
         this.clients = response;
-        this.dtTrigger.next()
       },
       (error : HttpErrorResponse) => {
         alert(error.message);
       }
     )
   }
+
+  ngAfterViewInit(): void 
+  {this.dtTrigger.next();}
 
 
   openUpdateClient(myObj) {
@@ -60,6 +68,25 @@ export class ListClientsComponent implements OnInit {
           this.router.navigate(['/list-clients'])
         }
       )
+  }
+
+  showClient(client : Client , content){
+    this.clientToShow = client
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title' , size : 'lg' , centered : true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   

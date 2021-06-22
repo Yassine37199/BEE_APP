@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +17,8 @@ export class UpdateAgentTTComponent implements OnInit {
 
   constructor(private agentservice :  AgentTTService,
               private router : Router,
-              private route : ActivatedRoute) { }
+              private route : ActivatedRoute,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -49,5 +51,13 @@ public onUpdateAgent(agentUpdt : AgentTT) : void {
         }
       );
     }
+
+
+goBack(){
+  this._location.back()
+}
+
+
+
 
 }

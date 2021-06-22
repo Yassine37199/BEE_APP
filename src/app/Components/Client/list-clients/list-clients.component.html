@@ -1,3 +1,32 @@
+<!-- Listes des commentaires Popup-->
+<ng-template #contentMore let-modal>
+    <div class="modal-header">
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="wrapper wrapper--w790">
+            <div class="card card-5">
+                <div class="card-heading">
+                    <h2 class="title">Client de CIN : {{clientToShow.cin}}</h2>
+                </div>
+                <div class="card-body">
+                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                        <p class="small text-muted ">NOM COMPLET : <span>{{clientToShow.name}}</span></p>
+                        <p class="small text-muted ">Date de Naissance : <span>{{clientToShow.dateNaissance}}</span></p>
+                        <p class="small text-muted ">ADRESSE COMPLETE: <span>{{clientToShow.adresse}}</span></p>
+                        <p class="small text-muted ">CODE POSTAL : <span>{{clientToShow.codePostal}}</span></p>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </ng-template>
+
+
+
+
 <div class="container p-30">
     <div class="row">
         <div class="col-md-12 main-datatable">
@@ -15,9 +44,6 @@
                                 <th style="min-width:100px;">Email</th>
                                 <th style="min-width:100px;">Ville</th>
                                 <th style="min-width:50px;">Governorat</th>
-                                <th style="min-width:50px;">Adresse</th>
-                                <th style="min-width:50px;">Code Postal</th>
-                                <th style="min-width:50px;">Date de Naissance</th>
                                 <th style="min-width:50px;">Télephone</th>
                                 <th style="min-width:80px;">Active</th>
                                 <th style="min-width:30px;">Actions</th>
@@ -30,9 +56,7 @@
                                 <td>{{client.email}}</td>
                                 <td>{{client.ville}}</td>
                                 <td>{{client.gouvernorat}}</td>
-                                <td>{{client.adresse}}</td>
-                                <td>{{client.codePostal}}</td>
-                                <td>{{client.dateNaissance}}</td>
+                                
                                 <td>{{client.telephone}}</td>
                                 <td>
                                     <span *ngIf="client.active === true" class="mode mode_on">active</span>
@@ -49,6 +73,11 @@
                                         <a class=" dropdown_icon" 
                                         (click)="ArchiverClient(client)">
                                         <i class='bx bxs-archive'></i> </a>  
+                                    </div>
+                                    <div class="btn-group" placement="top" ngbTooltip="Plus Informations">
+                                        <a class=" dropdown_icon" 
+                                        (click)="showClient(client , contentMore)">
+                                        <i class='bx bxs-show'></i></a>  
                                     </div>
                                 </td>
                             </tr>

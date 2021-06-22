@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -37,7 +38,8 @@ export class AddDemandeComponent implements OnInit {
               private toastr : ToastrService,
               private clientservice : ClientService,
               private pdvservice : PointVenteService,
-              private offreservice : OffreService) { }
+              private offreservice : OffreService,
+              private _location : Location) { }
 
   ngOnInit(): void {
      
@@ -206,6 +208,10 @@ export class AddDemandeComponent implements OnInit {
       this.showError();
       return;
     }
+  }
+
+  goBack(){
+    this._location.back()
   }
 
   showSuccess() {

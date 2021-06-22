@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,7 +15,8 @@ export class AddAgentTTComponent implements OnInit {
 
   constructor(private agentservice : AgentTTService ,
     private router : Router,
-    private toastr : ToastrService) { }
+    private toastr : ToastrService,
+    private _location : Location) { }
 
 AgentForm : FormGroup;
 
@@ -48,6 +50,13 @@ this.showError();
 return;
 }
 }
+
+
+goBack(){
+  this._location.back()
+}
+
+
 
 showSuccess() {
 this.toastr.success('Offre ajouté avec succée !');

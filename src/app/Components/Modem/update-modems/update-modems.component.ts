@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,10 +19,12 @@ export class UpdateModemsComponent implements OnInit {
   public idAbonnement;
   public abonnement : Abonnement;
 
+
   constructor(private modemservice : ModemService ,
               private router : Router,
               private route : ActivatedRoute,
-              private abonnementservice : AbonnementsService) { }
+              private abonnementservice : AbonnementsService,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -61,6 +64,10 @@ public onUpdateModem(modemUpdt : Modem) : void {
         }
       );
     }
+  }
+
+  goBack(){
+    this._location.back()
   }
 
 }

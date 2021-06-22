@@ -24,6 +24,7 @@ export class ListDemandesComponent implements OnInit {
   closeResult = '';
   demandeToDisplay : DemandeAbonnement;
   remarques : Remarque[];
+  demandeToShow;
   
 
   dtTrigger : Subject<any> = new Subject<any>();
@@ -79,13 +80,15 @@ public getRemarques(idDemandeAbonnement : number) {
     this.demandeservice.getDemandes().subscribe(
       (response : DemandeAbonnement[]) => {
         this.demandes = response; 
-        this.dtTrigger.next()
       },
       (error : HttpErrorResponse) => {
         alert(error.message);
       }
     )
   }
+
+  ngAfterViewInit(): void 
+  {this.dtTrigger.next();}
 
   // Ajouter une remarque
 
@@ -161,6 +164,15 @@ public getRemarques(idDemandeAbonnement : number) {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  showDemande(demande : DemandeAbonnement , content){
+    this.demandeToShow = demande
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title' , size : 'lg' , centered : true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
   async ArchiverDemande(demande : DemandeAbonnement){

@@ -1,3 +1,29 @@
+<ng-template #contentMore let-modal>
+    <div class="modal-header">
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="wrapper wrapper--w790">
+            <div class="card card-5">
+                <div class="card-heading">
+                    <h2 class="title">Demande d'Abonnement ID : {{demandeToShow.idDemandeAbonnement}}</h2>
+                </div>
+                <div class="card-body">
+                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                        <p class="small text-muted ">Client : <span>{{demandeToShow.client.name}}</span></p>
+                        <p class="small text-muted ">Agence : <span>{{demandeToShow.agence.intitule}}</span></p>
+                        <p class="small text-muted ">Offre : <span>{{demandeToShow.offre.labelle}}</span></p>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </ng-template>
+
+
+
 <!-- Listes des Remarques Popup-->
 <ng-template #content let-modal>
     <div class="modal-header">
@@ -69,9 +95,6 @@
                                 <th style="min-width:50px;">Etat</th>
                                 <th style="min-width:50px;">Télephone ADSL</th>
                                 <th style="min-width:50px;">Type</th>
-                                <th style="min-width:80px;">Client</th>
-                                <th style="min-width:50px;">Offre</th>
-                                <th style="min-width:50px;">Agence</th>
                                 <th style="min-width:80px;">Active</th>
                                 <th style="min-width:30px;">Actions</th>
                             </tr>
@@ -85,9 +108,6 @@
                                 <td>{{demande.etat}}</td>
                                 <td>{{demande.telADSL}}</td>
                                 <td>{{demande.typeDemande}}</td>
-                                <td>{{demande.client.name}}</td>
-                                <td>{{demande.offre.labelle}}</td>
-                                <td>{{demande.agence.intitule}}</td>
                                 <td>
                                     <span *ngIf="demande.active === true" class="mode mode_on">active</span>
                                     <span *ngIf="demande.active === false" class="mode mode_off">inactive</span>
@@ -123,6 +143,11 @@
                                         <a class=" dropdown_icon" 
                                         (click)="ArchiverDemande(demande)">
                                         <i class='bx bxs-archive'></i> </a>  
+                                    </div>
+                                    <div class="btn-group" placement="top" ngbTooltip="Plus Informations">
+                                        <a class=" dropdown_icon" 
+                                        (click)="showDemande(demande , contentMore)">
+                                        <i class='bx bxs-show'></i></a>  
                                     </div>
                                 </td>
                             </tr>

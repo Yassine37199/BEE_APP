@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -31,7 +32,8 @@ export class AddRegionComponent implements OnInit {
                 private router : Router ,
                 private userservice : UserService,
                 private toastr : ToastrService,
-                private agentservice : AgentTTService){
+                private agentservice : AgentTTService,
+                private _location : Location){
 
     } 
 
@@ -142,6 +144,9 @@ export class AddRegionComponent implements OnInit {
     )
   }
 
+  goBack(){
+    this._location.back()
+  }
 
   showSuccess() {
     this.toastr.success('Region ajouté avec succée !');

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -28,7 +29,8 @@ export class AddUserComponent implements OnInit {
     constructor(private userservice : UserService ,
                 private router : Router ,
                 private rolesservice : RoleService,
-                private toastr : ToastrService){
+                private toastr : ToastrService,
+                private _location : Location){
 
     } 
 
@@ -102,6 +104,9 @@ export class AddUserComponent implements OnInit {
     this.fieldTextType = !this.fieldTextType;
   }
 
+  goBack(){
+    this._location.back()
+  }
 
   showSuccess() {
     this.toastr.success('Client ajouté avec succée !');

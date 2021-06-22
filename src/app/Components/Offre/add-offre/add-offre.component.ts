@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,7 +15,8 @@ export class AddOffreComponent implements OnInit {
 
   constructor(private offreservice : OffreService ,
     private router : Router,
-    private toastr : ToastrService) { }
+    private toastr : ToastrService,
+    private _location : Location) { }
 
 OffreForm : FormGroup;
 
@@ -47,6 +49,10 @@ else {
 this.showError();
 return;
 }
+}
+
+goBack(){
+  this._location.back()
 }
 
 showSuccess() {

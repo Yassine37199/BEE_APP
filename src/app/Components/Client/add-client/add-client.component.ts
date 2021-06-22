@@ -9,6 +9,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { Client } from 'src/app/Models/client';
 import { ToastrService } from 'ngx-toastr';
 import { Villes } from 'src/app/Villes.types';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-client',
@@ -21,7 +22,8 @@ export class AddClientComponent implements OnInit {
 
   constructor(private clientservice : ClientService ,
               private router : Router,
-              private toastr : ToastrService) { }
+              private toastr : ToastrService,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.ClientForm = new FormGroup({
@@ -92,6 +94,10 @@ export class AddClientComponent implements OnInit {
       this.showError();
       return;
     }
+  }
+
+  goBack(){
+    this._location.back()
   }
 
   showSuccess() {

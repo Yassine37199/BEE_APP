@@ -30,7 +30,7 @@
     </div>
     <div class="modal-body">
 		<p>Le code de vérification a été envoyé au {{HidePhoneNumber(userVerify.tel)}}</p>
-        <form (ngSubmit)="verifyCode()">
+        <form (ngSubmit)="verifyCode(modal , contentChange)">
 			<div class="form-group">
 				<label for="text">Code</label>
 				<input type="number" class="form-control" id="codeVerify" name="codeVerify" [(ngModel)]="codeVerify" placeholder="ex : 254785" />
@@ -39,6 +39,33 @@
 			<div class="btn-grp">
             <button type="submit" class="btn btn-success">Valider</button>
 			<button type="submit" class="btn btn-danger" (click)="envoyerCode(userVerify.tel)">Renvoyer le Code</button>
+			</div>
+        </form>
+    </div>
+  </ng-template>
+
+  <ng-template #contentChange let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-form">Réinitialiser le mot de passe</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+		<p>Tapez votre nouveau mot de passe</p>
+        <form (ngSubmit)="changePassword(modal)">
+			<div class="form-group">
+				<label for="text">Nouveau Mot de Passe</label>
+				<input type="password" class="form-control" id="passwordChange" name="passwordChange" [(ngModel)]="passwordChange" placeholder="Entrez votre nouveau mot de passe ici..." />
+
+			</div>
+			<div class="form-group">
+				<label for="text">Confirmer Mot de Passe</label>
+				<input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" [(ngModel)]="passwordConfirm" placeholder="Confirmez votre nouveau mot de passe ici..." />
+				<span class="error-message"  *ngIf='errorMatch'>les mots de passe ne correspondent pas</span>
+			</div>
+			<div class="btn-grp">
+            <button type="submit" class="btn btn-success">Changer</button>
 			</div>
         </form>
     </div>

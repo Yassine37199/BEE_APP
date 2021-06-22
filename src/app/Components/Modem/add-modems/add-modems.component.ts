@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,7 +19,8 @@ export class AddModemsComponent implements OnInit {
   constructor(private modemservice : ModemService ,
     private router : Router,
     private toastr : ToastrService,
-    public route : ActivatedRoute) { }
+    public route : ActivatedRoute,
+    private _location : Location) { }
 
   ModemForm : FormGroup;
 
@@ -68,6 +70,10 @@ showSuccess() {
 
 showError() {
   this.toastr.error('Remplir tous les champs correctement !');
+}
+
+goBack(){
+  this._location.back()
 }
 
 

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -24,7 +25,8 @@ export class UpdateClientComponent implements OnInit {
   constructor(private clientservice : ClientService ,
               private router : Router ,
               private route : ActivatedRoute,
-              private toastr : ToastrService ) { }
+              private toastr : ToastrService,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -95,6 +97,10 @@ public onUpdateClient(client : Client) : void {
         }
       );
     }
+  }
+
+  goBack(){
+    this._location.back()
   }
 
   showSuccess() {

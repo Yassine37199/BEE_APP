@@ -58,6 +58,10 @@ export class LoginComponent implements OnInit {
   codeVerify : number;
   errorCode: boolean;
 
+  passwordChange;
+  passwordConfirm;
+  errorMatch: boolean;
+
   constructor(private router : Router,
     private loginservice : AuthService,
     private userservice : UserService,
@@ -150,10 +154,14 @@ private getDismissReason(reason: any): string {
     )
   }
 
-  verifyCode(modal){
+  verifyCode(modal , content){
     if(this.codeVerify === this.codeEnvoye){
-      this.router.navigate(['reset-password/' + this.userVerify.idUser])
-      modal.close()
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title' , size : 'lg' , centered : true}).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+      
     }
     else this.errorCode = true
   }
@@ -168,6 +176,23 @@ private getDismissReason(reason: any): string {
     )
   }
 
+  changePassword(modal){
+    if(this.passwordChange !== "" && this.passwordChange === this.passwordConfirm){
+      this.userservice.updateUser(
+        {...this.userVerify , password : this.passwordChange},
+        this.userVerify.idUser,
+        this.userVerify.role.id
+      ).subscribe(
+        (response) => {
+          console.log(response)
+          modal.close()
+          this.showSuccess("Mot de Passe modifié avec succée")
+        }
+      )
+    }
+    else this.errorMatch = true;
+  }
+
   HidePhoneNumber(n : number){
     let arr = Array.from(String(n));
     for (let i = 0;  i < 5; i++) {
@@ -177,7 +202,7 @@ private getDismissReason(reason: any): string {
     return num;
   }
 
-  showSuccess() {
-    this.toastr.success('Email envoyée avec succée !');
+  showSuccess(msg : string) {
+    this.toastr.success(msg);
     }
 }

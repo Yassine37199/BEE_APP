@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,7 +27,8 @@ export class AddAbonnementComponent implements OnInit {
               private router : Router,
               private abonnementservice : AbonnementsService,
               private toastr : ToastrService,
-              private pdvservice : PointVenteService) { }
+              private pdvservice : PointVenteService,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -83,6 +85,11 @@ export class AddAbonnementComponent implements OnInit {
     return;
   }
 }
+
+goBack(){
+  this._location.back()
+}
+
 
 showSuccess() {
 this.toastr.success('Abonnement ajoutée avec succée !');

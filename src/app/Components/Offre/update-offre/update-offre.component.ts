@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,7 +20,8 @@ export class UpdateOffreComponent implements OnInit {
   constructor(private offreservice : OffreService ,
               private router : Router ,
               private route : ActivatedRoute,
-              private toastr : ToastrService ) { }
+              private toastr : ToastrService,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -48,6 +50,10 @@ public onUpdateOffre(offre : Offre) : void {
         }
       );
     }
+  }
+
+  goBack(){
+    this._location.back()
   }
 
   showSuccess() {

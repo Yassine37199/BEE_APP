@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { PointVente } from 'src/app/Models/point-vente';
 import { PointVenteService } from 'src/app/Services/point-vente.service';
@@ -17,7 +18,9 @@ export class ListPdvComponent implements OnInit {
   
 
   dtTrigger : Subject<any> = new Subject<any>();
-  constructor(private pointventeservice : PointVenteService , private router : Router) { }
+  pdvToShow: PointVente;
+  closeResult = ""
+  constructor(private pointventeservice : PointVenteService , private router : Router ,private modalService : NgbModal) { }
 
   ngOnInit(): void {
     this.getPoints();
@@ -34,13 +37,15 @@ export class ListPdvComponent implements OnInit {
       (response : PointVente[]) => {
         this.points = response;
         console.log(response);
-        this.dtTrigger.next()
       },
       (error : HttpErrorResponse) => {
         alert(error.message);
       }
     )
   }
+
+  ngAfterViewInit(): void 
+  {this.dtTrigger.next();}
 
 
   async ArchiverPoint(point : PointVente){
@@ -52,6 +57,26 @@ export class ListPdvComponent implements OnInit {
           this.router.navigate(['/list-pdv'])
         }
       )
+  }
+
+  showPDV(point : PointVente , content){
+    this.pdvToShow = point
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title' , size : 'lg' , centered : true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
 
