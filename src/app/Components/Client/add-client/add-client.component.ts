@@ -81,7 +81,7 @@ export class AddClientComponent implements OnInit {
   // Add Client
   public addClient() {
     if (this.ClientForm.valid) {
-      this.clientservice.addClients({...this.ClientForm.value , active : true}).subscribe(
+      this.clientservice.addClients({...this.ClientForm.value ,dateCreation : new Date(), active : true}).subscribe(
         (response : Client) => {
           console.log(response);
           this.clientservice.getClients();

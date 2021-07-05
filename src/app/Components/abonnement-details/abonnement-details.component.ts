@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
@@ -6,12 +7,15 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { Languages } from 'src/app/Languages';
+import { Abonnement } from 'src/app/Models/abonnement';
 import { Commentaire } from 'src/app/Models/commentaire';
 import { Email } from 'src/app/Models/Email';
 import { ReclamationTT } from 'src/app/Models/reclamation';
 import { Region } from 'src/app/Models/region';
 import { Remarque } from 'src/app/Models/remarque';
 import { Ticket } from 'src/app/Models/ticket';
+import { AbonnementsService } from 'src/app/Services/abonnements.service';
 import { AuthService } from 'src/app/Services/auth.service';
 import { CommentaireService } from 'src/app/Services/commentaire.service';
 import { EmailService } from 'src/app/Services/email.service';
@@ -33,6 +37,8 @@ export class AbonnementDetailsComponent implements OnInit {
   commentaires : Commentaire[];
   reclamations : ReclamationTT[];
 
+  abonnementToDisplay : Abonnement;
+
   closeResult = ''
   idAbonnement;
   dtOptions : DataTables.Settings = {};
@@ -40,9 +46,11 @@ export class AbonnementDetailsComponent implements OnInit {
   TicketToDisplay: Ticket;
   CommentForm : FormGroup;
 
+
   activeId = 1
   RemarqueForm: FormGroup;
   reclamationEmail: any;
+  role: any;
 
   constructor(private ticketservice : TicketService,
               private router : Router,
@@ -55,7 +63,9 @@ export class AbonnementDetailsComponent implements OnInit {
               private regionservice : RegionService,
               private emailservice : EmailService,
               private toastrservice : ToastrService,
-              private smsservice : SmsService) { }
+              private smsservice : SmsService,
+              private abonnementservice : AbonnementsService,
+              private _location : Location) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -63,7 +73,10 @@ export class AbonnementDetailsComponent implements OnInit {
         this.idAbonnement = params.get('id')
       } 
     );
-
+    
+    this.abonnementservice.getAbonnement(this.idAbonnement).subscribe(
+      (response) => this.abonnementToDisplay = response
+    )
 
     this.getTicketsByAbonnement();
     this.getRemarques();
@@ -76,6 +89,8 @@ export class AbonnementDetailsComponent implements OnInit {
     this.RemarqueForm = new FormGroup({
       text : new FormControl('' , Validators.required),
     });
+
+    this.role = this.authservice.getCurrentUser().role.nomrole;
   }
   
 // Get Reclamations From Backend
@@ -109,6 +124,7 @@ public getReclamations() {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
+      language : Languages
 
     };
     
@@ -129,6 +145,10 @@ public getReclamations() {
     this.commentaireservice.getCommentByTicket(idTicket).subscribe(
       (response : Commentaire[]) => this.commentaires = response
     )
+  }
+
+  goBack(){
+    this._location.back()
   }
   
   // Ouvrir Liste des commentaires
@@ -185,6 +205,14 @@ public getReclamations() {
       ).subscribe(
       (response : Commentaire) => {
         console.log(response);
+        this.ticketservice.updateTicket(
+          this.TicketToDisplay.idTicket , 
+          {...this.TicketToDisplay , statut : 'en cours'} ,
+           this.TicketToDisplay.abonnement.idAbonnement).subscribe(
+             (response) => {
+               console.log(response)
+             }
+           )
         this.commentaireservice.getCommentByTicket(this.TicketToDisplay.idTicket);
       }
     )
@@ -265,9 +293,9 @@ async sendMailN2(ticket : Ticket , addForm : NgForm){
       let mail : Email = {
         fromPassword : "chronoyass284125077319",
         from : this.authservice.getCurrentUser().email,
-        to : response.agentTT.email,
+        to : response.responsableTT.email,
         content : `Probléme de ${this.reclamationEmail.objet} pour le client de telADSL : ${this.reclamationEmail.telADSL}`,
-        subject : `Mail de Réclamation de l'agent N2 ${response.user.nom} pour Mr/Mme ${response.agentTT.name}`      
+        subject : `Mail de Réclamation de l'agent N2 ${response.user.nom} pour Mr/Mme ${response.responsableTT.name}`      
        }
        console.log(mail);
        this.emailservice.SendMail(mail).subscribe(

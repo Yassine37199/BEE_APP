@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
+import { Languages } from 'src/app/Languages';
 import { DemandeAbonnement } from 'src/app/Models/demande-abonnement';
 import { Remarque } from 'src/app/Models/remarque';
 import { AbonnementsService } from 'src/app/Services/abonnements.service';
@@ -74,7 +75,7 @@ public getRemarques(idDemandeAbonnement : number) {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-
+      language : Languages
     }; 
 
     this.demandeservice.getDemandes().subscribe(
@@ -116,7 +117,8 @@ public getRemarques(idDemandeAbonnement : number) {
   openAjoutAbonnement(myObj : DemandeAbonnement) {
     this.router.navigate(['add-abonnement/' + myObj['idDemandeAbonnement']])
   }
-
+ 
+ 
 
   open(content , demande : DemandeAbonnement) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title' , size : 'lg' , centered : true}).result.then((result) => {

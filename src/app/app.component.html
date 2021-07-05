@@ -3,7 +3,7 @@
     <div class="logo" (click)="clicked()">
       <!-- <i class='bx bx-user-circle'></i> -->
       <!-- <div class="logo_name" >{{authservice.getCurrentUser().nom}} {{authservice.getCurrentUser().prenom}}</div> -->
-      <img src="../assets/logoBee.png" />
+      <img src="../assets/logoBee.png" [routerLink]="['/']"  />
     </div>
     <i class='bx bx-menu' id="btn" (click)="ToggleSidebar()" ></i>
   </div>
@@ -57,7 +57,7 @@
     </li>
     <li *ngIf="role === 'admin' || role === 'agent Backoffice'">
       <a [routerLink]="['/list-demandes']">
-        <i class='bx bx-heart' ></i>
+        <i class='bx bx-folder-open'></i>
         <span class="links_name">Demandes</span>
       </a>
       <span class="tooltip">Demandes</span>
@@ -89,6 +89,13 @@
         <span class="links_name">Répartition Demandes</span>
       </a>
       <span class="tooltip">Répartition</span>
+    </li>
+    <li *ngIf="role === 'agent support technique' || role === 'agent Callcenter'">
+      <a [routerLink]="['/mes-tickets']">
+        <i class='bx bxs-collection'></i>
+        <span class="links_name">Mes Tickets</span>
+      </a>
+      <span class="tooltip">Mes Tickets</span>
     </li>
   </ul>
   

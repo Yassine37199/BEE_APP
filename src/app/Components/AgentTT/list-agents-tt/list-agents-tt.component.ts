@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { Languages } from 'src/app/Languages';
 import { AgentTT } from 'src/app/Models/agentTT';
 import { AgentTTService } from 'src/app/Services/agent-tt.service';
 
@@ -27,6 +28,7 @@ export class ListAgentsTTComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
+      language : Languages
 
     };
 

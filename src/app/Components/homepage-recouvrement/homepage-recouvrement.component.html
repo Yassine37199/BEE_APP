@@ -1,5 +1,33 @@
 
+<!-- Listes des commentaires Popup-->
+<ng-template #contentMore let-modal>
+    <div class="modal-header">
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="wrapper wrapper--w790">
+            <div class="card card-5">
+                <div class="card-heading">
+                    <h2 class="title">Abonnement de RefTT : {{abonnement.refTT}}</h2>
+                </div>
+                <div class="card-body">
+                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                        <p class="small text-muted ">NOM COMPLET : <span>{{abonnement.demandeAbonnement.client.name}}</span></p>
+                        <p class="small text-muted ">ADRESSE INSTALLATION : <span>{{abonnement.demandeAbonnement.adresseInstallation}}</span></p>
+                        <p class="small text-muted ">OFFRE: <span>{{abonnement.demandeAbonnement.offre.labelle}}</span></p>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </ng-template>
 
+
+
+
+<app-stat-recouv></app-stat-recouv>
 <button class="btn btn-primary" style="margin-left : 600px" (click)="sendSMS()">Envoyer les SMS </button>
 <div class="wrapper wrapper--w790">
     <div class="card card-5">
@@ -73,7 +101,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>RefTT2021254158</td>
+                                <td>RefTT20207154265</td>
                                 <td>2021-06-10</td>
                                 <td>2021-06-15</td>
                                 <td>2021-06-10</td>
@@ -84,8 +112,9 @@
                                 <td>2021-06-10</td>
                 
                                 <td>
-                                    <div class="btn-group" placement="top" ngbTooltip="Modifier Demande">
-                                        <a class=" dropdown_icon" 
+                                    <div class="btn-group" placement="top" ngbTooltip="Plus Informations">
+                                        <a class=" dropdown_icon"
+                                        (click)="showDetails(contentMore)" 
                                         >
                                         <i class='bx bx-expand'></i> </a>
                                         

@@ -41,6 +41,7 @@ import { AddRoleComponent } from './Components/Role/add-role/add-role.component'
 import { ListRolesComponent } from './Components/Role/list-roles/list-roles.component';
 import { UpdateRoleComponent } from './Components/Role/update-role/update-role.component';
 import { AddTicketComponent } from './Components/Ticket/add-ticket/add-ticket.component';
+import { MesTicketsComponent } from './Components/Ticket/mes-tickets/mes-tickets.component';
 import { UpdateTicketComponent } from './Components/Ticket/update-ticket/update-ticket.component';
 import { UnauthorizedComponent } from './Components/unauthorized/unauthorized.component';
 import { AddUserComponent } from './Components/User/add-user/add-user.component';
@@ -62,6 +63,8 @@ const routes: Routes = [
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE ,  RolesType.AGENT_SUPPORT_TECHNIQUE_N2 , RolesType.AGENT_CALLCENTER]}},
   {path : 'update-ticket/:id' , component : UpdateTicketComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN, RolesType.AGENT_SUPPORT_TECHNIQUE ,  RolesType.AGENT_SUPPORT_TECHNIQUE_N2 , RolesType.AGENT_CALLCENTER]}},
+  {path : 'mes-tickets' , component : MesTicketsComponent , canActivate:[AuthGuardService], 
+  data:{roles : [RolesType.ADMIN, RolesType.AGENT_SUPPORT_TECHNIQUE , RolesType.AGENT_CALLCENTER]}},
   // Client Details
   {path : 'client-details/:critere/:search' , component : ClientDetailsComponent , canActivate:[AuthGuardService]},
   // Users
@@ -132,7 +135,7 @@ const routes: Routes = [
   data:{roles : [RolesType.ADMIN , RolesType.AGENT_BACKOFFICE]}},
   // Agents TT 
   {path : 'list-agents' , component : ListAgentsTTComponent , canActivate:[AuthGuardService], 
-  data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE_N2]}},
+  data:{roles : [RolesType.ADMIN , RolesType.AGENT_SUPPORT_TECHNIQUE_N2 ,  RolesType.AGENT_BACKOFFICE]}},
   {path : 'add-agentTT' , component : AddAgentTTComponent , canActivate:[AuthGuardService], 
   data:{roles : [RolesType.ADMIN]}},
   {path : 'update-agentTT/:id' , component : UpdateAgentTTComponent , canActivate:[AuthGuardService], 
@@ -154,7 +157,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes , {useHash : true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

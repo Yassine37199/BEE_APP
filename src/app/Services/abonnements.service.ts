@@ -25,6 +25,10 @@ export class AbonnementsService {
   public getAbonnementsByRefTT(reftt : string) : Observable<Abonnement[]> {
     return this.http.get<Abonnement[]>(`${this.apiServerUrl}/abonnement/reftt/${reftt}`);
   }
+
+  public getAbonnementsByTelFixe(telADSL : number) : Observable<Abonnement[]> {
+    return this.http.get<Abonnement[]>(`${this.apiServerUrl}/abonnement/tel/${telADSL}`);
+  }
   
   
   public getAbonnement(idAbonnement : number) : Observable<Abonnement> {

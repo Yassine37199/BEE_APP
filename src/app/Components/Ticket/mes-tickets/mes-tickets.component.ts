@@ -1,55 +1,47 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { tick } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalDismissReasons, NgbModal, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { merge, Observable, OperatorFunction, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { Languages } from 'src/app/Languages';
+import { Commentaire } from 'src/app/Models/commentaire';
 import { Email } from 'src/app/Models/Email';
+import { ReclamationTT } from 'src/app/Models/reclamation';
 import { Region } from 'src/app/Models/region';
 import { Ticket } from 'src/app/Models/ticket';
-import { RolesType } from 'src/app/Roles.types';
 import { AuthService } from 'src/app/Services/auth.service';
-import { EmailService } from 'src/app/Services/email.service';
-import { RegionService } from 'src/app/Services/region.service';
-import { TicketService } from 'src/app/Services/ticket.service';
-import * as moment from "moment"
 import { CommentaireService } from 'src/app/Services/commentaire.service';
-import { Commentaire } from 'src/app/Models/commentaire';
 import { DemandeAbonnementService } from 'src/app/Services/demande-abonnement.service';
-import { DemandeAbonnement } from 'src/app/Models/demande-abonnement';
+import { EmailService } from 'src/app/Services/email.service';
 import { ReclamationService } from 'src/app/Services/reclamation.service';
-import { ReclamationTT } from 'src/app/Models/reclamation';
+import { RegionService } from 'src/app/Services/region.service';
 import { SmsService } from 'src/app/Services/sms.service';
-import { Languages } from 'src/app/Languages';
+import { TicketService } from 'src/app/Services/ticket.service';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css']
+  selector: 'app-mes-tickets',
+  templateUrl: './mes-tickets.component.html',
+  styleUrls: ['./mes-tickets.component.css']
 })
-export class HomePageComponent implements OnInit {
+export class MesTicketsComponent implements OnInit {
 
   dtOptions : DataTables.Settings = {
    
      
   };
   mesTickets : Ticket[];
-  mesDemandes : DemandeAbonnement[];
-  closeResult = '';
   TicketToDisplay : Ticket;
   idUser : number;
-  criteres = ['Adresse Mac' , 'CIN Client' , 'Reférence TT'];
-  critere : string;
-  searchValue : string;
   commentaires : Commentaire[];
   reclamationEmail : ReclamationTT;
   role;
 
   dtTrigger : Subject<any> = new Subject<any>();
   CommentForm: any;
+  closeResult: string;
   constructor(private ticketservice : TicketService , 
               private router : Router,
               public authservice : AuthService,
@@ -63,25 +55,9 @@ export class HomePageComponent implements OnInit {
               private smsservice : SmsService) { }
 
   ngOnInit(): void {
-    if(this.authservice.getCurrentUser().role.nomrole === RolesType.AGENT_SUPPORT_TECHNIQUE_N2){
-      this.getMesTicketsEscalade();
-    }
-    else if (this.authservice.getCurrentUser().role.nomrole === RolesType.AGENT_BACKOFFICE){
-
-      this.getMesDemandes();
-    }
-    else {this.getMesTickets()}
-
-    this.CommentForm = new FormGroup({
-      text : new FormControl('' , Validators.required),
-    });
-    
-    this.role = this.authservice.getCurrentUser().role.nomrole;
-
-
+    this.getMesTickets();
   }
-  
-  
+
   public getMesTickets() : void {
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -96,86 +72,67 @@ export class HomePageComponent implements OnInit {
     this.ticketservice.getTicketsByUser(this.authservice.getCurrentUser().idUser).subscribe(
       (response : Ticket[]) => {
         this.mesTickets = response;
-        this.verifEscalade();
         
       },
       (error : HttpErrorResponse) => {
         alert(error.message);
       }
     )
+
+    this.CommentForm = new FormGroup({
+      text : new FormControl('' , Validators.required),
+    });
+    
+    this.role = this.authservice.getCurrentUser().role.nomrole;
   }
 
   ngAfterViewInit(): void 
   {this.dtTrigger.next();}
 
-  @ViewChild('instance', {static: true}) instance: NgbTypeahead;
-  focus$ = new Subject<string>();
-  click$ = new Subject<string>();
-
-  // Show Listes Governorats in Select input
-  search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) => {
-    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
-    const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
-    const inputFocus$ = this.focus$;
-
-    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-      map(term => (term === '' ? ['Adresse Mac' , 'CIN Client' , 'Reférence TT' , 'Telephone Fixe']
-        : ['Adresse Mac' , 'CIN Client' , 'Reférence TT' , 'Telephone Fixe'].filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
-    );
+  open(content , ticket : Ticket) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title' , size : 'lg' , centered : true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+    this.TicketToDisplay = ticket;
   }
 
-    
-
- 
-
-
-  public getMesTicketsEscalade() : void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-
-    };
-    
-    
-    let nomAgent : string = `${this.authservice.getCurrentUser().nom} ${this.authservice.getCurrentUser().prenom}`
-    this.ticketservice.getTicketsByUserN2(nomAgent).subscribe(
-      (response : Ticket[]) => {
-        this.mesTickets = response;
-      },
-      (error : HttpErrorResponse) => {
-        alert(error.message);
-      }
-    )
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
-  public getMesDemandes() : void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
+  // Ajouter un commentaire
 
-    };
-    
-    
-    let EmailAgent : string = this.authservice.getCurrentUser().email;
-    this.demandeservice.getDemandeByBackOffice(EmailAgent).subscribe(
-      (response : DemandeAbonnement[]) => {
+  public addCommentaire() : void {
+    if(this.CommentForm.valid){
+    this.commentaireservice.addComment(
+      {...this.CommentForm.value},
+      this.TicketToDisplay.idTicket,
+      this.authservice.getCurrentUser().idUser
+      ).subscribe(
+      (response : Commentaire) => {
         console.log(response);
-        this.mesDemandes = response;
-      },
-      (error : HttpErrorResponse) => {
-        alert(error.message);
+        this.commentaireservice.getCommentByTicket(this.TicketToDisplay.idTicket);
       }
     )
   }
-  
+}
 
-  searchAbonnement(){
-    this.router.navigate(['client-details/' + this.critere + '/' + this.searchValue ])
-  }
+  // Ouvrir Formulaire d'ajout commentaire
 
-
-  showTicket(ticket : Ticket) {
-    console.log(ticket);
+  openFormModal(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-form' , size : 'lg' , centered : true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
   openUpdateTicket(myObj) {
@@ -255,66 +212,6 @@ export class HomePageComponent implements OnInit {
     
     
   }
-  
-  // Ouvrir Formulaire d'ajout commentaire
-
-  openFormModal(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-form' , size : 'lg' , centered : true}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  open(content , ticket : Ticket) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title' , size : 'lg' , centered : true}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-    this.TicketToDisplay = ticket;
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
-  // Ajouter un commentaire
-
-  public addCommentaire() : void {
-    if(this.CommentForm.valid){
-    this.commentaireservice.addComment(
-      {...this.CommentForm.value},
-      this.TicketToDisplay.idTicket,
-      this.authservice.getCurrentUser().idUser
-      ).subscribe(
-      (response : Commentaire) => {
-        if(this.TicketToDisplay.statut !== 'résolu')
-        this.ticketservice.updateTicket(
-          this.TicketToDisplay.idTicket , 
-          {...this.TicketToDisplay , statut : 'en cours'} ,
-           this.TicketToDisplay.abonnement.idAbonnement).subscribe(
-             (response) => {
-               console.log(response)
-             })
-        this.commentaireservice.getCommentByTicket(this.TicketToDisplay.idTicket);
-      }
-    )
-  }
-}
-
-  verifEscalade(){
-    this.mesTickets.map((ticket) => {
-      if(Math.abs(moment(new Date()).diff(moment(ticket.dateEscalade) , 'days')) == 0 && ticket.statutN2 == "non escaladée" )
-      this.escaladerTicket(ticket);
-    })
-  }
 
   public getCommentByTicket(idTicket : number){
     this.commentaireservice.getCommentByTicket(idTicket).subscribe(
@@ -348,8 +245,6 @@ export class HomePageComponent implements OnInit {
   showError() {
     this.toastrservice.error('remplissez tous les champs correctement !');
   }
-
-  
 
 
 }

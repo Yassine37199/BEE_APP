@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
+import { Languages } from 'src/app/Languages';
 import { PointVente } from 'src/app/Models/point-vente';
 import { PointVenteService } from 'src/app/Services/point-vente.service';
 
@@ -30,7 +31,7 @@ export class ListPdvComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-
+      language : Languages
     };
 
     this.pointventeservice.getPoints().subscribe(

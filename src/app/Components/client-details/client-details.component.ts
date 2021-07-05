@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
+import { Languages } from 'src/app/Languages';
 import { Abonnement } from 'src/app/Models/abonnement';
 import { Ticket } from 'src/app/Models/ticket';
 import { AbonnementsService } from 'src/app/Services/abonnements.service';
@@ -19,6 +20,8 @@ export class ClientDetailsComponent implements OnInit {
   searchValue;
   tickets : Ticket[];
   closeResult = '';
+  
+  dataFound : boolean;
 
   dtOptions : DataTables.Settings = {};
   public abonnements : Abonnement[];
@@ -44,6 +47,7 @@ export class ClientDetailsComponent implements OnInit {
       case 'CIN Client' : this.getAbonnementByCIN(this.searchValue);break;
       case 'Reférence TT' : this.getAbonnementByRefTT(this.searchValue);break;
       case 'Adresse Mac' : this.getAbonnementByMAC(this.searchValue);break;
+      case 'Telephone Fixe' : this.getAbonnementByTel(this.searchValue);break;
       default : alert(this.critere)
     }
   }
@@ -72,11 +76,31 @@ export class ClientDetailsComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-
+      language : Languages
     };
     
     // Get Users From Backend
     this.abonnementservice.getAbonnementsByRefTT(reftt).subscribe(
+      (response : Abonnement[]) => {
+        console.log(response)
+        this.abonnements = response;
+        this.dtTrigger.next()
+      },
+      (error : HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+  }
+
+  public getAbonnementByTel(telADSL : number) : void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      language : Languages
+    };
+    
+    // Get Users From Backend
+    this.abonnementservice.getAbonnementsByTelFixe(telADSL).subscribe(
       (response : Abonnement[]) => {
         console.log(response)
         this.abonnements = response;
@@ -110,6 +134,9 @@ export class ClientDetailsComponent implements OnInit {
       }
     )
   }
+
+
+  
   
   // Open Update Page
   openUpdateAbonnement(myObj) {

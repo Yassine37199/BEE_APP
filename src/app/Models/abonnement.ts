@@ -7,4 +7,5 @@ export interface Abonnement {
     agenceLivraison : string;
     demandeAbonnement : DemandeAbonnement
     active? : boolean;
+    dateCreation? : Date;
 }

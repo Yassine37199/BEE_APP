@@ -7,6 +7,71 @@
             </div>
             <div class="card-body">
                 <form >
+
+                    <div class="form-row">
+                        <div class="name">Client CIN<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                [(ngModel)]="client" 
+                                id="client" 
+                                name="client"
+                                [ngbTypeahead]="searchClients"
+                                (focus)="focusClient$.next($any($event).target.value)"
+                                (click)="clickClient$.next($any($event).target.value)"
+                                #instanceClient="ngbTypeahead">
+
+                                
+        
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Point de Vente<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                [(ngModel)]="agence"
+                                id="agence" 
+                                name="agence"
+                                [ngbTypeahead]="searchAgence"
+                                (focus)="focusAgence$.next($any($event).target.value)"
+                                (click)="clickAgence$.next($any($event).target.value)"
+                                #instanceAgence="ngbTypeahead">
+
+                                
+                               
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="name">Offre<span class="text-danger">*</span></div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input
+                                class="input--style-5"
+                                [(ngModel)]="offre" 
+                                id="offre" 
+                                name="offre"
+                                [ngbTypeahead]="searchOffres"
+                                (focus)="focusOffre$.next($any($event).target.value)"
+                                (click)="clickOffre$.next($any($event).target.value)"
+                                #instanceAgence="ngbTypeahead">
+
+                                
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="form-row">
                         <div class="name">Fréquence de Paiement<span class="text-danger">*</span></div>
                         <div class="value">
@@ -102,69 +167,7 @@
                     </div>
                     
 
-                    <div class="form-row">
-                        <div class="name">Client CIN<span class="text-danger">*</span></div>
-                        <div class="value">
-                            <div class="input-group">
-                                <input
-                                class="input--style-5"
-                                [(ngModel)]="client" 
-                                id="client" 
-                                name="client"
-                                [ngbTypeahead]="searchClients"
-                                (focus)="focusClient$.next($any($event).target.value)"
-                                (click)="clickClient$.next($any($event).target.value)"
-                                #instanceClient="ngbTypeahead">
-
-                                
-        
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="name">Point de Vente<span class="text-danger">*</span></div>
-                        <div class="value">
-                            <div class="input-group">
-                                <input
-                                class="input--style-5"
-                                [(ngModel)]="agence"
-                                id="agence" 
-                                name="agence"
-                                [ngbTypeahead]="searchAgence"
-                                (focus)="focusAgence$.next($any($event).target.value)"
-                                (click)="clickAgence$.next($any($event).target.value)"
-                                #instanceAgence="ngbTypeahead">
-
-                                
-                               
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-row">
-                        <div class="name">Offre<span class="text-danger">*</span></div>
-                        <div class="value">
-                            <div class="input-group">
-                                <input
-                                class="input--style-5"
-                                [(ngModel)]="offre" 
-                                id="offre" 
-                                name="offre"
-                                [ngbTypeahead]="searchOffres"
-                                (focus)="focusOffre$.next($any($event).target.value)"
-                                (click)="clickOffre$.next($any($event).target.value)"
-                                #instanceAgence="ngbTypeahead">
-
-                                
-                                
-
-                            </div>
-                        </div>
-                    </div>
+                    
                     
 
                     

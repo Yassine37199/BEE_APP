@@ -85,6 +85,7 @@ public onUpdateUser(userUpdate : User) : void {
         }
       this.userservice.updateUser(user , this.id , response.id).subscribe(
         (response : User) => {
+          console.log(user);
           this.userservice.getUsers();
           this.router.navigate(['list-users']);
           this.showSuccess();

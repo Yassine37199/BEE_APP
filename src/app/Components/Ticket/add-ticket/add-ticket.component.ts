@@ -35,6 +35,7 @@ export class AddTicketComponent implements OnInit {
   Severite = ['faible' , 'moyenne' , 'severe']
   idAbonnement;
   idTicket;
+  role;
 
   constructor(private ticketservice : TicketService,
               private router : Router,
@@ -52,7 +53,8 @@ export class AddTicketComponent implements OnInit {
         this.idAbonnement = params.get('idAbonnement')
       } 
     );
-
+    
+    this.role = this.authservice.getCurrentUser().role.nomrole;
 
     this.TicketForm = new FormGroup({
       sujet : new FormControl('' , [Validators.required]),
@@ -144,18 +146,17 @@ export class AddTicketComponent implements OnInit {
         statutN2 : "non escaladée",
         agentN2 : null,
         agentResolution : null,
-        dateCreation : new Date(),
         dateEscalade : moment(new Date()).add(10 , 'days'),
         dateResolution : null,
       }
 
-      this.ticketservice.addTicket(ticket , this.idAbonnement , this.authservice.getCurrentUser().idUser).subscribe(
+      this.ticketservice.addTicket({...ticket , dateCreation : new Date()} , this.idAbonnement , this.authservice.getCurrentUser().idUser).subscribe(
         (response : Ticket) => {
           this.idTicket = response.idTicket;
 
           this.commentservice.addComment({
             text : `
-                    Ticket créee par ${this.authservice.getCurrentUser().nom} au ${new Date()}
+                    Ticket créee par ${this.authservice.getCurrentUser().nom}
                     ****${VerifClientText}
                     ****${VerifInterneText}`},
             response.idTicket,

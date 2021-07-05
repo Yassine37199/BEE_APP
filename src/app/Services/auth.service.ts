@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User } from '../Models/user';
 import { UserService } from './user.service';
 
@@ -9,7 +10,9 @@ import { UserService } from './user.service';
 export class AuthService {
   user : User;
 
-  constructor(private userservice : UserService , private router : Router) {
+  constructor(private userservice : UserService , 
+              private router : Router,
+              private toastr : ToastrService) {
    }
    
 
@@ -19,8 +22,10 @@ export class AuthService {
        async (response : User) => {
         if(response.active === "active"){
         await sessionStorage.setItem('user' , JSON.stringify(response))
-        this.router.navigate([''])}
-        else alert('ce compte est inactive !')
+        this.showSuccess()
+        this.router.navigate([''])
+      }
+        else this.showError()
        }
      )
       return true;
@@ -37,5 +42,13 @@ export class AuthService {
 
   logout(){
     sessionStorage.removeItem('user')
+  }
+
+  showSuccess() {
+    this.toastr.success(`Bienvenue ${this.getCurrentUser().nom} !! `);
+    }
+
+  showError() {
+    this.toastr.error('Ce Compte est inactive !');
   }
 }

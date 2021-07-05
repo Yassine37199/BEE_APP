@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
   verifEmail : string;
 
   successMessage = "Authentication success";
-  errorMessage = "Invalide username or password";
+  errorMessage = "Connexion échoué ! Invalide Email ou Mot de Passe";
 
   errorEmail: boolean;
   codeEnvoye: number;

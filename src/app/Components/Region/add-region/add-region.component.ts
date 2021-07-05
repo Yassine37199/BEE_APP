@@ -114,7 +114,10 @@ export class AddRegionComponent implements OnInit {
   public addRegion() : void {
     console.log(this.usersN2);
     this.agentservice.findAgentByEmail(this.RegionForm.get('agentTT').value).subscribe(
-      (response) => this.agentToAdd = response
+      (response) => {
+        this.agentToAdd = response
+        console.log(response);
+      }
     )
 
     this.userservice.findUserByEmail(this.RegionForm.get('userN2').value).subscribe(
@@ -124,7 +127,7 @@ export class AddRegionComponent implements OnInit {
           let region : Region = {
             regionName : this.RegionForm.get('regionName').value,
             user : null,
-            agentTT : this.agentToAdd
+            responsableTT : this.agentToAdd
           }       
           this.regionservice.addRegion(region , response.idUser).subscribe(
             (response : Region) => {

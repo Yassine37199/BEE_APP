@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                         <p class="small text-muted ">Client : <span>{{demandeToShow.client.name}}</span></p>
-                        <p class="small text-muted ">Agence : <span>{{demandeToShow.agence.intitule}}</span></p>
+                        <p class="small text-muted ">Agence : <span>{{demandeToShow.pointvente.intitule}}</span></p>
                         <p class="small text-muted ">Offre : <span>{{demandeToShow.offre.labelle}}</span></p>
                       </div>
                 </div>
@@ -92,7 +92,7 @@
                                 <th style="min-width:80px;">Adresse d'Installation</th>
                                 <th style="min-width:100px;">Ville</th>
                                 <th style="min-width:100px;">Governorat</th>
-                                <th style="min-width:50px;">Etat</th>
+                               
                                 <th style="min-width:50px;">Télephone ADSL</th>
                                 <th style="min-width:50px;">Type</th>
                                 <th style="min-width:80px;">Active</th>
@@ -105,7 +105,7 @@
                                 <td>{{demande.adresseInstallation}}</td>
                                 <td>{{demande.ville}}</td>
                                 <td>{{demande.gouvernorat}}</td>
-                                <td>{{demande.etat}}</td>
+                               
                                 <td>{{demande.telADSL}}</td>
                                 <td>{{demande.typeDemande}}</td>
                                 <td>
@@ -123,7 +123,8 @@
                                     class="btn-group" 
                                     placement="top" 
                                     ngbTooltip="Ajouter Abonnement" 
-                                    (click)="openAjoutAbonnement(demande)">
+                                    (click)="openAjoutAbonnement(demande)"
+                                    >
                                         <a class="dropdown_icon">
                                             <i class='bx bxs-file-plus'></i>
                                         </a>

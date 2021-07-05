@@ -114,7 +114,7 @@ public onUpdateTicket(ticket : Ticket) : void {
       }, this.TicketToUpdate.abonnement.idAbonnement).subscribe(
         (response : Ticket) => {
           this.commentservice.addComment({
-            text : `Ticket modifiée par ${this.authservice.getCurrentUser().nom} au ${new Date()}`},
+            text : `Ticket modifiée par ${this.authservice.getCurrentUser().nom}`},
             response.idTicket,
             this.authservice.getCurrentUser().idUser
           ).subscribe(

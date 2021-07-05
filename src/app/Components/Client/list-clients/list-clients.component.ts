@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
+import { Languages } from 'src/app/Languages';
 import { Client } from 'src/app/Models/client';
 import { ClientService } from 'src/app/Services/client.service';
 
@@ -35,6 +36,7 @@ export class ListClientsComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
+      language : Languages
     };
 
     this.clientservice.getClients().subscribe(

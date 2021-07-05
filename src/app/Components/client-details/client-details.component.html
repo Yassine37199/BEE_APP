@@ -3,7 +3,7 @@
 
 
 <!-- Client Description -->
-<div class="wrapper wrapper--w790">
+<div class="wrapper wrapper--w790" *ngIf="abonnements.length !== 0">
     <div class="card card-5">
         <div class="card-heading">
             <h2 class="title">Client de CIN {{abonnements[0].demandeAbonnement.client.cin}}</h2>
@@ -20,7 +20,7 @@
 </div>
 
 
-<div class="container p-30">
+<div class="container p-30" *ngIf="abonnements.length !== 0">
     <div class="row">
         <div class="col-md-12 main-datatable">
             <div class="card_body"> 
@@ -69,3 +69,9 @@
     </div>
 </div>
 </div>
+
+<section class="centered" *ngIf="abonnements.length === 0">
+    <h1>Aucun Abonnement Trouvé</h1>
+    <div><span class="hidden">allez à <a [routerLink]="['/']">la page d'accueil</a> et réessayer</span></div>
+    
+</section>

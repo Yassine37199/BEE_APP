@@ -10,7 +10,7 @@
                         <div class="name">Télephone ADSL<span class="text-danger">*</span></div>
                         <div class="value">
                             <div class="input-group">
-                                <input class="input--style-5" type="number" formControlName="telADSL" id="telADSL" name="telADSL">
+                                <input class="input--style-5" type="number" value="telFixe" formControlName="telADSL" id="telADSL" name="telADSL">
 
                                 <div *ngIf="f.telADSL.invalid && (f.telADSL.dirty || f.telADSL.touched)" class="alert alert-danger">
                                     <div *ngIf="f.telADSL.errors?.required">

@@ -1,9 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { Languages } from 'src/app/Languages';
+import { Abonnement } from 'src/app/Models/abonnement';
 import { Facture } from 'src/app/Models/facture';
+import { AbonnementsService } from 'src/app/Services/abonnements.service';
 import { FactureService } from 'src/app/Services/facture.service';
 import { SmsService } from 'src/app/Services/sms.service';
 
@@ -18,17 +22,25 @@ export class HomepageRecouvrementComponent implements OnInit {
 
   dtOptions : DataTables.Settings = {};
   dtTrigger : Subject<any> = new Subject<any>();
+  abonnement: Abonnement
+  closeResult: string;
   constructor(private factureservice : FactureService,
               private smsservice : SmsService,
-              private toastr : ToastrService) { }
+              private toastr : ToastrService,
+              private abonnementservice : AbonnementsService,
+              private modalService : NgbModal) { }
 
   ngOnInit(): void {
 
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-
+      language : Languages
     };
+
+    this.abonnementservice.getAbonnementsByRefTT("RefTT20207154265").subscribe(
+      (response) => this.abonnement = response[0]
+    )
     
     
   }
@@ -82,6 +94,25 @@ export class HomepageRecouvrementComponent implements OnInit {
     )
   })
 }
+
+showDetails(content){
+  this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title' , size : 'lg' , centered : true}).result.then((result) => {
+    this.closeResult = `Closed with: ${result}`;
+  }, (reason) => {
+    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  });
+}
+
+private getDismissReason(reason: any): string {
+  if (reason === ModalDismissReasons.ESC) {
+    return 'by pressing ESC';
+  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    return 'by clicking on a backdrop';
+  } else {
+    return `with: ${reason}`;
+  }
+}
+
 
     showSuccess() {
       this.toastr.success('SMS Envoyées avec succées  !');

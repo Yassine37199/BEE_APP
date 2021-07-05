@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ReclamationTT } from 'src/app/Models/reclamation';
+import { AbonnementsService } from 'src/app/Services/abonnements.service';
 import { AuthService } from 'src/app/Services/auth.service';
 import { ReclamationService } from 'src/app/Services/reclamation.service';
 
@@ -15,12 +16,14 @@ export class AddReclamationComponent implements OnInit {
 
   ReclamationForm : FormGroup;
   idAbonnement;
+  telFixe: number;
 
   constructor(private reclamationservice : ReclamationService,
               private router : Router,
               private toastr : ToastrService,
               private authservice : AuthService,
-              private route : ActivatedRoute) { 
+              private route : ActivatedRoute,
+              private abonnementservice : AbonnementsService) { 
 
   }
 
@@ -31,9 +34,13 @@ export class AddReclamationComponent implements OnInit {
       } 
     );
 
+    this.abonnementservice.getAbonnement(this.idAbonnement).subscribe(
+      (response) => this.telFixe = response.demandeAbonnement.telADSL
+    )
+
 
     this.ReclamationForm = new FormGroup({
-      telADSL : new FormControl('' , [Validators.required]),
+      telADSL : new FormControl(this.telFixe , [Validators.required]),
       objet : new FormControl('' , [Validators.required]),
     })
 
@@ -53,7 +60,7 @@ export class AddReclamationComponent implements OnInit {
         ...this.ReclamationForm.value,
        dateReclamation : new Date(),
        dateEtat : new Date(),
-       etat : "créee",
+       etat : "crée",
       }
 
       this.reclamationservice.addReclamation(reclamation , this.idAbonnement , this.authservice.getCurrentUser().idUser).subscribe(

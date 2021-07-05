@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
+import { Languages } from 'src/app/Languages';
 import { Abonnement } from 'src/app/Models/abonnement';
 import { Remarque } from 'src/app/Models/remarque';
 import { AbonnementsService } from 'src/app/Services/abonnements.service';
@@ -39,7 +40,7 @@ export class ListAbonnementsComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-
+      language : Languages
     };
 
     this.abonnementservice.getAbonnements().subscribe(

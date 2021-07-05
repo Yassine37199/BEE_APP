@@ -97,7 +97,7 @@
                         </div>
                     </div>
  
-                <form>
+                <form *ngIf="role !== 'agent Callcenter'">
                     <div class="form-row p-t-20" *ngIf="TicketForm.get('sujet').value === 'Pas de synchro MES' 
                                                             || 
                                                         TicketForm.get('sujet').value === 'Pas de synchro' 

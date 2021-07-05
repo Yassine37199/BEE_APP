@@ -59,7 +59,7 @@ export class UpdateRegionComponent implements OnInit {
     this.regionservice.getRegion(this.id).subscribe(
       response => {
         this.RegionToUpdate = response;
-        this.agentTT = this.RegionToUpdate.agentTT.email;
+        this.agentTT = this.RegionToUpdate.responsableTT.email;
         this.userN2 = this.RegionToUpdate.user.email;
       }
     )
@@ -127,7 +127,7 @@ public onUpdateRegion(regionUpdate) : void {
      
         let region : Region = {
           regionName : regionUpdate.regionName,
-          agentTT : this.agentToAdd,
+          responsableTT : this.agentToAdd,
           user : null
         }       
         this.regionservice.updateRegion({...region , regionName : regionUpdate.regionName}, this.id ,  response.idUser).subscribe(

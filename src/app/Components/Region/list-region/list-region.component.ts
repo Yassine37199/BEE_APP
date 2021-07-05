@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { Languages } from 'src/app/Languages';
 import { Region } from 'src/app/Models/region';
 import { User } from 'src/app/Models/user';
 import { RegionService } from 'src/app/Services/region.service';
@@ -32,7 +33,7 @@ export class ListRegionComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-
+      language : Languages
     };
     
     // Get Regions From Backend

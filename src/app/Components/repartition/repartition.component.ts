@@ -30,7 +30,6 @@ export class RepartitionComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDemandesCount();
-
     this.userservice.getUsersBackOffice().subscribe(
       (response : User[]) => {
         console.log(response);
@@ -43,8 +42,14 @@ export class RepartitionComponent implements OnInit {
     this.demandeservice.getDemandes().subscribe(
       response => {
         this.demandes = response
-        this.countDemandes = this.demandes.reduce((acc , demande) => acc + 1 , 0);
+        this.countDemandes = this.demandes.reduce((acc, demande : DemandeAbonnement) => 
+          {
+            if (demande.agentBackOffice == null) return acc + 1
+            else return acc
+          }, 0)
+        console.log(this.countDemandes)
       }
+      
     )
   } 
 
@@ -83,7 +88,7 @@ export class RepartitionComponent implements OnInit {
               (response) => {
                 console.log(response)
                 this.remarqueservice.addRemarqueForDemande(
-                  {text : `Demande Affectée au ${repartForm.agent} au ${new Date()}`},
+                  {text : `Demande Affectée au ${repartForm.agent}`},
                   this.authservice.getCurrentUser().idUser,
                   response.idDemandeAbonnement).subscribe(
                     (response) => console.log(response)

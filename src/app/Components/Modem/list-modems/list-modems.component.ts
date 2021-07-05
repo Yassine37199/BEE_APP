@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { Languages } from 'src/app/Languages';
 import { Modem } from 'src/app/Models/modem';
 import { ModemService } from 'src/app/Services/modem.service';
 
@@ -29,7 +30,7 @@ export class ListModemsComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-
+      language : Languages
     };
     
     // Get modems From Backend
@@ -50,6 +51,7 @@ export class ListModemsComponent implements OnInit {
   }
 
   deleteModem(modem : Modem) {
+    if (window.confirm('Supprimer ce modem ?')){
     this.modemservice.deleteModem(modem.idConfig).subscribe(
       (response)=> {
         console.log(response)
@@ -59,13 +61,14 @@ export class ListModemsComponent implements OnInit {
       }
     )
   }
+  }
   
   ngOnDestroy(): void  {
     this.dtTrigger.unsubscribe();
   }
 
     showSuccess() {
-    this.toastr.success('Modem ajouté avec succée !');
+    this.toastr.success('Modem Supprimé avec succée !');
     }
     
     showError() {

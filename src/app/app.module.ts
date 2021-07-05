@@ -60,6 +60,8 @@ import { StatsDmndesComponent } from './Components/stats-dmndes/stats-dmndes.com
 import { NavbarComponent } from './Components/navbar/navbar.component';
 import { ContactFormComponent } from './Components/contact-form/contact-form.component';
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
+import { MesTicketsComponent } from './Components/Ticket/mes-tickets/mes-tickets.component';
+import { StatRecouvComponent } from './Components/stat-recouv/stat-recouv.component';
 
 
 @NgModule({
@@ -115,6 +117,8 @@ import { ResetPasswordComponent } from './Components/reset-password/reset-passwo
     NavbarComponent,
     ContactFormComponent,
     ResetPasswordComponent,
+    MesTicketsComponent,
+    StatRecouvComponent,
   ],
   imports: [
     BrowserModule,

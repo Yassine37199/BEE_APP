@@ -2,11 +2,11 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+export const environment = { 
   production: false,
-  apiUrl : 'http://localhost:8092',
+  apiUrl : 'https://dark.bee.net.tn:12443/bee_back',
   TestFactureUrl : 'http://localhost:8083',
-  factureApiUrl : 'http://localhost:8080/facturesApi-0.0.1',
+  factureApiUrl : 'https://dark.bee.net.tn:12443/facturesApi',
   historiqueCnxApiUrl : 'http://localhost:8080/historique_api-0.0.1'
 
 };
